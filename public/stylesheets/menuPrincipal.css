@@ -1,0 +1,161 @@
+/*ESTILOS DE LA CABECERA*/
+.header{
+  display: flex;
+  align-items: center;
+  height: 48px;
+  background-color: var(--mainColor);
+  position: fixed;
+  top: 0;
+  z-index: 200;
+}
+
+.name-page{
+  padding-left: 30px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Kaushan Script', cursive;  
+  color: var(--textWhite);
+}
+
+.name-page h4{
+  margin-left: 1.5rem;
+}
+
+.name-page i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/*ESTILOS DE LA BARRA LATERAL DE NAVEGACIÓN*/
+
+.options-menu{
+  /*padding: 10px 20px;*/
+  padding-top: 10px;
+}
+
+.options-menu a{
+  color: #FFFFFFB2;
+  cursor: default;
+  display: block;
+  padding-left: 25px;
+  position: relative;
+  transition: color 300ms;
+  border-left: 2px solid transparent;
+}
+
+.options-menu a:hover{
+  color: var(--textWhite);
+  background-color: rgb(60, 60, 60);
+  border-color: var(--borderWhite);
+}
+
+/*
+.options-menua a.selected{
+  color: white;
+  background-color: rgb(60, 60, 60);
+}
+*/
+
+.option{ 
+  padding: 10px 0;
+  display: flex;
+}
+
+.option-icon {
+  display: flex;
+  margin-right: 30px;
+}
+
+/*
+.options-menu .option i{
+  font-size: 1.5rem;
+  width: 20px;
+  margin-right: 30px;
+  cursor: pointer;
+ }
+ */
+
+ /*
+ .options-menu .option img{
+  width: 24px;
+  fill: white;
+  margin-right: 30px;
+  cursor: pointer;
+ }
+ */
+
+ .options-menu .option h4{
+   font-size: 18px;
+   font-weight: 300;
+   cursor: pointer;
+ }
+
+ .selected::before {
+   content: '';
+   width: 3px;
+   height: 80%;
+   background-color: var(--background-white);
+   position: absolute;
+   top: 10%;
+   left: -30px;
+ }
+
+.menu-side {
+  width: 0px;
+  background-color: rgb(44, 44, 44);    
+  position: fixed;
+  top: 48px;
+  left: 0;
+  bottom: 0;
+  color: var(--textWhite);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 300;
+  transition: all 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);  
+}
+
+.menu-side-move{
+  width: 200px;
+}
+
+/*Ocultar scroll Chrome, Safari y Opera*/
+.menu-side::-webkit-scrollbar{
+  display: none;
+}
+
+/*Ocultar scroll IE, EDGE y Firefox*/
+.menu-side{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media screen and (min-width: 48em){
+  .menu-side {
+    width: 80px;
+  }
+    
+  .menu-side-move{
+    width: 200px;
+  }
+
+  .page-content{
+    margin-left: 80px;
+  }
+}
+
+.page-content{
+  margin-top: 48px;
+  transition: all 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);  
+}
+
+.move-page-content{
+  margin-left: 200px;
+}
+
+.page-content-container{
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}

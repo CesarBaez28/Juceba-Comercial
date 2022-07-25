@@ -1,0 +1,52 @@
+<%- include ../layouts/cabeza.ejs %> 
+<link rel="stylesheet" href="/stylesheets/form.css">
+<%- include ../layouts/cabecera.ejs %> 
+
+<%- include ../layouts/menu-lateral.ejs%> 
+
+<main class="page-content" id="page-content">
+
+  <div class="page-content-container">
+
+    <header>
+      <h1>Editar cliente</h1> 
+    </header>
+
+    <section class="col-md-6">
+      <form action="#" class="form">
+        <div class="field">
+          <label class="field-label" for="nombre">Nombre:</label>
+          <select class="field-input" name="nombre" id=""></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="telefono">Teléfono:</label>
+          <input class="field-input" type="tel" name="telefono" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="provincia">Provincia:</label>
+          <input class="field-input" type="text" name="provincia" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="municipio">Municipio:</label>
+          <input class="field-input" type="text" name="municipio" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="fecha">Fecha:</label>
+          <input class="field-input" type="datetime" name="fecha" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="status">Estado:</label>
+          <select class="field-input" name="status" id=""></select>
+        </div>
+        <div class="buttons-container">
+          <a href="/clients" class="button-form" type="button">Cancelar</a>
+          <button class="button-form button-primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+
+</main>
+
+<%- include ../layouts/pie.ejs%> 

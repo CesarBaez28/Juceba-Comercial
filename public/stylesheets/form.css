@@ -1,0 +1,48 @@
+/*Form*/
+h1 {
+  color: var(--textGray);
+  font-weight: normal;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.field{
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  color: var(--textGray);
+}
+
+.field-input {
+  margin-top: 6px;
+  width: 100%;
+}
+
+.buttons-container{
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.button-form {
+  padding: 10px;
+  color: var(--textGray);
+  border: solid 1px var(--borderGray200);
+}
+
+.button-form:hover {
+  color: var(--textGray);
+  background-color: var(--backgroundGray);
+}
+
+.button-primary {
+  margin-left: 4px;
+  background-color: var(--mainColor);
+	border: solid 1px var(--mainColor);
+  color: var(--textWhite);
+}
+
+.button-primary:hover{
+  color: var(--textWhite);
+  background-color: var(--backgroundRed);
+}

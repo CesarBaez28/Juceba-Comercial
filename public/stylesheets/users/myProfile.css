@@ -27,6 +27,10 @@ h1 {
   border: 2px solid var(--borderGray);
 }
 
+.perfil-photo:hover {
+  background-color: #e1e0df;
+}
+
 .icon-perfil-photo{
   padding: 6px;
   display: flex;

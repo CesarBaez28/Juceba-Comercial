@@ -18,13 +18,14 @@ html {
 	--backgroundRedDark: rgb(162, 24, 24);
 	--backgroundPage: rgb(248, 248, 247);
 	--background-white: #FFF;
+	--backgroundGray: #e6e5e5;
+	--darkGrayBackGround: #373433;
+	--backgroundBlue: #4171ae;
 	--textWhite: #FFF;
 	--borderWhite: #FFF;
 	--borderGray: #a7a7a7;
-	--backgroundGray: #e6e5e5;
 	--borderGray200: #d5d4d2;
 	--textGray: #74706d;
-	--darkGrayBackGround: #373433;
 }
 
 body {

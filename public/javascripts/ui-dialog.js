@@ -21,6 +21,11 @@ for(const button of button_open_dialog)
         (button.classList.item(0) === 'button-edit') ? dialog_title.textContent = "Editar cliente" : 
           dialog_title.textContent = "Crear cliente";
       }
+      else if (document.title === 'Suplidores')
+      {
+        (button.classList.item(0) === 'button-edit') ? dialog_title.textContent = "Editar suplidor" : 
+          dialog_title.textContent = "Crear suplidor";
+      }
   
       button.setAttribute('href','#');
       ui_dialog.setAttribute('style', 'position: absolute;'+'top:'+'15'+'%;' + 'left:' + left+'px;');
@@ -70,6 +75,11 @@ window.addEventListener("resize", function(){
       {
         (button.classList.item(0) === 'button-edit') ? button.setAttribute('href','/clients/editClient') : 
           button.setAttribute('href','/clients/createClient');
+      }
+      else if (document.title === 'Suplidores')
+      {
+        (button.classList.item(0) === 'button-edit') ? button.setAttribute('href','/suppliers/editSupplier') : 
+          button.setAttribute('href','/suppliers/createSupplier');
       }
     }
 

@@ -150,28 +150,28 @@
   color: var(--textWhite);
 }
 
-.buttons-container{
+.ui-dialog-buttons-container{
   margin-top: 1.5rem;
 }
 
-.button-form{
+.ui-dialog-button-form{
   padding: 10px;
   color: var(--textGray);
 }
 
-.button-form:hover {
+.ui-dialog-button-form:hover {
   color: var(--textGray);
   background-color: var(--backgroundGray);
 }
 
-.button-primary {
+.ui-dialog-button-primary {
   margin-left: 4px;
   background-color: var(--mainColor);
 	border: solid 1px var(--mainColor);
   color: var(--textWhite);
 }
 
-.button-primary:hover{
+.ui-dialog-button-primary:hover{
   color: var(--textWhite);
   background-color: var(--backgroundRed);
 }

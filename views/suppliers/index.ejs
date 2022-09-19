@@ -55,23 +55,28 @@
     <h1>Lista de suplidores</h1>
 
     <section class="result-area">
-      <article class="card-result col-12 col-md-4">
-        <div class="group-header">
-          <div class="card-result-foto">
-            <span class="icon-supplier">
-              <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M11.2 39.95q-2.45 0-4.175-1.7-1.725-1.7-1.725-4.2H2V11q0-1.2.9-2.1Q3.8 8 5 8h28.95v8.35h5.25L46 25.4v8.65h-3.55q0 2.5-1.725 4.2-1.725 1.7-4.175 1.7-2.45 0-4.175-1.7-1.725-1.7-1.725-4.2H17.1q0 2.5-1.725 4.2-1.725 1.7-4.175 1.7Zm0-3q1.2 0 2.05-.85.85-.85.85-2.05 0-1.2-.85-2.05-.85-.85-2.05-.85-1.2 0-2.05.85-.85.85-.85 2.05 0 1.2.85 2.05.85.85 2.05.85Zm25.35 0q1.2 0 2.05-.85.85-.85.85-2.05 0-1.2-.85-2.05-.85-.85-2.05-.85-1.2 0-2.05.85-.85.85-.85 2.05 0 1.2.85 2.05.85.85 2.05.85Zm-2.6-10.2h9.3l-5.55-7.4h-3.75Z"/></svg>           
-           </span>
+
+      <% for( let index = 0; index < 4; index++ ) { %>
+        <article class="card-result col-12 col-md-6">
+          <div class="card-result-container">
+            <div class="group-header">
+              <div class="card-result-foto">
+                <span class="icon-supplier">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M11.2 39.95q-2.45 0-4.175-1.7-1.725-1.7-1.725-4.2H2V11q0-1.2.9-2.1Q3.8 8 5 8h28.95v8.35h5.25L46 25.4v8.65h-3.55q0 2.5-1.725 4.2-1.725 1.7-4.175 1.7-2.45 0-4.175-1.7-1.725-1.7-1.725-4.2H17.1q0 2.5-1.725 4.2-1.725 1.7-4.175 1.7Zm0-3q1.2 0 2.05-.85.85-.85.85-2.05 0-1.2-.85-2.05-.85-.85-2.05-.85-1.2 0-2.05.85-.85.85-.85 2.05 0 1.2.85 2.05.85.85 2.05.85Zm25.35 0q1.2 0 2.05-.85.85-.85.85-2.05 0-1.2-.85-2.05-.85-.85-2.05-.85-1.2 0-2.05.85-.85.85-.85 2.05 0 1.2.85 2.05.85.85 2.05.85Zm-2.6-10.2h9.3l-5.55-7.4h-3.75Z"/></svg>           
+               </span>
+              </div>
+              <header class="card-result-header">
+                <p>829-944-4392</p>
+                <h2>Nombre del suplidor</h2>
+              </header>
+            </div>
+            <div class="card-result-options">
+              <a class="button-edit  button-open-dialog" href="suppliers/editSupplier">Editar información del suplidor</a>
+              <a href="">Eliminar suplidor</a>
+            </div>
           </div>
-          <header class="card-result-header">
-            <p>829-944-4392</p>
-            <h2>Nombre del suplidor</h2>
-          </header>
-        </div>
-        <div class="card-result-options">
-          <a class="button-edit  button-open-dialog" href="suppliers/editSupplier">Editar información del suplidor</a>
-          <a href="">Eliminar cliente</a>
-        </div>
-      </article>
+        </article>
+      <% } %>
     </section>
 
     <section class="result-area-table">

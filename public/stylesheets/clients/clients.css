@@ -13,12 +13,15 @@ h1 {
 }
 
 .card-result{
-  flex: auto;
+  flex: 0 0 auto;
   border-radius: 3px;
   margin-top: 10px;
-  box-shadow: 0 1px 2px #0000005e;
   border: 0;
+}
+
+.card-result-container {
   background-color: var(--background-white);
+  box-shadow: 0 1px 2px #0000005e;
 }
 
 .group-header {
@@ -125,8 +128,8 @@ h1 {
 }
 
 @media screen and (min-width: 48em){
-  .result-area .card-result:nth-child(2n){
-    margin-left: 10px;
+  .result-area .card-result:nth-child(2n+1){
+    padding-right: 0.5rem;
   }
 }
 

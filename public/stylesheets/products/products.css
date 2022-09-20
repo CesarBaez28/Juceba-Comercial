@@ -67,7 +67,6 @@ h1 {
 .card-result-options {
   display: flex;
   justify-content: flex-end;
-  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 

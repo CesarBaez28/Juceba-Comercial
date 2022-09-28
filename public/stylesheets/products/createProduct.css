@@ -82,12 +82,10 @@
 .result-area-header {
   color: var(--textGray);
   display: flex;
-  justify-content: space-between;
 }
 
 .Content {
   display: flex;
-  justify-content: space-between;
 }
 
 .result-area-header-title {
@@ -99,6 +97,30 @@
 
 .result-area-header-text {
   display: flex;
+}
+
+.result-area-header-title:last-child .result-area-header-text {
+  justify-content: flex-end;
+}
+
+.result-area-header-title:nth-child(even) .result-area-header-text {
+  justify-content: center;
+}
+
+.result-area-header-title {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+/*Ocultar scroll Chrome, Safari y Opera*/
+.result-area-header-title::-webkit-scrollbar{
+  display: none;
+}
+
+/*Ocultar scroll IE, EDGE y Firefox*/
+.result-area-header-title{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .button-delete-icon {

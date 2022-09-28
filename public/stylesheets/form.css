@@ -6,6 +6,15 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+.form-container-flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gap-1{
+  gap: 1rem;
+}
+
 .field{
   margin-bottom: 1rem;
 }

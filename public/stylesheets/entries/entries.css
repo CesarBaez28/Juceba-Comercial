@@ -1,0 +1,121 @@
+.button-new{
+  width: 7.5rem;
+  margin-left: 0.25rem;
+}
+
+.field {
+  padding: 0 0.25rem 0 0.25rem;
+}
+
+.item-flex{
+  display: flex;
+}
+
+.total-amount {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  font-weight: bold;
+  padding-right: 0.5rem;
+}
+
+.card-amount{
+  padding-bottom: 0.5rem;
+}
+
+.card-item {
+  display: flex;
+}
+
+.card-result-option-container {
+  width: 100%;
+}
+
+.result-area {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  max-height: 350px;
+  overflow-y: scroll;
+}
+
+.card-result{
+  flex: 0 0 auto;
+  padding: 0 0.25rem 0 0.25rem;
+  margin-top: 10px;
+  border: 0;
+}
+
+.card-result:last-child{
+  padding-bottom: 1rem;
+}
+
+.card-result-container {
+  display: flex;
+  box-shadow: 0 1px 2px #0000005e;
+  border-radius: 10px;
+  background-color: var(--background-white);
+}
+
+.card-result-header {
+  display: block;
+  padding: 1rem 0.5rem 0 0;
+  width: 100%;
+  color: black;
+}
+
+.card-result-header h2 {
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+}
+
+.card-area-photo {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.card-area-photo img {
+  width: 100px;
+  height: 100px;
+}
+
+.card-price-text{
+  color: var(--backgroundBlue);
+}
+
+.card-result-options {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button{
+  color: var(--backgroundBlue);
+  background-color: var(--textWhite);
+  display: flex;
+  border: 1px solid var(--borderGray200);
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.button-delete {
+  color: var(--mainColor);
+  margin-left: 0.3rem;
+}
+
+.button:hover{
+  background-color: #4170ae27;
+}
+
+.button-delete:hover{
+  color: var(--textWhite);
+  background-color: var(--mainColor);
+}

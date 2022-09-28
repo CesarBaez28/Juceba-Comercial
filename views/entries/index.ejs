@@ -1,5 +1,7 @@
 <%- include ../layouts/cabeza.ejs %> 
-
+<link rel="stylesheet" href="/stylesheets/form.css">
+<link rel="stylesheet" href="/stylesheets/components.css">
+<link rel="stylesheet" href="/stylesheets/entries/entries.css">
 <%- include ../layouts/cabecera.ejs %> 
 
 <%- include ../layouts/menu-lateral.ejs%> 
@@ -7,7 +9,82 @@
 <main class="page-content" id="page-content">
 
   <div class="page-content-container">
-    <h2>Entradas</h2>
+
+    <header>
+      <h1>Regitrar entrada</h1> 
+    </header>
+
+    <section class="col-md-6">
+      <form action="#" class="form">
+        <div class="form-container-flex">
+          <div class="field col-6">
+            <label class="field-label" for="suplidor">Suplidor:</label>
+            <select class="field-input" name="suplidor" id=""></select>
+          </div>
+          <div class="field col-6">
+            <label class="field-label" for="material">Material:</label>
+            <select class="field-input" name="material" id=""></select>
+          </div>
+          <div class="field col-6">
+            <label class="field-label" for="fecha">Fecha:</label>
+            <input class="field-input" type="datetime" name="fecha" required>
+          </div>
+          <div class="field col-6">
+            <label class="field-label" for="cantidad">Cantidad:</label>
+            <input class="field-input" type="number" name="cantidad" required>
+          </div>
+          <div class="field col-6">
+            <label class="field-label" for="monto">Monto:</label>
+            <input class="field-input" type="number" name="monto" required>
+          </div>
+        </div>
+        <div class="item-flex">
+          <button class="button-new" type="submit">
+            <span class="button-new-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                <path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z"></path>
+              </svg>
+              <span class="button-new-text">Agregar</span>
+           </span>
+          </button>
+          <div class="total-amount">
+            <h4>Total: 8000.00$</h4>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="result-area">
+      <% for( let index = 0; index < 4; index++ ) { %>
+        <article class="card-result  col-12  col-md-6  col-lg-4">
+          <div class="card-result-container">
+            <div class="card-area-photo">
+              <img src="images/add-image.png" alt="">
+            </div>
+            <header class="card-result-header">
+              <h2>Nombre del material</h2>
+              <p class="card-amount">Cantidad: 4</p>
+              <div class="card-item">
+                <p class="card-price-text">$2500</p>
+                <div class="card-result-option-container">
+                  <div class="card-result-options">
+                    <button class="button button-delete">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"></path></svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </header>
+          </div>
+        </article>
+      <% } %>
+    </section>
+
+    <div class="buttons-container">
+      <button class="button-form button-primary" type="submit">Registrar entrada</button>
+    </div>
   </div>
 
 </main>

@@ -197,3 +197,86 @@
 .note-box ul li {
   list-style-position: outside;
 }
+
+/*Card-result*/
+
+.card-result{
+  flex: 0 0 auto;
+  padding: 0 0.25rem 0 0.25rem;
+  margin-top: 10px;
+  border: 0;
+}
+
+.card-result-container {
+  display: flex;
+  box-shadow: 0 1px 2px #0000005e;
+  border-radius: 10px;
+  background-color: var(--background-white);
+}
+
+.icon-supplier{
+  display: flex;
+  color: var(--textWhite);
+}
+
+.card-result-header {
+  display: block;
+  padding: 1rem 0.5rem 0 0;
+  width: 100%;
+  color: black;
+}
+
+.card-result-header h2 {
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+}
+
+.card-area-photo {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.card-area-photo img {
+  width: 100px;
+  height: 100px;
+}
+
+.card-price-text{
+  color: var(--backgroundBlue);
+}
+
+.card-result-options {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+
+.button{
+  color: var(--backgroundBlue);
+  background-color: var(--textWhite);
+  display: flex;
+  border: 1px solid var(--borderGray200);
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.button-delete {
+  color: var(--mainColor);
+  margin-left: 0.3rem;
+}
+
+.button:hover{
+  background-color: #4170ae27;
+}
+
+.button-delete:hover{
+  color: var(--textWhite);
+  background-color: var(--mainColor);
+}
+
+.card-result-options button:first-child{
+  margin-right: 0.5rem;
+}

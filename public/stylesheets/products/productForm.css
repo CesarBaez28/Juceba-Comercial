@@ -46,6 +46,10 @@
   margin-right: .5rem;
 }
 
+.button:hover{
+  background-color: #4170ae27;
+}
+
 .buttons-container{
   display: flex;
 }

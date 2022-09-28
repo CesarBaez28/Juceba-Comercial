@@ -74,10 +74,14 @@ h1 {
   color: var(--backgroundBlue);
   background-color: var(--textWhite);
   display: flex;
+  border: 1px solid var(--borderGray200);
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
 }
 
 .button-delete {
   color: var(--mainColor);
+  margin-left: 0.3rem;
 }
 
 .button:hover{

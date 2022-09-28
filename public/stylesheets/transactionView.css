@@ -1,0 +1,53 @@
+.button-new{
+  width: 7.5rem;
+  margin-left: 0.25rem;
+}
+
+.field {
+  padding: 0 0.25rem 0 0.25rem;
+}
+
+.item-flex{
+  display: flex;
+}
+
+.total-amount {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  font-weight: bold;
+  padding-right: 0.5rem;
+}
+
+.card-amount{
+  padding-bottom: 0.5rem;
+}
+
+.card-item {
+  display: flex;
+}
+
+.card-result-option-container {
+  width: 100%;
+}
+
+.result-area {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  max-height: 350px;
+  overflow-y: scroll;
+}
+
+.card-result:last-child{
+  padding-bottom: 1rem;
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-result-options button:first-child {
+  margin-right: 0;
+}

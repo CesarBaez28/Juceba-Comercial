@@ -7,5 +7,11 @@ module.exports = {
     res.render('materials/createMaterial', {
       title: 'Registrar material'
     });
+  },
+
+  editMaterial:function(req, res){
+    res.render('materials/editMaterial', {
+      title: 'Editar material'
+    });
   }
 }

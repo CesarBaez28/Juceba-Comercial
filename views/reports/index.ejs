@@ -1,5 +1,6 @@
 <%- include ../layouts/cabeza.ejs %> 
-
+<link rel="stylesheet" href="/stylesheets/form.css">
+<link rel="stylesheet" href="/stylesheets/reports/reports.css">
 <%- include ../layouts/cabecera.ejs %> 
 
 <%- include ../layouts/menu-lateral.ejs%> 
@@ -7,7 +8,36 @@
 <main class="page-content" id="page-content">
 
   <div class="page-content-container">
-    <h2>Reportes</h2>
+
+    <header>
+      <h1>Generar reporte</h1> 
+    </header>
+
+    <section class="col-md-6">
+      <form action="#" class="form">
+        <div class="field">
+          <label class="field-label" for="reporte-de">Reporte de:</label>
+          <select class="field-input" name="reporte-de" id=""></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="tipo-reporte">Tipo de reporte:</label>
+          <select class="field-input" name="tipo-reporte" id=""></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="fecha-inicio">Fecha Inicio:</label>
+          <input class="field-input" type="date" name="fecha-inicio" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="fecha-final">Fecha final:</label>
+          <input class="field-input" type="date" name="fecha-final" required>
+        </div>
+        <div class="buttons-container">
+          <a href="/clients" class="button-form" type="button">Excel</a>
+          <button class="button-form button-primary" type="submit">PDF</button>
+        </div>
+      </form>
+    </section>
+
   </div>
 
 </main>

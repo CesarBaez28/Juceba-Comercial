@@ -5,7 +5,8 @@ let buttons = [
   document.getElementById("btn-activos"),
   document.getElementById("btn-inactivos"),
   document.getElementById("btn-provincia"),
-  document.getElementById("btn-municipio")
+  document.getElementById("btn-municipio"),
+  document.getElementById("btn-tipo-material")
 ]
 
 for (const button of buttons) 

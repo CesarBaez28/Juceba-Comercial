@@ -21,8 +21,10 @@ h1 {
 }
 
 .card-result-container{
+  display: block;
   background-color: var(--background-white);
   box-shadow: 0 1px 2px #0000005e;
+  border-radius: 0;
 }
 
 .group-header {
@@ -55,6 +57,7 @@ h1 {
 }
 
 .card-result-options {
+  display: block;
   padding: 1rem;
 }
 

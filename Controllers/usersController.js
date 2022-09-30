@@ -1,8 +1,11 @@
+var conexion = require('../Config/conectionMysql');
+var users = require("../Model/users");
+
 module.exports = {
   index:function(req, res){
-    res.render('users/index', {
-      title: 'Usuarios' 
-    }); 
+    users.getUsers(conexion, function(err, datos){
+      res.render('users/index', {title: 'Usuarios', users:datos});
+    });
   },
 
   myProfile:function(req, res){

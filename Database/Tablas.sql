@@ -15,8 +15,9 @@ create table usuarios(
   constraint fk_codigo_tipo_usuarios_usuarios foreign key (codigo_tipo_usuario) references tipo_usuarios (codigo),
   nombre_usuario varchar(100) not null unique,
   nombre varchar(100) not null /*Nombre de la persona*/,
-  paswd varchar(250) not null,
+  passwd varchar(250) not null,
   foto varchar(250) default '',
+  email varchar(50) not null unique, 
   descripcion varchar(250) default '',
   estado bit default 1
 );

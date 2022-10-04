@@ -17,8 +17,6 @@ var quoteRouter = require('./routes/quote');
 var materialsRouter = require('./routes/materials');
 var reportsRouter = require('./routes/reports');
 
-var librosRouter = require('./routes/libros');
-
 var app = express();
 
 // view engine setup
@@ -43,9 +41,6 @@ app.use('/sales', salesRouter);
 app.use('/quote', quoteRouter);
 app.use('/materials', materialsRouter);
 app.use('/reports', reportsRouter);
-
-
-app.use('/libros', librosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,12 +1,11 @@
 const { response } = require('express');
-var conexion = require('../Config/conectionMysql');
-var users = require("../Model/users");
+let conexion = require('../Config/conectionMysql');
+let users = require("../Model/users");
 
 module.exports = {
   index:function(req, res){
     users.getUsers(conexion, function(err, datos){
       res.render('users/index', {title: 'Usuarios', users:datos[0]});
-      console.log(datos[0]);
     });
   },
 

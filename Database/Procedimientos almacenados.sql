@@ -15,8 +15,3 @@ begin
   join  empresas on usuarios.codigo_empresa = empresas.codigo where empresas.nombre = @nombre_empresa;
 end
 //
-
-drop procedure p_getUsers;
-
-call p_getUsers();
-

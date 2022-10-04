@@ -58,7 +58,7 @@ CREATE TABLE empresas (
   constraint fk_codigo_telefono_empresa foreign key (codigo_telefono) references telefonos (codigo),
   codigo_direccion int not null,
   constraint fk_codigo_direccion_empresa foreign key (codigo_direccion) references direcciones (codigo),
-  nombre varchar (100),
+  nombre varchar (100) not null unique,
   email varchar (100),
   descripcion varchar (250),
   estado bit default 1
@@ -89,7 +89,9 @@ create table usuarios(
   codigo_tipo_usuario int not null, /*fk*/
   constraint fk_codigo_tipo_usuarios_usuarios foreign key (codigo_tipo_usuario) references tipo_usuarios (codigo),
   codigo_telefono int not null,
-  constraint fk_codigo_telefono_usuario foreign key(codigo_telefono) references telefonos(codigo),
+  constraint fk_codigo_telefono_usuarios foreign key(codigo_telefono) references telefonos(codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_usuarios foreign key (codigo_empresa) references empresas(codigo),
   nombre_usuario varchar(100) not null unique,
   nombre varchar(100) not null /*Nombre de la persona*/,
   passwd varchar(250) not null,

@@ -1,19 +1,18 @@
 let users = require("../Model/users");
 let conexion = require('../Config/conectionMysql');
+let passport = require('passport');
 
 module.exports={
+
   login:function(req, res){
     res.render('Authentication/login');
   },
 
-  authenticate:function(req, res){
-    users.login(conexion, req.body, function(err, datos){
-      if(datos.length > 0 ){
-        res.redirect('/menuPrincipal');
-      } else {
-        res.redirect('/authentication/login');
-        console.log("Usuario o contraseña incorrecta");
-      }
-    });
+  authenticate:function(req, res, next){
+    passport.authenticate('local.signin', {
+      successRedirect: '/menuPrincipal',
+      failureRedirect: '/authentication/login',
+      failureFlash: true
+    })(req, res, next);
   }
 }

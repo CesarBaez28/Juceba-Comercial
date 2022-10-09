@@ -15,5 +15,10 @@ module.exports={
         console.log("Usuario o contraseña incorrecta");
       }
     });
-  }
+  },
+
+  createAccount:function(req, res){
+    res.render('Authentication/createAccount');
+  },
+
 }

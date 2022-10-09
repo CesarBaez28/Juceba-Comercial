@@ -23,5 +23,6 @@ conection.connect(
     }
   }  
 );
+
 conection.query = promisify(conection.query);
 module.exports=conection;

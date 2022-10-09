@@ -1,0 +1,131 @@
+/*ESTILOS DEL CONTENIDO PRNCIPAL*/
+.result-area {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--borderGray);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  color: var(--textGray);
+  font-weight: normal;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card-result{
+  flex: 0 0 auto;
+  border-radius: 3px;
+  margin-top: 10px;
+  border: 0;
+}
+
+.card-result-container{
+  display: block;
+  background-color: var(--background-white);
+  box-shadow: 0 1px 2px #0000005e;
+  border-radius: 0;
+}
+
+.group-header {
+  display: flex;
+  background-color: var(--darkGrayBackGround);
+}
+
+.card-result-foto{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: var(--mainColor);
+}
+
+.icon-user{
+  display: flex;
+  color: var(--textWhite);
+}
+
+.card-result-header {
+  display: block;
+  padding: 1rem;
+  color: var(--textWhite);
+}
+
+.card-result-header h2 {
+  font-size: 1.1rem;
+}
+
+.card-result-options {
+  display: block;
+  padding: 1rem;
+}
+
+.card-result-options a {
+  display: block;
+}
+
+.card-result-options a:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.result-area-table {
+  display: none;
+  overflow-x: scroll;
+}
+
+/*Ocultar scroll Chrome, Safari y Opera*/
+.result-area-table::-webkit-scrollbar{
+  display: none;
+}
+
+/*Ocultar scroll IE, EDGE y Firefox*/
+.result-area-table{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.buttons-group{
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  border: 1px solid var(--borderGray200);
+  padding: 0.3rem 0.5rem
+}
+
+.button, .button-edit, .button-delete, .button-icon{
+  display: flex;
+}
+
+.button-delete {
+  margin-left: 4px;
+  color: var(--mainColor);
+  background-color: var(--backgroundPage);
+}
+
+.button:hover{
+  background-color: #4170ae27;
+}
+
+.button-delete:hover{
+  color: var(--textWhite);
+  background-color: var(--mainColor);
+}
+
+@media screen and (min-width: 48em){
+  .result-area .card-result:nth-child(2n+1){
+    padding-right: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 62em){
+  .result-area {
+    display: none;
+  }
+
+  .result-area-table {
+    display: block;
+  }
+}

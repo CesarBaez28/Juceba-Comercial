@@ -1,5 +1,7 @@
 let users = require("../Model/users");
 let conexion = require('../Config/conectionMysql');
+let addresses = require('../Model/addresses');
+
 
 module.exports={
   login:function(req, res){
@@ -18,7 +20,17 @@ module.exports={
   },
 
   createAccount:function(req, res){
-    res.render('Authentication/createAccount');
+    let provincias;
+
+    addresses.getProvincias(conexion,function(err, datos){
+      provincias = datos;
+      res.render('Authentication/createAccount', {provincias});
+    });
   },
 
+  getMunicipios:async function (req, res){
+    let searchQuery = req.query.parent_value;
+    const municipios = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);
+    res.json(municipios);
+  }
 }

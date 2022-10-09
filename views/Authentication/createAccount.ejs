@@ -95,6 +95,9 @@
           <label class="field-label" for="provincia">Provincia:</label>
           <select class="field-input" name="provincia" id="provincia">
             <option value="">Seleccione una opcion</option>
+            <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
+              <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
+            <% } %>
           </select>
         </div>
         <div class="field col-md-3">

@@ -6,5 +6,6 @@ const authenticationController = require("../Controllers/authenticationControlle
 router.get('/login', authenticationController.login);
 router.post('/login', authenticationController.authenticate);
 router.get('/createAccount', authenticationController.createAccount);
+router.get('/getMunicipios', authenticationController.getMunicipios);
 
 module.exports = router;

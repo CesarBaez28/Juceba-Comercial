@@ -1,5 +1,7 @@
 const { Console } = require("console");
 var mysql = require("mysql");
+const { promisify } = require("util");
+
 
 var conection = mysql.createConnection({
   host:'localhost',
@@ -21,5 +23,5 @@ conection.connect(
     }
   }  
 );
-
+conection.query = promisify(conection.query);
 module.exports=conection;

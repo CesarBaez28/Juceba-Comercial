@@ -9,10 +9,10 @@ passport.use('local.signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, userName, password, done) => {
-  const rows = await conexion.query('select * from usuarios where nombre_usuario = ? and passwd = ?', [userName, password]);
+  const rows = await conexion.query('select * from usuarios where nombre_usuario = ?', [userName]);
   if (rows.length > 0) {
     const user = rows[0]
-    const validPassword = await helpers.matchPassword(password, user.password);
+    const validPassword = await helpers.matchPassword(password, user.passwd);
     if (validPassword) {
       done(null, user);
     } else {
@@ -53,9 +53,6 @@ passport.use('local.signup', new LocalStrategy({
     calleYNumero: reqBody.calle_y_numero
   };
 
-  console.log(newUser);
-  console.log(newCompany);
-
   //Ingreso los datos de la nueva compañía
   const telefonoCompany = await conexion.query('insert into telefonos (telefono) values (?)', [newCompany.telefonoCompany]);
   const sector = await conexion.query('insert into sectores (sector) values (?)', [newCompany.sector]);
@@ -70,12 +67,12 @@ passport.use('local.signup', new LocalStrategy({
   const telefonoUser = await conexion.query('insert into telefonos (telefono) values (?)', newUser.telefono);
   let codigoTipoUsuario = 1; // 1 = Administrador
   const user = await conexion.query('insert into usuarios (codigo_tipo_usuario, codigo_telefono, codigo_empresa, nombre_usuario, nombre, passwd, email) values(?,?,?,?,?,?,?)', [codigoTipoUsuario, telefonoUser.insertId, company.insertId, newUser.userName, newUser.name, newUser.password, newUser.email]);
-  newUser.id = user.insertId;
+  newUser.codigo = user.insertId;
   return done(null, newUser);
 }));
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.codigo);
 });
 
 passport.deserializeUser(async (id, done) => {

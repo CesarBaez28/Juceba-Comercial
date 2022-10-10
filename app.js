@@ -10,7 +10,6 @@ const MySqlStore = require('express-mysql-session');
 var conexion = require('./Config/conectionMysql');
 const  sessionStore = new MySqlStore({},conexion);
 
-
 var conexion = require('./Config/conectionMysql');
 
 // Rutas

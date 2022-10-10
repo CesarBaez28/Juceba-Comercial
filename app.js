@@ -6,7 +6,10 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var passport = require('passport');
 var sesion = require('express-session');
-var MySqlStore = require('express-mysql-session');
+const MySqlStore = require('express-mysql-session');
+var conexion = require('./Config/conectionMysql');
+const  sessionStore = new MySqlStore({},conexion);
+
 
 var conexion = require('./Config/conectionMysql');
 
@@ -42,7 +45,7 @@ app.use(sesion({
   secret: 'jucebaComercialSesions',
   resave: false,
   saveUninitialized: false,
-  store: new MySqlStore(conexion)
+  store: sessionStore
 }));
 app.use(passport.initialize());
 app.use(passport.session());

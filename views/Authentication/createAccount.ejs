@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/reset.css">
+  <link rel="stylesheet" href="/stylesheets/grid.css">
+  <link rel="stylesheet" href="/stylesheets/components.css">
+  <link rel="stylesheet" href="/stylesheets/form.css">
+  <link rel="stylesheet" href="/stylesheets/authentication/createAccount.css">
+  <title>Crear una cuenta</title>
+</head>
+<body>
+  <header class="header">
+    <div class="container-fluid  header-container">
+      <div class="primary-items">
+        <a href="login">
+          <img class="logo-app" src="/images/Logo.png" alt="Logo">
+        </a>
+        <h1 class="title-header">JUCEBA COMERCIAL</h1>
+      </div>
+    </div>
+  </header>
+  <section class="page-content container">
+
+    <h2>Crear una cuenta</h2>
+
+    <form method="post" action="/authentication/createAccount">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Datos de su usuario</legend>
+        <div class="field col-md-3">
+          <label class="field-label" for="nombre">Nombre:</label>
+          <input class="field-input" type="text" name="name" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="userName">Nombre de usuario:</label>
+          <input class="field-input" type="text" name="userName" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="telefono">Número de teléfono:</label>
+          <input class="field-input" type="tel" name="telefono" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="email">Correo electrónico:</label>
+          <input class="field-input" type="email" name="email" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="confirm_email">Vuelva a escribir su correo:</label>
+          <input class="field-input" type="email" name="confirm_email" required>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Introduzca su contraseña</legend>
+        <div class="field col-md-3">
+          <label class="field-label" for="password">Contraseña</label>
+          <input class="field-input" type="password" name="password" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="confirm_password">Vuelva a escribir su contraseña:</label>
+          <input class="field-input" type="password" name="confirm_password" required>
+        </div>
+        <div class="note-box col-md-10">
+          <p>Las contraseñas deben cumplir con los siguientes requisitos:</p>
+          <ul>
+            <li>Deben tener por lo menos 8 carácteres.</li>
+            <li>Deben ser una combinación de por lo menos tres de los siguientes tipos de carácteres: mayúsculas, minúsculas, números y signos de puntuación.</li>
+            <li>No deben contener caracteres repetidos o secuencias de caracteres tales como 1234, 2222, ABCD o letras adyacentes del teclado.</li>
+            <li>No pueden estar basadas en su nombre ni en su nombre de usuario.</li>
+          </ul>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Datos de su empresa</legend>
+        <div class="field col-md-3">
+          <label class="field-label" for="nameCompany">Nombre de la empresa:</label>
+          <input class="field-input" type="text" name="nameCompany" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="emailCompany">Correo electrónico:</label>
+          <input class="field-input" type="email" name="emailCompany" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="telefonoCompany">Número de teléfono:</label>
+          <input class="field-input" type="tel" name="telefonoCompany" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="provincia">Provincia:</label>
+          <select class="field-input" name="provincia" id="provincia">
+            <option value="">Seleccione una opcion</option>
+            <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
+              <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
+            <% } %>
+          </select>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="municipio">Municipio:</label>
+          <select class="field-input" name="municipio" id="municipio">
+            <option value="">Seleccione una opcion</option>
+          </select>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="sector">Sector:</label>
+          <input class="field-input" type="text" name="sector" required>
+        </div>
+        <div class="field col-md-3">
+          <label class="field-label" for="calle_y_numero">Calle y número:</label>
+          <input class="field-input" type="text" name="calle_y_numero" required>
+        </div>
+      </fieldset>
+      <a href="/authentication/login" class="button-form" type="button">Cancelar</a>
+      <button class="button-form button-primary" type="submit">Crear su cuenta</button>
+    </form>
+  </section>
+  <script type="module" src="/javascripts/addresses.js"></script>
+</body>
+</html>

@@ -4,6 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var passport = require('passport');
+var sesion = require('express-session');
+var MySqlStore = require('express-mysql-session');
+var conexion = require('./Config/conectionMysql');
+const mysqlStore = require('express-mysql-session')(sesion);
+const  sessionStore = new mysqlStore(conexion);
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,6 +26,7 @@ var materialsRouter = require('./routes/materials');
 var reportsRouter = require('./routes/reports');
 
 var app = express();
+require('./Config/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +39,15 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extends: false})); 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sesion({
+  secret: 'jucebaComercialSesions',
+  resave: false,
+  saveUninitialized: false,
+ // store: sessionStore
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

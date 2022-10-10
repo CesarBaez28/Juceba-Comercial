@@ -2,7 +2,6 @@ const { Console } = require("console");
 var mysql = require("mysql");
 const { promisify } = require("util");
 
-
 var conection = mysql.createConnection({
   host:'localhost',
   user: 'root',

@@ -19,7 +19,6 @@ passport.use('local.signin', new LocalStrategy({
       done(null, false);
     }
   } else {
-    console.log("Usuario no existe");
     return done(null, false);
   }
 }));

@@ -4,13 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const flash = require('connect-flash');
 const passport = require('passport');
 const sesion = require('express-session');
 const MySqlStore = require('express-mysql-session');
 const conexion = require('./Config/conectionMysql');
-const  sessionStore = new MySqlStore({},conexion);
-
-const conexion = require('./Config/conectionMysql');
+const sessionStore = new MySqlStore({},conexion);
 
 // Rutas
 const indexRouter = require('./routes/index');
@@ -39,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extends: false})); 
 app.use(bodyParser.json());
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(sesion({
   secret: 'jucebaComercialSesions',
@@ -61,6 +61,12 @@ app.use('/sales', salesRouter);
 app.use('/quote', quoteRouter);
 app.use('/materials', materialsRouter);
 app.use('/reports', reportsRouter);
+
+//Global variables
+app.use((req, res, next) => {
+  app.locals.success = req.flash('success');
+  app.locals.message = req.flash('message');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

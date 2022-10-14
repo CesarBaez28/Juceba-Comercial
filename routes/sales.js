@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const {isLoggedIn} = require('../Config/auth');
 const salesController = require('../Controllers/salesController');
 
-router.get('/', salesController.index);
+router.get('/', isLoggedIn, salesController.index);
 
 module.exports = router;

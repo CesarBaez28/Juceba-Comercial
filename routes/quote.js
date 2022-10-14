@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const {isLoggedIn} = require('../Config/auth');
 const quoteController = require('../Controllers/quoteController');
 
-router.get('/', quoteController.index);
+router.get('/', isLoggedIn, quoteController.index);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const flash = require('express-flash');
 const { use } = require('passport');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -15,9 +16,9 @@ passport.use('local.signin', new LocalStrategy({
     const user = rows[0]
     const validPassword = await helpers.matchPassword(password, user.passwd);
     if (validPassword) {
-      done(null, user, req.flash('success','Bienvenido'+user.nombre_usuario));
+       return done(null, user, req.flash('success', 'Bienvenido ' + user.nombre_usuario));
     } else {
-      done(null, false, req.flash('message','La contraseña no es correcta'));
+       return done(null, false, req.flash('message','La contraseña no es correcta'));
     }
   } else {
     return done(null, false, req.flash('message','El nombre de usuario no existe'));

@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const {isLoggedIn} = require('../Config/auth');
 const reportsController = require('../Controllers/reportsController');
 
-router.get('/', reportsController.index);
+router.get('/', isLoggedIn, reportsController.index);
 
 module.exports = router;

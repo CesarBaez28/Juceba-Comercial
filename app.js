@@ -38,7 +38,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extends: false})); 
 app.use(bodyParser.json());
-app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(sesion({
   secret: 'jucebaComercialSesions',
@@ -46,8 +45,17 @@ app.use(sesion({
   saveUninitialized: false,
   store: sessionStore
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Global variables
+app.use((req, res, next) => {
+  app.locals.success = req.flash('success');
+  app.locals.message = req.flash('message');
+  app.locals.user = req.user; 
+  next(); //Para que la aplicación continue con las rutas de abajo.
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -61,12 +69,6 @@ app.use('/sales', salesRouter);
 app.use('/quote', quoteRouter);
 app.use('/materials', materialsRouter);
 app.use('/reports', reportsRouter);
-
-//Global variables
-app.use((req, res, next) => {
-  app.locals.success = req.flash('success');
-  app.locals.message = req.flash('message');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -90,6 +90,7 @@ h1 {
 }
 
 .button {
+  background-color: var(--backgroundPage);
   border: 1px solid var(--borderGray200);
   padding: 0.3rem 0.5rem
 }

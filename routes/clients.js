@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {isLoggedIn} = require('../Config/auth');
-
-
 const clientsController = require('../Controllers/clientsController');
 
 router.get('/', isLoggedIn, clientsController.index);

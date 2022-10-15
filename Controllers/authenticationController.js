@@ -5,10 +5,12 @@ let addresses = require('../Model/addresses');
 
 module.exports={
 
+  //Obtener vista para el inicio de sesión
   login:function(req, res){
     res.render('Authentication/login');
   },
 
+  //Autenticar proceso de inicio de sesión
   authenticate:function(req, res, next){
     passport.authenticate('local.signin', {
       successRedirect: '/menuPrincipal',
@@ -17,16 +19,27 @@ module.exports={
     })(req, res, next);
   },
 
+  //Cerrar sesión
+  logout:function(req, res, next){
+    req.logOut(req.user, err =>{
+      if(err) return next(err);
+      res.redirect('/authentication/login');
+    });
+  },
+
+  //Obtener vista crear nueva cuenta de usuario
   createAccount:function(req, res){
     
     let provincias;
 
+    //Obtengo las provincias de país para registrar la dirección
     addresses.getProvincias(conexion,function(err, datos){
       provincias = datos;
       res.render('Authentication/createAccount', {provincias});
     });
   },
 
+  //Proceso de autenticación de registro de nueva cuenta de usuario
   signup:function(req, res, next){
     passport.authenticate('local.signup',{
       successRedirect: '/menuPrincipal',
@@ -35,6 +48,7 @@ module.exports={
     })(req, res, next);
   },
 
+  //Obtengo los municipio acorde a una provincia especificada
   getMunicipios:async function (req, res){
     let searchQuery = req.query.parent_value;
     const municipios = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);

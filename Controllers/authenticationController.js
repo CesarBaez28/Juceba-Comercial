@@ -28,15 +28,12 @@ module.exports={
   },
 
   //Obtener vista crear nueva cuenta de usuario
-  createAccount:function(req, res){
+  createAccount: async function(req, res){
     
-    let provincias;
-
     //Obtengo las provincias de país para registrar la dirección
-    addresses.getProvincias(conexion,function(err, datos){
-      provincias = datos;
-      res.render('Authentication/createAccount', {provincias});
-    });
+    const [provincias] = await addresses.getProvincias(conexion);
+    console.log(provincias);
+    res.render('Authentication/createAccount', {provincias});
   },
 
   //Proceso de autenticación de registro de nueva cuenta de usuario
@@ -51,7 +48,8 @@ module.exports={
   //Obtengo los municipio acorde a una provincia especificada
   getMunicipios:async function (req, res){
     let searchQuery = req.query.parent_value;
-    const municipios = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);
+    const [municipios] = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);
+    console.log(municipios);
     res.json(municipios);
   }
 }

@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 const { Console } = require("console");
 const { promisify } = require("util");
 
@@ -29,5 +29,5 @@ conection.getConnection((err, connection) => {
 });
 
 //Promisify conection querys
-conection.query = promisify(conection.query);
+//conection.query = promisify(conection.query);
 module.exports=conection;

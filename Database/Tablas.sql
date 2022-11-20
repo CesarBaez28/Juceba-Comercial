@@ -1,3 +1,5 @@
+/*create database JucebaComercial;*/
+
 /*Calles y número de calles*/
 CREATE TABLE callesYnumero (
   codigo int auto_increment /*pk*/,
@@ -20,6 +22,8 @@ CREATE TABLE sectores (
 CREATE TABLE municipios (
   codigo int auto_increment /*pk*/,
   constraint pk_codigo_municipio primary key (codigo),
+  codigo_provincia int not null,
+  constraint fk_codigo_provincia_municipio foreign key (codigo_provincia) references provincias(codigo),
   municipio varchar (50) not null unique,
   descripcion varchar (250),
   estado bit default 1

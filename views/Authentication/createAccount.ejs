@@ -17,6 +17,9 @@
   <title>Crear una cuenta</title>
 </head>
 <body>
+
+  <%- include ../layouts/messages.ejs%> 
+
   <header class="header">
     <div class="container-fluid  header-container">
       <div class="primary-items">
@@ -31,69 +34,97 @@
 
     <h2>Crear una cuenta</h2>
 
-    <form method="post" action="/authentication/createAccount">
+    <form method="post" action="/authentication/createAccount" id="formulario">
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Datos de su usuario</legend>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-name">
           <label class="field-label" for="nombre">Nombre:</label>
           <input class="field-input" type="text" name="name" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre tiene que ser de 4 a 16 dígitos y no puede contener números.</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-username">
           <label class="field-label" for="userName">Nombre de usuario:</label>
-          <input class="field-input" type="text" name="userName" required>
+          <input class="field-input" type="text" name="userName" id="userName" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-telefono">
           <label class="field-label" for="telefono">Número de teléfono:</label>
           <input class="field-input" type="tel" name="telefono" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-email">
           <label class="field-label" for="email">Correo electrónico:</label>
-          <input class="field-input" type="email" name="email" required>
+          <input class="field-input" type="email" name="email" id="email" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El correo solo puede contener letras, números, puntos, guiones y guion bajo.</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-confirm_email">
           <label class="field-label" for="confirm_email">Vuelva a escribir su correo:</label>
-          <input class="field-input" type="email" name="confirm_email" required>
+          <input class="field-input" type="email" name="confirm_email" id="confirm_email" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">Los correos electrónicos no son iguales</p>
         </div>
       </fieldset>
 
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Introduzca su contraseña</legend>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-password">
           <label class="field-label" for="password">Contraseña</label>
-          <input class="field-input" type="password" name="password" required>
+          <input class="field-input" type="password" name="password" id="password" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message"></p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-confirm_password">
           <label class="field-label" for="confirm_password">Vuelva a escribir su contraseña:</label>
-          <input class="field-input" type="password" name="confirm_password" required>
+          <input class="field-input" type="password" name="confirm_password" id="confirm_password" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">Las contraseñas no son iguales.</p>
         </div>
         <div class="note-box col-md-10">
           <p>Las contraseñas deben cumplir con los siguientes requisitos:</p>
           <ul>
             <li>Deben tener por lo menos 8 carácteres.</li>
-            <li>Deben ser una combinación de por lo menos tres de los siguientes tipos de carácteres: mayúsculas, minúsculas, números y signos de puntuación.</li>
-            <li>No deben contener caracteres repetidos o secuencias de caracteres tales como 1234, 2222, ABCD o letras adyacentes del teclado.</li>
-            <li>No pueden estar basadas en su nombre ni en su nombre de usuario.</li>
+            <li>Deben tener al menos una minúscula, una mayúscula, un número y un caracter especial (@#$%!).</li>
+            <li>No deben contener caracteres repetidos tales como 1111, 2222, AAAA o CCCC.</li>
           </ul>
         </div>
       </fieldset>
 
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Datos de su empresa</legend>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-nameCompany">
           <label class="field-label" for="nameCompany">Nombre de la empresa:</label>
-          <input class="field-input" type="text" name="nameCompany" required>
-        </div>
-        <div class="field col-md-3">
+          <input class="field-input" type="text" name="nameCompany" id="nameCompany" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre de la empresa tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>        </div>
+        <div class="field col-md-3" id="group-emailCompany">
           <label class="field-label" for="emailCompany">Correo electrónico:</label>
           <input class="field-input" type="email" name="emailCompany" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El correo solo puede contener letras, números, puntos, guiones y guion bajo.</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-telefonoCompany">
           <label class="field-label" for="telefonoCompany">Número de teléfono:</label>
           <input class="field-input" type="tel" name="telefonoCompany" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
         <div class="field col-md-3">
           <label class="field-label" for="provincia">Provincia:</label>
-          <select class="field-input" name="provincia" id="provincia">
+          <select class="field-input" name="provincia" id="provincia" required>
             <option value="">Seleccione una opcion</option>
             <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
               <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
@@ -102,23 +133,29 @@
         </div>
         <div class="field col-md-3">
           <label class="field-label" for="municipio">Municipio:</label>
-          <select class="field-input" name="municipio" id="municipio">
-            <option value="">Seleccione una opcion</option>
+          <select class="field-input" name="municipio" id="municipio" required>
           </select>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-sector">
           <label class="field-label" for="sector">Sector:</label>
           <input class="field-input" type="text" name="sector" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre del sector tiene que ser mayor a 4 dígitos y no se permiten números</p>
         </div>
-        <div class="field col-md-3">
+        <div class="field col-md-3" id="group-calleYNumero">
           <label class="field-label" for="calle_y_numero">Calle y número:</label>
           <input class="field-input" type="text" name="calle_y_numero" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre de la calle tiene que ser mayor a 4 dígitos</p>
         </div>
       </fieldset>
       <a href="/authentication/login" class="button-form" type="button">Cancelar</a>
       <button class="button-form button-primary" type="submit">Crear su cuenta</button>
     </form>
   </section>
+  <script src="/javascripts/formValidation.js"></script>
   <script type="module" src="/javascripts/addresses.js"></script>
 </body>
 </html>

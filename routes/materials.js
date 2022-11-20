@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const {isLoggedIn} = require('../Config/auth');
 const materialsRouter = require('../Controllers/materialsController');
 
-router.get('/', materialsRouter.index);
-router.get('/createMaterial', materialsRouter.createMaterial);
-router.get('/editMaterial', materialsRouter.editMaterial);
+router.get('/', isLoggedIn, materialsRouter.index);
+router.get('/createMaterial', isLoggedIn, materialsRouter.createMaterial);
+router.get('/editMaterial', isLoggedIn, materialsRouter.editMaterial);
 
 module.exports = router;

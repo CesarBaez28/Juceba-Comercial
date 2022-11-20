@@ -39,10 +39,16 @@
             <div class="field">
               <label class="field-label" for="userName">Escriba su nombre de usuario</label>
               <input class="field-input" type="text" name="userName">
+              <% if (msg.length > 0) { %>
+                <p class="input-message"><%= msg %></p>
+              <% } %>
             </div>
             <div class="field">
               <label class="field-label" for="password">Escriba su contraseña</label>
               <input class="field-input" type="password" name="password">
+              <% if (incorrectPassword.length > 0) { %>
+                <p class="input-message"><%= incorrectPassword %></p>
+              <% } %>
             </div>
             <button class="button-login" type="submit">Iniciar sesión</button>
             <div class="forgot-password">

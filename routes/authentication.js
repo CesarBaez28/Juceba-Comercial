@@ -1,13 +1,16 @@
 const { Router } = require('express');
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
 const authenticationController = require("../Controllers/authenticationController");
+const {isLoggedIn, isNotLoggedIn} = require('../Config/auth');
 
-router.get('/login', authenticationController.login);
+router.get('/login', isNotLoggedIn, authenticationController.login);
 router.post('/login', authenticationController.authenticate);
 router.get('/createAccount', authenticationController.createAccount);
 router.post('/createAccount', authenticationController.signup);
 router.get('/getMunicipios', authenticationController.getMunicipios);
+router.get('/logout', authenticationController.logout);
+router.get('/getUser', authenticationController.getUser);
+router.get('/getCompany', authenticationController.getCompany);
 
 module.exports = router;

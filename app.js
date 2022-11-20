@@ -1,31 +1,29 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var passport = require('passport');
-var sesion = require('express-session');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const flash = require('connect-flash');
+const passport = require('passport');
+const sesion = require('express-session');
 const MySqlStore = require('express-mysql-session');
-var conexion = require('./Config/conectionMysql');
-const  sessionStore = new MySqlStore({},conexion);
-
-
-var conexion = require('./Config/conectionMysql');
+const conexion = require('./Config/conectionMysql');
+const sessionStore = new MySqlStore({},conexion);
 
 // Rutas
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var authenticationRouter = require('./routes/authentication');
-var menuPrincipalRouter = require('./routes/menuPrincipal');
-var clientsRouter = require('./routes/clients');
-var suppliersRouter = require('./routes/suppliers');
-var productsRouter = require('./routes/products');
-var entriesRouter = require('./routes/entries');
-var salesRouter = require('./routes/sales');
-var quoteRouter = require('./routes/quote');
-var materialsRouter = require('./routes/materials');
-var reportsRouter = require('./routes/reports');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const authenticationRouter = require('./routes/authentication');
+const menuPrincipalRouter = require('./routes/menuPrincipal');
+const clientsRouter = require('./routes/clients');
+const suppliersRouter = require('./routes/suppliers');
+const productsRouter = require('./routes/products');
+const entriesRouter = require('./routes/entries');
+const salesRouter = require('./routes/sales');
+const quoteRouter = require('./routes/quote');
+const materialsRouter = require('./routes/materials');
+const reportsRouter = require('./routes/reports');
 
 var app = express();
 require('./Config/passport');
@@ -47,8 +45,18 @@ app.use(sesion({
   saveUninitialized: false,
   store: sessionStore
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+//Global variables
+app.use((req, res, next) => {
+  app.locals.success = req.flash('success'); //Mensaje de éxito
+  app.locals.msg = req.flash('msg'); //msg = message de error o cualquier otro tipo.
+  app.locals.incorrectPassword = req.flash('incorrectPassword');
+  app.locals.user = req.user; // Datos de la sesión del usuario.
+  next(); //Para que la aplicación continue con las rutas de abajo.
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

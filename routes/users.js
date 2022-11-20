@@ -1,12 +1,12 @@
-let express = require('express');
-let router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const {isLoggedIn} = require('../Config/auth');
 const usersController = require('../Controllers/usersController');
 
-router.get('/', usersController.index);
-router.get('/myUserProfile', usersController.myProfile);
-router.get('/editProfile', usersController.editProfile);
-router.get('/createUser', usersController.createUser);
-router.get('/changePassword', usersController.changePassword);
+router.get('/', isLoggedIn, usersController.index);
+router.get('/myUserProfile', isLoggedIn, usersController.myProfile);
+router.get('/editProfile', isLoggedIn, usersController.editProfile);
+router.get('/createUser', isLoggedIn, usersController.createUser);
+router.get('/changePassword', isLoggedIn, usersController.changePassword);
 
 module.exports = router;

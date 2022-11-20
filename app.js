@@ -51,9 +51,10 @@ app.use(passport.session());
 
 //Global variables
 app.use((req, res, next) => {
-  app.locals.success = req.flash('success');
-  app.locals.msg = req.flash('msg'); //msg = message
-  app.locals.user = req.user; 
+  app.locals.success = req.flash('success'); //Mensaje de éxito
+  app.locals.msg = req.flash('msg'); //msg = message de error o cualquier otro tipo.
+  app.locals.incorrectPassword = req.flash('incorrectPassword');
+  app.locals.user = req.user; // Datos de la sesión del usuario.
   next(); //Para que la aplicación continue con las rutas de abajo.
 });
 

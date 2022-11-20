@@ -7,7 +7,7 @@ let empresaRepetida = false; // Se usa para validar si se ingresa un nombre de e
 const expresiones = {
   usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, números, guion y guion_bajo
   nombre: /^[a-zA-ZÀ-ÿ\s]{4,40}$/, // Letras y espacios, pueden llevar acentos.
-  calle_numero: /^[a-zA-Z0-9\s#\_\-]{4,100}$/, //Letras, números, guion, guion bajo y #.
+  calle_numero: /^[a-zA-ZÀ-ÿ0-9\s#\_\-]{4,100}$/, //Letras, números, guion, acentos, guion bajo y #.
 
   //8 a 100 carácteres. No carácteres consecutivo. 1 minúscula. 1 mayúscula. 1 número. 1 Caracter especial.
   password: /^(?!.*(.)\1{1})(?=(.*[\d]){1,})(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[@#$%!]){1,})(?:[\da-zA-Z@#$%!]){8,100}$/,

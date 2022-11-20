@@ -159,3 +159,16 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.header-page-content{
+  display: flex;
+  background-color: #f0f0ef;
+  padding: 1rem;
+}
+
+h1 {
+  color: var(--textGray);
+  padding-left: 0.25rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+}

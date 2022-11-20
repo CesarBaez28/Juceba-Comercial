@@ -2,6 +2,7 @@ let users = require("../Model/users");
 let conexion = require('../Config/conectionMysql');
 let passport = require('passport');
 let addresses = require('../Model/addresses');
+let companys = require('../Model/company');
 
 module.exports={
 
@@ -32,7 +33,6 @@ module.exports={
     
     //Obtengo las provincias de país para registrar la dirección
     const [provincias] = await addresses.getProvincias(conexion);
-    console.log(provincias);
     res.render('Authentication/createAccount', {provincias});
   },
 
@@ -49,7 +49,20 @@ module.exports={
   getMunicipios:async function (req, res){
     let searchQuery = req.query.parent_value;
     const [municipios] = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);
-    console.log(municipios);
     res.json(municipios);
+  },
+
+  //Trato de obtener un nombre de usuario para verificar si ya existe
+  getUser:async function(req, res){
+    let user = req.query.user;
+    const [dato] = await users.getUser(conexion, user); 
+    res.json(dato);
+  },
+
+  getCompany: async function(req, res){
+    let company = req.query.company
+    const [dato] = await companys.getCompany(conexion, company);
+    res.json(dato);
   }
 }
+ 

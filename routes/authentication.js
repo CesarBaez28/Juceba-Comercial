@@ -10,5 +10,7 @@ router.get('/createAccount', authenticationController.createAccount);
 router.post('/createAccount', authenticationController.signup);
 router.get('/getMunicipios', authenticationController.getMunicipios);
 router.get('/logout', authenticationController.logout);
+router.get('/getUser', authenticationController.getUser);
+router.get('/getCompany', authenticationController.getCompany);
 
 module.exports = router;

@@ -16,6 +16,7 @@ h1 {
 }
 
 .field{
+  position: relative;
   margin-bottom: 1rem;
 }
 
@@ -54,4 +55,31 @@ h1 {
 .button-primary:hover{
   color: var(--textWhite);
   background-color: var(--backgroundRed);
+}
+
+/*Validaciones*/
+
+.group-correct span {
+  color: #1ed12d;
+}
+
+.group-incorrect span {
+  color: #bb2929;
+}
+
+.icon {
+  position: absolute;
+  right: 0.8rem;
+  top: 2.25rem;
+}
+
+.input-message  {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #bb2929;
+  display: none;
+}
+
+.input-error {
+  display: block;
 }

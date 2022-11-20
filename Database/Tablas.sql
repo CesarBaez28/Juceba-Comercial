@@ -1,5 +1,5 @@
 /*create database JucebaComercial;*/
-
+use JucebaComercial;
 /*Calles y número de calles*/
 CREATE TABLE callesYnumero (
   codigo int auto_increment /*pk*/,
@@ -54,6 +54,15 @@ CREATE TABLE  direcciones (
   estado bit default 1
 );
 
+/*Números de teléfonos*/
+CREATE TABLE telefonos (
+  codigo int auto_increment /*pk*/,
+  constraint pk_codigo_telefono primary key(codigo),
+  telefono varchar(25) not null unique,
+  descripcion varchar(250),
+  estado bit default 1
+);
+
 /*Compañías, negocios o empresas*/
 CREATE TABLE empresas (
   codigo int auto_increment /*pk*/,
@@ -65,15 +74,6 @@ CREATE TABLE empresas (
   nombre varchar (100) not null unique,
   email varchar (100),
   descripcion varchar (250),
-  estado bit default 1
-);
-
-/*Números de teléfonos*/
-CREATE TABLE telefonos (
-  codigo int auto_increment /*pk*/,
-  constraint pk_codigo_telefono primary key(codigo),
-  telefono varchar(25) not null unique,
-  descripcion varchar(250),
   estado bit default 1
 );
 

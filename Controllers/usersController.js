@@ -5,7 +5,8 @@ let user = require("../Model/users");
 
 module.exports = {
   index:async function(req, res){
-    const [users] = await user.getUsers(conexion);
+    let codigoEmpresa = req.user[0]['codigo_empresa'];
+    const [users] = await user.getUsers(conexion, codigoEmpresa);
     res.render('users/index', {title: 'Usuarios', users:users[0]});
   },
 

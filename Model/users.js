@@ -1,6 +1,6 @@
 module.exports = {
-  getUsers:function (conexion) {
-   return conexion.query("call p_getUsers();");
+  getUsers:function (conexion, codigoEmpresa) {
+   return conexion.query("call p_getUsers(?);", [codigoEmpresa]);
   },
 
   login:function(conexion, datos, funcion){

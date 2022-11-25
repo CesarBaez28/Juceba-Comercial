@@ -279,3 +279,37 @@
 .card-result-options button:first-child{
   margin-right: 0.5rem;
 }
+
+/* Message alert */
+.messaje-container{
+  width: 18.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 3rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  background-color: var(--backgroundPage);
+  padding: 3rem;
+  z-index: 1;
+}
+
+.messaje-container p {
+  margin-top: 1rem;
+  color: var(--textGray);
+  text-align: center;
+}
+.messaje-container button {
+  margin-top: 1rem;
+  color: var(--textWhite);
+  background-color: #0f73ee;
+  border-radius: 0.50rem;
+  padding: 0.50rem 2rem 0.50rem 2rem;
+}
+
+.messaje-container h3 {
+  color: #0f73ee;
+}
+
+.close-message {
+  display: none;
+}

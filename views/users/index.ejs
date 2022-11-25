@@ -5,9 +5,9 @@
 
     <%- include ../layouts/menu-lateral.ejs%>
 
-      <main class="page-content" id="page-content">
+    <%- include ../layouts/messages.ejs%>
 
-        <%- include ../layouts/messages.ejs%>
+      <main class="page-content" id="page-content">
 
         <div class="page-content-container" id="page-content-container">
 
@@ -56,7 +56,7 @@
           <h1>Lista de usuarios</h1>
 
           <section class="result-area">
-            <% for( let index=0; index < 4; index++ ) { %>
+            <% for( let user = 0; user < users.length; user++ ) { %>
               <article class="card-result col-12 col-md-6">
                 <div class="card-result-container">
                   <div class="group-header">
@@ -68,8 +68,8 @@
                         </svg> </span>
                     </div>
                     <header class="card-result-header">
-                      <p>Cargo</p>
-                      <h2>Nombre empleado</h2>
+                      <p><%=users[user].tipo_usuario%></p>
+                      <h2><%=users[user].nombre%></h2>
                     </header>
                   </div>
                   <div class="card-result-options">
@@ -109,17 +109,20 @@
                       <td>
                         <div class="buttons-group">
                           <div class="button-edit">
-                            <a href="/users/myUserProfile" class="button">
-                              <span class="button-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
-                                  <path
-                                    d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z" />
-                                </svg>
-                              </span>
-                            </a>
+                            <form class="form" method="get" action="/users/myUserProfile">
+                              <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="button">
+                                <span class="button-icon">
+                                  <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                                    <path
+                                      d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z" />
+                                  </svg>
+                                </span>
+                              </button>
+                            </form>
                           </div>
                           <%# <button>Editar</button>%>
-                            <button class="button  button-delete">
+                          <form class="form" method="get" action="/users/delete/<%=users[user].codigo%>">
+                            <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="button  button-delete">
                               <span class="button-delete-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
                                   <path
@@ -127,6 +130,7 @@
                                 </svg>
                               </span>
                             </button>
+                          </form>
                         </div>
                       </td>
                     </tr>
@@ -138,5 +142,6 @@
           </div>
       </main>
 
+      <script src="/javascripts/message.js"></script>
       <script src="/javascripts/button-selected.js"></script>
       <%- include ../layouts/pie.ejs%>

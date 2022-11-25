@@ -22,5 +22,15 @@ module.exports = {
   //Insertar un nuevo usuario
   insertUser:function(conexion, tipoUsuario, telefono, empresa, username, name, password, email){
     return conexion.query('insert into usuarios (codigo_tipo_usuario, codigo_telefono, codigo_empresa, nombre_usuario, nombre, passwd, email) values(?,?,?,?,?,?,?)', [tipoUsuario, telefono, empresa, username, name, password, email]);
+  },
+
+  //Editar un usuario
+  editUser:function(conexion, tipoUsuario, telefono, username, name, email, estado){
+    return conexion.query('update usuarios SET  codigo_tipo_usuario = ?, codigo_telefono = ?, nombre_usuario = ?, nombre = ?, email = ?, estado = ? Where nombre_usuario = ?', [tipoUsuario, telefono, username, name, email, estado, username]);
+  },
+
+  //Obtener un usuario por su código
+  getUserByID:function(conexion, codigo){
+    return conexion.query('call p_getUserById(?)', [codigo]);
   }
 }

@@ -4,6 +4,7 @@ const users = require('../Model/users');
 const user = require("../Model/users");
 const phones = require("../Model/phones");
 const helpers = require('../Config/helpers');
+const { use } = require('passport');
 
 module.exports = {
   //Renderizar vista usuarios
@@ -14,9 +15,16 @@ module.exports = {
   },
 
   //Renderizar vista myProfile
-  myProfile: function (req, res) {
+  myProfile: async function (req, res) {
+
+    //Obtengo los tipos de usuario (administrador, empleado, contador...)
+    let [tiposUsuarios] = await users.getTypeOfUser(conexion);
+    let codigoUser = req.query.codigo;
+    const [user] = await users.getUserByID(conexion, codigoUser);
     res.render('users/myPerfil', {
-      title: 'Mi perfil de usuario'
+      title: 'Mi perfil de usuario',
+      user: user[0],
+      tiposUsuarios
     });
   },
 
@@ -59,7 +67,7 @@ module.exports = {
 
     //Valido si el número suministrado ya existe, si es así obtengo el código(pk) del registro para registrar el usuario con ese número
     try {
-      [telefono] = await phones.insertPhoneNumber(conexion,newUser.telefono);
+      [telefono] = await phones.insertPhoneNumber(conexion, newUser.telefono);
       telefono = telefono.insertId;
     } catch (error) {
       [telefono] = await phones.getPhoneNumber(conexion, newUser.telefono);
@@ -72,11 +80,53 @@ module.exports = {
     //Registro el nuevo usuario
     let empresa = req.user[0]['codigo_empresa'];
     newUser.password = await helpers.encryptPassword(newUser.password); //Encripto la contraseña
-    await users.insertUser(conexion, newUser.typeOfUser, telefono, empresa, 
-      newUser.userName,newUser.name,newUser.password,newUser.email);
+    await users.insertUser(conexion, newUser.typeOfUser, telefono, empresa,
+      newUser.userName, newUser.name, newUser.password, newUser.email);
     await conexion.query('COMMIT');
     req.flash('msg', 'Usuario registrado correctamente');
     res.redirect('/users');
+  },
+
+  //Editar datos de un usuario
+  editUser: async function (req, res) {
+    const user = {
+      codigo: req.query.codigo,
+      typeOfUser: req.body.typeOfUser,
+      name: req.body.name,
+      userName: req.body.userName,
+      telefono: req.body.telefono,
+      email: req.body.email,
+      status: req.body.status
+    }
+
+    await conexion.query('START TRANSACTION');
+
+    let telefono;
+
+    //Valido si el número suministrado ya existe, si es así obtengo el código(pk) del registro para registrar el usuario con ese número
+    try {
+      [telefono] = await phones.insertPhoneNumber(conexion, user.telefono);
+      telefono = telefono.insertId;
+    } catch (error) {
+      [telefono] = await phones.getPhoneNumber(conexion, user.telefono);
+      telefono = telefono[0]['codigo'];
+    }
+
+    //Validar email repetido...
+
+    //Editar el usuario
+    (user.status === 'true') ? user.status = true : user.status = false; 
+    console.log(user)
+    await users.editUser(conexion, user.typeOfUser, telefono,
+      user.userName, user.name, user.email, user.status, user.userName);
+    await conexion.query('COMMIT');
+
+    req.flash('msg', 'Usuario actualizado correctamente')
+    res.redirect('/users/myUserProfile?codigo=' + user.codigo + '');
+  },
+
+  //Eliminar usuario (Cambiar estado a inactivo)
+  deleteUser: async function (req, res) {
   },
 
   //Trato de obtener un nombre de usuario para verificar si ya existe
@@ -86,10 +136,13 @@ module.exports = {
     res.json(dato);
   },
 
-  //Renderisar vista changePassword
-  changePassword: function (req, res) {
+  //Renderizar vista changePassword
+  changePassword: async function (req, res) {
+    let codigoUser = req.query.codigo;
+    const [user] = await users.getUserByID(conexion, codigoUser);
     res.render('users/changePassword', {
-      title: 'Cambiar contraseña'
+      title: 'Cambiar contraseña',
+      user: user[0]
     });
   },
 }

@@ -115,6 +115,10 @@ h1 {
   background-color: var(--mainColor);
 }
 
+.form {
+  display: flex;
+}
+
 @media screen and (min-width: 48em){
   .result-area .card-result:nth-child(2n+1){
     padding-right: 0.5rem;

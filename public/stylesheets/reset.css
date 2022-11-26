@@ -139,7 +139,16 @@ button, input, optgroup, option, select, textarea {
 	border: solid 1px var(--borderGray200);
 }
 
-button, input[type="button"], input[type="submit"], input[type="reset"], input[type="checkbox"], input[type="radio"], label, select { cursor: pointer; }
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"], input[type="checkbox"], input[type="radio"], label, select { cursor: pointer; }
+
+input[type="file"] {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
 
 *[disabled] {
 	cursor: default;

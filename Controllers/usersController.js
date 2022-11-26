@@ -158,7 +158,7 @@ module.exports = {
       console.log(validPassword);
       //Encripto la contraseña y actualizo
       const newPassword = await helpers.encryptPassword(req.body.password);
-      users.changePassword(conexion, req.query.codigo, newPassword);
+      await users.changePassword(conexion, req.query.codigo, newPassword);
 
       //Mando mensaje de éxito y redirecciono.
       req.flash('success', 'Ha cambiado su contraseña correctamente');
@@ -169,5 +169,9 @@ module.exports = {
       req.flash('msg', 'Las contraseñas no son iguales');
       res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
     }
+  },
+
+  uploadPhoto: async function(req, res){
+    await users.uploadPhoto(conexion,req.query.codigo,req.file.filename);
   }
 }

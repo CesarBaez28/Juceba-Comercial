@@ -255,11 +255,22 @@
 
 .button{
   color: var(--backgroundBlue);
-  background-color: var(--textWhite);
+  background-color: var(--background-white);
   display: flex;
   border: 1px solid var(--borderGray200);
   padding: 0.3rem 0.5rem;
   cursor: pointer;
+}
+
+.tertiary-button {
+  background-color: var(--background-white);
+  color: var(--backgroundBlue);
+  border: 0;
+  padding: 0.25rem;
+}
+
+.tertiary-button:hover {
+  color: #1c4885;
 }
 
 .button-delete {

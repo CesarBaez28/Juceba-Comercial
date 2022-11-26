@@ -1,7 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const {isLoggedIn} = require('../Config/auth');
+const { isLoggedIn } = require('../Config/auth');
 const usersController = require('../Controllers/usersController');
+const multer = require('multer');
+let fecha = Date.now();
+
+//Guardar archivos(fotos...)
+const storeRute = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, './public/images/users/')
+  },
+
+  filename:function(request, file, callback){
+    console.log(file);
+    callback(null,fecha+"_"+file.originalname);
+  }
+});
+const upload = multer({storage:storeRute});
 
 //get
 router.get('/', isLoggedIn, usersController.index);
@@ -16,5 +31,6 @@ router.post('/insertUser', usersController.insertUser);
 router.post('/editUser', usersController.editUser);
 router.post('/changePassword', usersController.changePassword);
 router.post('/deleteUser', usersController.deleteUser)
+router.post('/uploadPhoto',upload.single('file'), usersController.uploadPhoto);
 
 module.exports = router;

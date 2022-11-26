@@ -34,7 +34,13 @@ module.exports = {
     return conexion.query('call p_getUserById(?)', [codigo]);
   },
 
+  //Cambiar contraseña
   changePassword:function(conexion, codigo, password){
     return conexion.query('update usuarios set passwd = ? where codigo = ?', [password, codigo]);
+  },
+
+  //Subir foto
+  uploadPhoto:function(conexion, codigo, photo){
+    return conexion.query('update usuarios set foto = ? where codigo = ?', [photo, codigo]);
   }
 }

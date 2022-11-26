@@ -25,6 +25,19 @@ h1 {
   display: block;
   border-radius: 50%;
   border: 2px solid var(--borderGray);
+  padding: 0;
+}
+
+.image-container{
+  width: 108px;
+  height: 108px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.image-container img {
+  width: 100%;
+  display: block;
 }
 
 .perfil-photo:hover {
@@ -34,6 +47,10 @@ h1 {
 .icon-perfil-photo{
   padding: 6px;
   display: flex;
+}
+
+.icon-perfil-photo svg {
+  padding: 0.4rem;
 }
 
 .card-items-container{

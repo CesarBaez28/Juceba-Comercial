@@ -73,8 +73,18 @@
                     </header>
                   </div>
                   <div class="card-result-options">
-                    <a href="/users/myUserProfile">Perfil de usuario</a>
-                    <a href="">Eliminar usuario</a>
+                    <form class="form" method="get" action="/users/myUserProfile">
+                      <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="tertiary-button">
+                        Editar perfil de usuario
+                      </button>
+                    </form>
+                    <form class="form" method="get" action="/users/delete">
+                      <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="tertiary-button">
+                        <span class="button-delete-icon">
+                          Eliminar usuario
+                        </span>
+                      </button>
+                    </form>
                   </div>
                 </div>
               </article>

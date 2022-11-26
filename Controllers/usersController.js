@@ -29,9 +29,19 @@ module.exports = {
   },
 
   //Renderizar vista editProfile
-  editProfile: function (req, res) {
+  editProfile: async function (req, res) {
+
+    //Obtengo el código del usuario
+    let codigoUser = req.query.codigo;
+    const [user] = await users.getUserByID(conexion, codigoUser);
+
+    //Obtengo los tipos de usuario (administrador, empleado, contador...)
+    let [tiposUsuarios] = await users.getTypeOfUser(conexion);
+
     res.render('users/editProfile', {
-      title: 'Editar perfil de usuario'
+      title: 'Editar perfil de usuario',
+      user: user[0],
+      tiposUsuarios
     });
   },
 

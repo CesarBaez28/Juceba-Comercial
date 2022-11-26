@@ -26,8 +26,7 @@ for(const button of button_open_dialog)
         (button.classList.item(0) === 'button-edit') ? dialog_title.textContent = "Editar suplidor" : 
           dialog_title.textContent = "Crear suplidor";
       }
-  
-      button.setAttribute('href','#');
+      button.type = 'button'
       ui_dialog.setAttribute('style', 'position: absolute;'+'top:'+'15'+'%;' + 'left:' + left+'px;');
       ui_dialog.classList.add('show-dialog');
     }
@@ -61,26 +60,13 @@ function close_dialog() {
 }
 
 //Hide ui-dialog depending on the size of the screen
-//Change the URL depending on the path
+//Change the type of the button to submit
 window.addEventListener("resize", function(){
   if(window.innerWidth < 768 || window.innerHeight < 450) {
 
     for(const button of button_open_dialog)
     {
-      if (document.title === 'Mi perfil de usuario') 
-      {
-        button.setAttribute('href','/users/editProfile');
-      }
-      else if (document.title === 'Clientes')
-      {
-        (button.classList.item(0) === 'button-edit') ? button.setAttribute('href','/clients/editClient') : 
-          button.setAttribute('href','/clients/createClient');
-      }
-      else if (document.title === 'Suplidores')
-      {
-        (button.classList.item(0) === 'button-edit') ? button.setAttribute('href','/suppliers/editSupplier') : 
-          button.setAttribute('href','/suppliers/createSupplier');
-      }
+      button.type = 'submit'
     }
 
     ui_dialog.classList.remove('show-dialog');

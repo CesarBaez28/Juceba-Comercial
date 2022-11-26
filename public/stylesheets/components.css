@@ -281,6 +281,10 @@
 }
 
 /* Message alert */
+.message{
+  z-index: 1;
+}
+
 .messaje-container{
   width: 18.75rem;
   display: flex;
@@ -290,7 +294,6 @@
   box-shadow: 0 0 10px rgba(0,0,0,.5);
   background-color: var(--backgroundPage);
   padding: 3rem;
-  z-index: 1;
 }
 
 .messaje-container p {
@@ -308,6 +311,14 @@
 
 .messaje-container h3 {
   color: #0f73ee;
+}
+
+.messaje-error button {
+  background-color: red;
+}
+
+.messaje-error h3 {
+  color: red;
 }
 
 .close-message {

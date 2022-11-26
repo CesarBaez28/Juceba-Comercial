@@ -67,7 +67,6 @@ passport.use('local.signup', new LocalStrategy({
   } catch (error) {
     [telefonoCompany] = await conexion.query('select codigo from telefonos where telefono = ?', [newCompany.telefonoCompany]);
     telefonoCompany = telefonoCompany[0]['codigo']
-    console.log(telefonoCompany);
   }
 
   //Valido si el sector suministrado ya existe, si es así obtengo el código(pk) del registro para registrar la compañía con ese sector
@@ -77,7 +76,6 @@ passport.use('local.signup', new LocalStrategy({
   } catch (error) {
     [sector] = await conexion.query('select codigo from sectores where sector = ?', [newCompany.sector]);
     sector = sector[0]['codigo']
-    console.log(sector);
   }
 
   //Valido si la calle y el número suministrado ya existe, si es así obtengo el código(pk) del registro para registrar la compañía con esa calle y número
@@ -87,7 +85,6 @@ passport.use('local.signup', new LocalStrategy({
   } catch (error) {
     [calleYNumero] = await conexion.query('select codigo from callesYnumero where calle_y_numero = ?', [newCompany.calleYNumero]);
     calleYNumero = calleYNumero[0]['codigo']
-    console.log(calleYNumero);
   }
 
   //Valido si la dirección completa ya existe, si es así obtengo el código(pk) del registro para registrar la compañía con esa dirección
@@ -95,12 +92,13 @@ passport.use('local.signup', new LocalStrategy({
     [direccion] = await conexion.query('insert into direcciones (codigo_calle_y_numero, codigo_sector, codigo_municipio, codigo_provincia) values (?,?,?,?)', [calleYNumero, sector, newCompany.municipio, newCompany.provincia]);
     direccion = direccion.insertId;
   } catch (error) {
-    console.log(error)
     [direccion] = await conexion.query('select codigo from direcciones where codigo_calle_y_numero = (?) and codigo_sector = (?) and codigo_municipio = (?) and codigo_provincia = (?)', [calleYNumero, sector, newCompany.municipio, newCompany.provincia]);
     direccion = direccion[0]['codigo'];
-    console.log(direccion);
   }
 
+  //Registro la empresa
+  [company] = await conexion.query('insert into empresas (codigo_telefono,codigo_direccion,nombre,email) VALUES (?,?,?,?)', [telefonoCompany, direccion, newCompany.nameCompany, newCompany.emailCompany]);
+  company = company.insertId;
   //--------- Valido los datos del usuario -----------//
 
   let telefonoUser;
@@ -112,18 +110,19 @@ passport.use('local.signup', new LocalStrategy({
   } catch (error) {
     [telefonoUser] = await conexion.query('select codigo from telefonos where telefono = ?', [newUser.telefono]);
     telefonoUser = telefonoUser[0]['codigo']
-    console.log(telefonoUser);
   }
 
   try {
     newUser.password = await helpers.encryptPassword(password) //Encripta la contraseña del usuario
     let codigoTipoUsuario = 1; // 1 = Administrador
-    const [user] = await conexion.query('insert into usuarios (codigo_tipo_usuario, codigo_telefono, codigo_empresa, nombre_usuario, nombre, passwd, email) values(?,?,?,?,?,?,?)', [codigoTipoUsuario, telefonoUser, company.insertId, newUser.userName, newUser.name, newUser.password, newUser.email]);
+
+    //Ingreso el nuevo usuario
+    const [user] = await conexion.query('insert into usuarios (codigo_tipo_usuario, codigo_telefono, codigo_empresa, nombre_usuario, nombre, passwd, email) values(?,?,?,?,?,?,?)', [codigoTipoUsuario, telefonoUser, company, newUser.userName, newUser.name, newUser.password, newUser.email]);
     newUser.codigo = user.insertId;
-    console.log(user);
     await conexion.query('COMMIT');
     return done(null, newUser);
   } catch (error) {
+    console.log(error)
     await conexion.query('ROLLBACK');
   }
 }));

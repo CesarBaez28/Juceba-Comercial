@@ -5,8 +5,8 @@ module.exports = {
   },
 
   //Verificar usuario para proceso de inicio de sesión
-  login:function(conexion, datos, funcion){
-    conexion.query("select * from usuarios where nombre_usuario = ? and passwd = ?",[datos.userName, datos.password], funcion);
+  login:function(conexion, username){
+    conexion.query('select * from usuarios where nombre_usuario = ?', [username]);
   },
 
   //Verificar si un nombre de usuario existe
@@ -32,5 +32,9 @@ module.exports = {
   //Obtener un usuario por su código
   getUserByID:function(conexion, codigo){
     return conexion.query('call p_getUserById(?)', [codigo]);
+  },
+
+  changePassword:function(conexion, codigo, password){
+    return conexion.query('update usuarios set passwd = ? where codigo = ?', [password, codigo]);
   }
 }

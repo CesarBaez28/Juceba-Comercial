@@ -83,7 +83,7 @@ module.exports = {
     await users.insertUser(conexion, newUser.typeOfUser, telefono, empresa,
       newUser.userName, newUser.name, newUser.password, newUser.email);
     await conexion.query('COMMIT');
-    req.flash('msg', 'Usuario registrado correctamente');
+    req.flash('success', 'Usuario registrado correctamente');
     res.redirect('/users');
   },
 
@@ -121,7 +121,7 @@ module.exports = {
       user.userName, user.name, user.email, user.status, user.userName);
     await conexion.query('COMMIT');
 
-    req.flash('msg', 'Usuario actualizado correctamente')
+    req.flash('success', 'Usuario actualizado correctamente')
     res.redirect('/users/myUserProfile?codigo=' + user.codigo + '');
   },
 
@@ -137,7 +137,7 @@ module.exports = {
   },
 
   //Renderizar vista changePassword
-  changePassword: async function (req, res) {
+  changePasswordView: async function (req, res) {
     let codigoUser = req.query.codigo;
     const [user] = await users.getUserByID(conexion, codigoUser);
     res.render('users/changePassword', {
@@ -145,4 +145,29 @@ module.exports = {
       user: user[0]
     });
   },
+
+  //Cambiar contraseña
+  changePassword: async function (req, res) {
+    //Obtengo los datos del usuario para validar la contraseña.
+    const [user] = await conexion.query('select * from usuarios where codigo = ?', req.query.codigo);
+
+    //Verifico si las contraseñas son iguales.
+    const validPassword = await helpers.matchPassword(req.body.oldPassword, user[0]['passwd']);
+    console.log(validPassword);
+    if(validPassword){
+      console.log(validPassword);
+      //Encripto la contraseña y actualizo
+      const newPassword = await helpers.encryptPassword(req.body.password);
+      users.changePassword(conexion, req.query.codigo, newPassword);
+
+      //Mando mensaje de éxito y redirecciono.
+      req.flash('success', 'Ha cambiado su contraseña correctamente');
+      res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
+    }
+    else
+    {
+      req.flash('msg', 'Las contraseñas no son iguales');
+      res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
+    }
+  }
 }

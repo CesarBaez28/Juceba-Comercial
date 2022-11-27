@@ -78,7 +78,7 @@
                         Editar perfil de usuario
                       </button>
                     </form>
-                    <form class="form" method="get" action="/users/delete">
+                    <form class="form" method="post" action="/users/deleteUser">
                       <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="tertiary-button">
                         <span class="button-delete-icon">
                           Eliminar usuario
@@ -131,7 +131,7 @@
                             </form>
                           </div>
                           <%# <button>Editar</button>%>
-                          <form class="form" method="get" action="/users/delete/<%=users[user].codigo%>">
+                          <form class="form" method="post" action="/users/deleteUser">
                             <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="button  button-delete">
                               <span class="button-delete-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">

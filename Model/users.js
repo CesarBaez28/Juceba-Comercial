@@ -42,5 +42,11 @@ module.exports = {
   //Subir foto
   uploadPhoto:function(conexion, codigo, photo){
     return conexion.query('update usuarios set foto = ? where codigo = ?', [photo, codigo]);
+  },
+
+  //Eliminar usuario (Cambia estado a inactivo)
+  deleteUser: function(conexion, codigo){
+    const estado = false;
+    return conexion.query('update usuarios set estado = ? where codigo = ?', [estado, codigo]);
   }
 }

@@ -137,6 +137,9 @@ module.exports = {
 
   //Eliminar usuario (Cambiar estado a inactivo)
   deleteUser: async function (req, res) {
+    await users.deleteUser(conexion, req.body.codigo)
+    req.flash('success', 'Usuario eliminado correctamente')
+    res.redirect('/users');
   },
 
   //Trato de obtener un nombre de usuario para verificar si ya existe
@@ -181,7 +184,10 @@ module.exports = {
     }
   },
 
+  //Subir foto de perfil
   uploadPhoto: async function(req, res){
     await users.uploadPhoto(conexion,req.query.codigo,req.file.filename);
+    req.flash('success', 'Ha cambiado su foto de perfil correctamente')
+    res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');
   }
 }

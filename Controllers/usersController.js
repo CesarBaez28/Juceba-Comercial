@@ -10,7 +10,8 @@ module.exports = {
   //Renderizar vista usuarios
   index: async function (req, res) {
     let codigoEmpresa = req.user[0]['codigo_empresa'];
-    const [users] = await user.getUsers(conexion, codigoEmpresa);
+    let usuarioActual = req.user[0]['codigo'];
+    const [users] = await user.getUsers(conexion, codigoEmpresa, usuarioActual);
     res.render('users/index', { title: 'Usuarios', users: users[0] });
   },
 
@@ -191,20 +192,23 @@ module.exports = {
     res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');
   },
 
-  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario)
+  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario menos el usuario actual que inicia sesión)
   searchUser: async function(req, res) {
     //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenece el usuario
     //Lo obtengo de la sesión del usuario
-    const codigo_empresa = req.user[0]['codigo_empresa']; 
-    const [users] = await user.searchUser(conexion, req.body.search, codigo_empresa);
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+    const usuarioActual = req.user[0]['codigo'];
+    const [users] = await user.searchUser(conexion, req.body.search, codigo_empresa, usuarioActual);
     res.render('users/index', { title: 'Usuarios', users: users[0] });
   },
 
+  //Buscar usuarios por estados (activos, inactivos o todos menos el usuario actual que inicia sesión)
   searchUserFilter: async function(req, res){
     //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenece el usuario
     //Lo obtengo de la sesión del usuario
     const codigo_empresa = req.user[0]['codigo_empresa'];
-    const[users] = await user.searchUserFilter(conexion, req.body.filter, codigo_empresa);
+    const usuarioActual = req.user[0]['codigo'];
+    const[users] = await user.searchUserFilter(conexion, req.body.filter, codigo_empresa, usuarioActual);
     res.render('users/index', { title: 'Usuarios', users: users[0]});
   }
 }

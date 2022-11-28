@@ -28,6 +28,23 @@
   cursor: pointer;
 }
 
+.form-profile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1 1 auto;
+  margin-right: 0.2rem;
+}
+
+.button-profile{
+  background-color: var(--mainColor);
+  border: 0;
+}
+
+.button-icon-profile{
+  color: var(--textWhite);
+}
+
 /*ESTILOS DE LA BARRA LATERAL DE NAVEGACIÓN*/
 
 .options-menu{

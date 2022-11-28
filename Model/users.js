@@ -1,7 +1,7 @@
 module.exports = {
-  //Obtener todos los usuarios por empresa
-  getUsers:function (conexion, codigoEmpresa) {
-   return conexion.query("call p_getUsers(?);", [codigoEmpresa]);
+  //Obtener todos los usuarios por empresa (A exepción del usuario actual que inicia sesión);
+  getUsers:function (conexion, codigoEmpresa, usuarioActual) {
+   return conexion.query("call p_getActiveUsers(?,?);", [codigoEmpresa, usuarioActual]);
   },
 
   //Verificar usuario para proceso de inicio de sesión
@@ -50,13 +50,13 @@ module.exports = {
     return conexion.query('update usuarios set estado = ? where codigo = ?', [estado, codigo]);
   },
 
-  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario)
-  searchUser:function(conexion, search, codigo_empresa){
-    return conexion.query('call p_searchUsers(?,?)', [search, codigo_empresa]);
+  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario menos el usuario actual que inicia sesión)
+  searchUser:function(conexion, search, codigo_empresa, usuarioActual){
+    return conexion.query('call p_searchUsers(?,?,?)', [search, codigo_empresa, usuarioActual]);
   },
 
-  //Buscar usuario por filtro (Activos, inactivos o todos)
-  searchUserFilter:function(conexion, search, codigo_empresa){
-    return conexion.query('call p_getUserByStatus(?,?)', [codigo_empresa, search]);
+  //Buscar usuario por filtro (Activos, inactivos o todos menos el usuario actual que inicia sesión)
+  searchUserFilter:function(conexion, search, codigo_empresa, usuarioActual){
+    return conexion.query('call p_getUserByStatus(?,?,?)', [codigo_empresa, search, usuarioActual]);
   }
 }

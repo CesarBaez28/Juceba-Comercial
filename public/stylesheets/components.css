@@ -312,6 +312,7 @@
   color: var(--textGray);
   text-align: center;
 }
+
 .messaje-container button {
   margin-top: 1rem;
   color: var(--textWhite);
@@ -334,4 +335,25 @@
 
 .close-message {
   display: none;
+}
+
+/*No found alert*/
+
+.no-found {
+  margin: auto;
+  padding-top: 1rem;
+}
+
+.no-found-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-found-container h3 {
+  color: var(--textGray);
+}
+
+.no-found-container p {
+  color: var(--textGray);
 }

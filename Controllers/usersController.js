@@ -189,5 +189,22 @@ module.exports = {
     await users.uploadPhoto(conexion,req.query.codigo,req.file.filename);
     req.flash('success', 'Ha cambiado su foto de perfil correctamente')
     res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');
+  },
+
+  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario)
+  searchUser: async function(req, res) {
+    //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenece el usuario
+    //Lo obtengo de la sesión del usuario
+    const codigo_empresa = req.user[0]['codigo_empresa']; 
+    const [users] = await user.searchUser(conexion, req.body.search, codigo_empresa);
+    res.render('users/index', { title: 'Usuarios', users: users[0] });
+  },
+
+  searchUserFilter: async function(req, res){
+    //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenece el usuario
+    //Lo obtengo de la sesión del usuario
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+    const[users] = await user.searchUserFilter(conexion, req.body.filter, codigo_empresa);
+    res.render('users/index', { title: 'Usuarios', users: users[0]});
   }
 }

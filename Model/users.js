@@ -45,8 +45,18 @@ module.exports = {
   },
 
   //Eliminar usuario (Cambia estado a inactivo)
-  deleteUser: function(conexion, codigo){
+  deleteUser:function(conexion, codigo){
     const estado = false;
     return conexion.query('update usuarios set estado = ? where codigo = ?', [estado, codigo]);
+  },
+
+  //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario)
+  searchUser:function(conexion, search, codigo_empresa){
+    return conexion.query('call p_searchUsers(?,?)', [search, codigo_empresa]);
+  },
+
+  //Buscar usuario por filtro (Activos, inactivos o todos)
+  searchUserFilter:function(conexion, search, codigo_empresa){
+    return conexion.query('call p_getUserByStatus(?,?)', [codigo_empresa, search]);
   }
 }

@@ -53,6 +53,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //Mensaje de éxito
   app.locals.msg = req.flash('msg'); //msg = message de error o cualquier otro tipo.
+  app.locals.noFound = req.flash('noFound'); // Mensaje de búsqueda no encontrada.
   app.locals.incorrectPassword = req.flash('incorrectPassword');
   app.locals.user = req.user; // Datos de la sesión del usuario.
   next(); //Para que la aplicación continue con las rutas de abajo.

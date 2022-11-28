@@ -19,76 +19,79 @@
               <span class="button-new-text">Crear nuevo usuario</span>
           </a>
 
-          <form action="#" role="search" class="input-area">
-            <div class="input-group  col-12  col-md-6">
-              <input type="search" placeholder="Buscar" class="input-search col-12">
-              <button type="button" class="button-search">
-                <span class="button-search-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
-                    <path fill="currentColor"
-                      d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z">
-                    </path>
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <div class="search-filter">
-              <div class="search-filter-container">
-                <button class="button-filter  button-selected" type="button" id="btn-todos">
-                  <span class="button-text">Todos</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-codigo">
-                  <span class="button-text">Código</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-nombre">
-                  <span class="button-text">Nombre</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-activos">
-                  <span class="button-text">Activos</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-inactivos">
-                  <span class="button-text">Inactivos</span>
+          <div class="input-area">
+            <form method="post" action="/users/search" role="search">
+              <div class="input-group  col-12  col-md-6">
+                <input type="search" name="search" placeholder="Nombre, código, usuario o el tipo" class="input-search col-12" required>
+                <button type="submit" class="button-search">
+                  <span class="button-search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                      <path fill="currentColor"
+                        d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z">
+                      </path>
+                    </svg>
+                  </span>
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+            <form method="post" action="/users/searchFilter">
+              <div class="search-filter">
+                <div class="search-filter-container">
+                  <button class="button-filter" name="filter" value="Todos" type="submit" id="btn-todos">
+                    <span class="button-text">Todos</span>
+                  </button>
+                  <button class="button-filter" name="filter" value="Activos" type="submit" id="btn-activos">
+                    <span class="button-text">Activos</span>
+                  </button>
+                  <button class="button-filter" name="filter" value="Inactivos" type="submit" id="btn-inactivos">
+                    <span class="button-text">Inactivos</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
 
           <h1>Lista de usuarios</h1>
 
           <section class="result-area">
-            <% for( let user = 0; user < users.length; user++ ) { %>
-              <article class="card-result col-12 col-md-6">
-                <div class="card-result-container">
-                  <div class="group-header">
-                    <div class="card-result-foto">
-                      <span class="icon-user">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor">
-                          <path
-                            d="M24 23.35q-2.9 0-4.775-1.875Q17.35 19.6 17.35 16.7q0-2.9 1.875-4.75T24 10.1q2.9 0 4.775 1.85 1.875 1.85 1.875 4.75t-1.875 4.775Q26.9 23.35 24 23.35ZM9 38.6v-3.8q0-1.6.85-2.8.85-1.2 2.2-1.85 3.2-1.4 6.125-2.1 2.925-.7 5.825-.7 2.9 0 5.825.725Q32.75 28.8 35.9 30.2q1.4.65 2.25 1.825Q39 33.2 39 34.8v3.8Zm2.25-2.25h25.5V34.8q0-.75-.5-1.475-.5-.725-1.3-1.125-2.95-1.45-5.575-2.025T24 29.6q-2.75 0-5.425.575T13 32.2q-.75.4-1.25 1.125t-.5 1.475ZM24 21.1q1.85 0 3.1-1.25t1.25-3.15q0-1.85-1.25-3.1T24 12.35q-1.85 0-3.1 1.25t-1.25 3.1q0 1.9 1.25 3.15T24 21.1Zm0-4.4Zm0 19.65Z" />
-                        </svg> </span>
+
+            <% if (users.length > 0) { %>
+              <% for( let user = 0; user < users.length; user++ ) { %>
+                <article class="card-result col-12 col-md-6">
+                  <div class="card-result-container">
+                    <div class="group-header">
+                      <div class="card-result-foto">
+                        <span class="icon-user">
+                          <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor">
+                            <path
+                              d="M24 23.35q-2.9 0-4.775-1.875Q17.35 19.6 17.35 16.7q0-2.9 1.875-4.75T24 10.1q2.9 0 4.775 1.85 1.875 1.85 1.875 4.75t-1.875 4.775Q26.9 23.35 24 23.35ZM9 38.6v-3.8q0-1.6.85-2.8.85-1.2 2.2-1.85 3.2-1.4 6.125-2.1 2.925-.7 5.825-.7 2.9 0 5.825.725Q32.75 28.8 35.9 30.2q1.4.65 2.25 1.825Q39 33.2 39 34.8v3.8Zm2.25-2.25h25.5V34.8q0-.75-.5-1.475-.5-.725-1.3-1.125-2.95-1.45-5.575-2.025T24 29.6q-2.75 0-5.425.575T13 32.2q-.75.4-1.25 1.125t-.5 1.475ZM24 21.1q1.85 0 3.1-1.25t1.25-3.15q0-1.85-1.25-3.1T24 12.35q-1.85 0-3.1 1.25t-1.25 3.1q0 1.9 1.25 3.15T24 21.1Zm0-4.4Zm0 19.65Z" />
+                          </svg> </span>
+                      </div>
+                      <header class="card-result-header">
+                        <p><%=users[user].tipo_usuario%></p>
+                        <h2><%=users[user].nombre%></h2>
+                      </header>
                     </div>
-                    <header class="card-result-header">
-                      <p><%=users[user].tipo_usuario%></p>
-                      <h2><%=users[user].nombre%></h2>
-                    </header>
+                    <div class="card-result-options">
+                      <form class="form" method="get" action="/users/myUserProfile">
+                        <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="tertiary-button">
+                          Editar perfil de usuario
+                        </button>
+                      </form>
+                      <form class="form" method="post" action="/users/deleteUser">
+                        <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="tertiary-button">
+                          <span class="button-delete-icon">
+                            Eliminar usuario
+                          </span>
+                        </button>
+                      </form>
+                    </div>
                   </div>
-                  <div class="card-result-options">
-                    <form class="form" method="get" action="/users/myUserProfile">
-                      <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="tertiary-button">
-                        Editar perfil de usuario
-                      </button>
-                    </form>
-                    <form class="form" method="post" action="/users/deleteUser">
-                      <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="tertiary-button">
-                        <span class="button-delete-icon">
-                          Eliminar usuario
-                        </span>
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </article>
-             <% } %>
+                </article>
+               <% } %>
+            <% } else { %>
+              <%- include ../layouts/noFound.ejs%>
+            <% } %>
           </section>
 
           <section class="result-area-table">
@@ -107,51 +110,55 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% for( let user = 0; user < users.length; user++ ) { %>
-                    <tr>
-                      <td><%=users[user].codigo%></td>
-                      <td><%=users[user].tipo_usuario%></td>
-                      <td><%=users[user].nombre%></td>
-                      <td><%=users[user].nombre_usuario%></td>
-                      <td><%=users[user].telefono%></td>
-                      <td><%=users[user].email%></td>
-                      <td><%=users[user].estado%></td>
-                      <td>
-                        <div class="buttons-group">
-                          <div class="button-edit">
-                            <form class="form" method="get" action="/users/myUserProfile">
-                              <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="button">
-                                <span class="button-icon">
+                  <% if (users.length > 0) { %>
+                    <% for( let user = 0; user < users.length; user++ ) { %>
+                      <tr>
+                        <td><%=users[user].codigo%></td>
+                        <td><%=users[user].tipo_usuario%></td>
+                        <td><%=users[user].nombre%></td>
+                        <td><%=users[user].nombre_usuario%></td>
+                        <td><%=users[user].telefono%></td>
+                        <td><%=users[user].email%></td>
+                        <td><%=users[user].estado%></td>
+                        <td>
+                          <div class="buttons-group">
+                            <div class="button-edit">
+                              <form class="form" method="get" action="/users/myUserProfile">
+                                <button name="codigo" value="<%=users[user].codigo%>" type="submit" href="/users/myUserProfile" class="button">
+                                  <span class="button-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                                      <path
+                                        d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z" />
+                                    </svg>
+                                  </span>
+                                </button>
+                              </form>
+                            </div>
+                            <%# <button>Editar</button>%>
+                            <form class="form" method="post" action="/users/deleteUser">
+                              <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="button  button-delete">
+                                <span class="button-delete-icon">
                                   <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
                                     <path
-                                      d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z" />
+                                      d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z" />
                                   </svg>
                                 </span>
                               </button>
                             </form>
                           </div>
-                          <%# <button>Editar</button>%>
-                          <form class="form" method="post" action="/users/deleteUser">
-                            <button name="codigo" value="<%=users[user].codigo%>" type="submit" class="button  button-delete">
-                              <span class="button-delete-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
-                                  <path
-                                    d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z" />
-                                </svg>
-                              </span>
-                            </button>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
+                        </td>
+                      </tr>
+                    <% } %>
                   <% } %>
                 </tbody>
               </table>
+              <% if (users.length === 0) { %>
+                <%- include ../layouts/noFound.ejs%>
+              <% } %>
             </article>
           </section>
           </div>
       </main>
 
       <script src="/javascripts/message.js"></script>
-      <script src="/javascripts/button-selected.js"></script>
       <%- include ../layouts/pie.ejs%>

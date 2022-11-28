@@ -32,5 +32,7 @@ router.post('/editUser', usersController.editUser);
 router.post('/changePassword', usersController.changePassword);
 router.post('/deleteUser', usersController.deleteUser)
 router.post('/uploadPhoto',upload.single('file'), usersController.uploadPhoto);
+router.post('/search', usersController.searchUser);
+router.post('/searchFilter', usersController.searchUserFilter)
 
 module.exports = router;

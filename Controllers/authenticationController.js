@@ -49,20 +49,20 @@ module.exports={
   getMunicipios:async function (req, res){
     let searchQuery = req.query.parent_value;
     const [municipios] = await conexion.query('SELECT codigo, municipio FROM municipios where codigo_provincia = ?', searchQuery);
-    res.json(municipios);
+    return res.json(municipios);
   },
 
   //Trato de obtener un nombre de usuario para verificar si ya existe
   getUser:async function(req, res){
     let user = req.query.user;
     const [dato] = await users.getUser(conexion, user); 
-    res.json(dato);
+    return res.json(dato);
   },
 
   getCompany: async function(req, res){
     let company = req.query.company
     const [dato] = await companys.getCompany(conexion, company);
-    res.json(dato);
+    return res.json(dato);
   }
 }
  

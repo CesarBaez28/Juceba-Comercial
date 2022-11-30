@@ -95,7 +95,7 @@ h1 {
   padding: 0.3rem 0.5rem
 }
 
-.button, .button-edit, .button-delete, .button-icon{
+.button, .button-edit-container, .button-delete, .button-icon{
   display: flex;
 }
 
@@ -129,6 +129,10 @@ h1 {
 .field-input {
   margin-top: 2px;
   width: 100%;
+}
+
+.icon {
+  top: 1.99rem;
 }
 
 @media screen and (min-width: 48em){

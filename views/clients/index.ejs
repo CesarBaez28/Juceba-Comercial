@@ -1,83 +1,96 @@
 <%- include ../layouts/cabeza.ejs %> 
 <link rel="stylesheet" href="/stylesheets/components.css">
+<link rel="stylesheet" href="/stylesheets/form.css">
 <link rel="stylesheet" href="/stylesheets/clients/clients.css">
 <%- include ../layouts/cabecera.ejs %> 
 
 <%- include ../layouts/menu-lateral.ejs%> 
 
+<%- include ../layouts/messages.ejs%>
+
 <main class="page-content" id="page-content">
 
   <div class="page-content-container">
 
-    <a href="clients/createClient" class="button-new  button-open-dialog">
-      <span class="button-new-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z"/></svg> 
-      </span>
-      <span class="button-new-text">Crear nuevo cliente</span>
-    </a>
+    <form method="get" action="clients/createClient">
+      <button type="submit" name="codigo" id="button-new" value="" class="button-new button-open-dialog">
+        <span class="button-new-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z"/></svg> 
+        </span>
+        <span class="button-new-text">Crear nuevo cliente</span>
+      </button>
+    </form>
 
-    <form action="#" role="search" class="input-area">
-      <div class="input-group  col-12  col-md-6">
-        <input type="search" placeholder="Buscar" class="input-search col-12">
-        <button type="button" class="button-search">
-          <span class="button-search-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"> <path fill="currentColor" d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z"></path></svg>
-          </span>
-        </button>
-      </div>
-      <div class="search-filter">
-        <div class="search-filter-container">
-          <button class="button-filter  button-selected" type="button" id="btn-todos">
-            <span class="button-text">Todos</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-codigo">
-            <span class="button-text">Código</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-nombre">
-            <span class="button-text">Nombre</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-provincia">
-            <span class="button-text">Provincia</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-municipio">
-            <span class="button-text">Municipio</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-activos">
-            <span class="button-text">Activos</span>
-          </button>
-          <button class="button-filter" type="button" id="btn-inactivos">
-            <span class="button-text">Inactivos</span>
+    <div class="input-area">
+      <form method="post" action="/clients/search" role="search">
+        <div class="input-group  col-12  col-md-6">
+          <input type="search" name="search" placeholder="Nombre, ID o dirección" class="input-search col-12" required>
+          <button type="submit" class="button-search">
+            <span class="button-search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                <path fill="currentColor"
+                  d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z">
+                </path>
+              </svg>
+            </span>
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+      <form method="post" action="/clients/searchFilter">
+        <div class="search-filter">
+          <div class="search-filter-container">
+            <button class="button-filter" name="filter" value="Todos" type="submit" id="btn-todos">
+              <span class="button-text">Todos</span>
+            </button>
+            <button class="button-filter" name="filter" value="Activos" type="submit" id="btn-activos">
+              <span class="button-text">Activos</span>
+            </button>
+            <button class="button-filter" name="filter" value="Inactivos" type="submit" id="btn-inactivos">
+              <span class="button-text">Inactivos</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
 
     <h1>Lista de clientes</h1>
 
     <section class="result-area">
-
-      <% for( let index = 0; index < 30; index++ ) { %>
-        <article class="card-result col-12 col-md-6">
-          <div class="card-result-container">
-            <div class="group-header">
-              <div class="card-result-foto">
-                <span class="icon-client">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M7.2 46v-3h33.6v3Zm0-41V2h33.6v3ZM24 25.8q2.5 0 4.2-1.7 1.7-1.7 1.7-4.2t-1.7-4.2Q26.5 14 24 14t-4.2 1.7q-1.7 1.7-1.7 4.2t1.7 4.2q1.7 1.7 4.2 1.7ZM6.6 40q-1.2 0-2.1-.9-.9-.9-.9-2.1V11q0-1.3.9-2.15Q5.4 8 6.6 8h34.8q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm4.4-3h26q-2.45-3.15-6.025-4.725Q27.4 30.7 24 30.7q-3.45 0-6.95 1.575T11 37Z"/></svg>           
-               </span>
+      <% if (clients.length > 0) { %>
+        <% for(let client = 0; client < clients.length; client++) { %>
+          <article class="card-result col-12 col-md-6">
+            <div class="card-result-container">
+              <div class="group-header">
+                <div class="card-result-foto">
+                  <span class="icon-client">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M7.2 46v-3h33.6v3Zm0-41V2h33.6v3ZM24 25.8q2.5 0 4.2-1.7 1.7-1.7 1.7-4.2t-1.7-4.2Q26.5 14 24 14t-4.2 1.7q-1.7 1.7-1.7 4.2t1.7 4.2q1.7 1.7 4.2 1.7ZM6.6 40q-1.2 0-2.1-.9-.9-.9-.9-2.1V11q0-1.3.9-2.15Q5.4 8 6.6 8h34.8q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm4.4-3h26q-2.45-3.15-6.025-4.725Q27.4 30.7 24 30.7q-3.45 0-6.95 1.575T11 37Z"/></svg>           
+                 </span>
+                </div>
+                <header class="card-result-header">
+                  <p><%=clients[client].telefono%></p>
+                  <h2><%=clients[client].nombre%> </h2>
+                </header>
               </div>
-              <header class="card-result-header">
-                <p>829-944-4392</p>
-                <h2>Nombre del cliente</h2>
-              </header>
+              <div class="card-result-options">
+                <form method="get" action="/clients/editClient">
+                  <button name="codigo" value="<%=clients[client].codigo%>" type="submit" class="tertiary-button button-open-dialog">
+                    Editar datos del cliente
+                  </button>
+                </form>
+                <form method="post" action="/clients/deleteClient">
+                  <button name="codigo" value="<%=clients[client].codigo%>" type="submit" class="tertiary-button">
+                    <span class="button-delete-icon">
+                      Eliminar cliente
+                    </span>
+                  </button>
+                </form>
+              </div>
             </div>
-            <div class="card-result-options">
-              <a class="button-edit  button-open-dialog" href="/clients/editClient">Editar información del cliente</a>
-              <a href="">Eliminar cliente</a>
-            </div>
-          </div>
-        </article>
+          </article>
+        <% } %>
+      <% } else { %>
+        <%- include ../layouts/noFound.ejs%>
       <% } %>
-
     </section>
 
     <section class="result-area-table">
@@ -88,42 +101,54 @@
               <th>Id</th>
               <th>Nombre</th>
               <th>Teléfono</th>
-              <th>Provincia</th>
-              <th>Municipio</th>
+              <th>Dirección</th>
               <th>Fecha</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>43223</td>
-              <td>César</td>
-              <td>8098542456</td>
-              <td>Santiago</td>
-              <td>Jánico</td>
-              <td>22/07/13</td>
-              <td>Activo</td>
-              <td>
-                <div class="buttons-group">
-                  <div class="button-edit">
-                    <a href="#" class="button-edit  button  button-open-dialog">
-                      <span class="button-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
-                      </span>
-                    </a>
-                  </div>
-                  <%#  <button>Editar</button>%> 
-                  <button class="button  button-delete">
-                    <span class="button-delete-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
-                    </span>
-                  </button>
-                </div>
-              </td>
-            </tr>
+            <% if (clients.length > 0) { %>
+              <% for( let client = 0; client < clients.length; client++ ) { %>
+                <tr>
+                  <td><%=clients[client].codigo%></td>
+                  <td><%=clients[client].nombre%></td>
+                  <td><%=clients[client].telefono%></td>
+                  <td>
+                    <%=clients[client].provincia%>, <%=clients[client].municipio%>. <br>
+                    <%=clients[client].sector%>. <%=clients[client].calle_y_numero%>
+                  </td>
+                  <td>
+                    <%=clients[client].fecha_registro.getFullYear()%>-<%=clients[client].fecha_registro.getMonth()+1%>-<%=clients[client].fecha_registro.getDate()%>
+                  </td>
+                  <td><%=clients[client].estado%></td>
+                  <td>
+                    <div class="buttons-group">
+                      <div class="button-edit-container">
+                        <button class="button-edit  button  button-open-dialog" value="<%=clients[client].codigo%>">
+                          <span class="button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
+                          </span>
+                        </button>
+                      </div>
+                      <%#  <button>Editar</button>%> 
+                      <form method="post" action="/clients/deleteClient">
+                        <button name="codigo" value="<%=clients[client].codigo%>" type="submit" class="button  button-delete">
+                          <span class="button-delete-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
+                          </span>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% } %>
+            <% } %>
           </tbody>
         </table>
+        <% if (clients.length === 0) { %>
+          <%- include ../layouts/noFound.ejs%>
+        <% } %>
       </article>
     </section>
 
@@ -144,30 +169,63 @@
     </header>
 
     <div class="ui-dialog-content">
-      <form action="#" class="form">
-        <div class="field">
+      <form method="post" action="/clients/insertClient" class="form" id="formulario">
+        <div class="field" id="group-name">
           <label class="field-label" for="nombre">Nombre:</label>
-          <input class="field-input" type="text" name="nombre" required>
+          <input class="field-input" id="name" value="" type="text" name="name" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre tiene que ser de 4 a 16 dígitos y no puede contener números.</p>
         </div>
-        <div class="field">
-          <label class="field-label" for="telefono">Teléfono:</label>
-          <input class="field-input" type="tel" name="telefono" required>
+        <div class="field" id="group-telefono">
+          <label class="field-label" for="telefono">Número de teléfono:</label>
+          <input class="field-input" id="telefono" value="" type="tel" name="telefono" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
-        <div class="field">
+        <div <% if (clients.length > 0) { %>  
+          value="<%=clients[0].codigo_provincia%>"
+          <% } else { %>
+            value=""
+          <% } %> class="field" id="field-provincias">
           <label class="field-label" for="provincia">Provincia:</label>
-          <input class="field-input" type="text" name="provincia" required>
+          <select class="field-input" name="provincia" id="provincia" required>
+            <option value="">Seleccione una opcion</option>
+            <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
+              <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
+            <% } %>
+          </select>
         </div>
-        <div class="field">
+        <div <% if (clients.length > 0) { %>  
+          value="<%=clients[0].codigo_municipio%>"
+          <% } else { %>
+            value=""
+          <% } %> id="field-municipio" class="field">
           <label class="field-label" for="municipio">Municipio:</label>
-          <input class="field-input" type="text" name="municipio" required>
+          <select class="field-input" name="municipio" id="municipio" required>
+          </select>
         </div>
-        <div class="field">
-          <label class="field-label" for="fecha">Fecha:</label>
-          <input class="field-input" type="datetime" name="fecha" required>
+        <div class="field" id="group-sector">
+          <label class="field-label" for="sector">Sector:</label>
+          <input class="field-input" id="sector" value="" type="text" name="sector" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre del sector tiene que ser mayor a 3 dígitos y no se permiten números</p>
         </div>
-        <div class="field">
+        <div class="field" id="group-calleYNumero">
+          <label class="field-label" for="calle_y_numero">Calle y número:</label>
+          <input class="field-input" id="calleYNumero" value="" type="text" name="calle_y_numero" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre de la calle tiene que ser mayor a 4 dígitos</p>
+        </div>
+        <div id="field-status" class="field">
           <label class="field-label" for="status">Estado:</label>
-          <select class="field-input" name="status" id=""></select>
+          <select id="ClientStatus" class="field-input" name="status">
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
         </div>
         <div class="ui-dialog-buttons-container">
           <button class="ui-dialog-button-form" id="button-cancel" type="button">Cancelar</button>
@@ -178,6 +236,11 @@
   </div>
 </div>
 
-<script src="/javascripts/ui-dialog.js"></script>
 <script src="/javascripts/button-selected.js"></script>
+<script src="/javascripts/message.js"></script>
+<script type="module" src="/javascripts/addresses.js"></script>
+<script src="/javascripts/selectedAddress.js"></script>
+<script src="/javascripts/createEditClient.js"></script>
+<script src="/javascripts/clientValidation.js"></script>
+<script src="/javascripts/ui-dialog.js"></script>
 <%- include ../layouts/pie.ejs%> 

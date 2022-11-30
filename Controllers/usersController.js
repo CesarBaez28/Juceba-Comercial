@@ -95,7 +95,7 @@ module.exports = {
       newUser.userName, newUser.name, newUser.password, newUser.email);
     await conexion.query('COMMIT');
     req.flash('success', 'Usuario registrado correctamente');
-    res.redirect('/users');
+    return res.redirect('/users');
   },
 
   //Editar datos de un usuario
@@ -133,21 +133,21 @@ module.exports = {
     await conexion.query('COMMIT');
 
     req.flash('success', 'Usuario actualizado correctamente')
-    res.redirect('/users/myUserProfile?codigo=' + user.codigo + '');
+    return res.redirect('/users/myUserProfile?codigo=' + user.codigo + '');
   },
 
   //Eliminar usuario (Cambiar estado a inactivo)
   deleteUser: async function (req, res) {
     await users.deleteUser(conexion, req.body.codigo)
     req.flash('success', 'Usuario eliminado correctamente')
-    res.redirect('/users');
+    return res.redirect('/users');
   },
 
   //Trato de obtener un nombre de usuario para verificar si ya existe
   getUser: async function (req, res) {
     let user = req.query.user;
     const [dato] = await users.getUser(conexion, user);
-    res.json(dato);
+    return res.json(dato);
   },
 
   //Renderizar vista changePassword
@@ -176,12 +176,12 @@ module.exports = {
 
       //Mando mensaje de éxito y redirecciono.
       req.flash('success', 'Ha cambiado su contraseña correctamente');
-      res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
+      return res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
     }
     else
     {
       req.flash('msg', 'Las contraseñas no son iguales');
-      res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
+      return res.redirect('/users/changePassword?codigo='+req.query.codigo+'');
     }
   },
 
@@ -189,7 +189,7 @@ module.exports = {
   uploadPhoto: async function(req, res){
     await users.uploadPhoto(conexion,req.query.codigo,req.file.filename);
     req.flash('success', 'Ha cambiado su foto de perfil correctamente')
-    res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');
+    return res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');
   },
 
   //Buscar usuarios (por nombre, codigo, tipo de usuario, nombre de usuario menos el usuario actual que inicia sesión)
@@ -199,7 +199,7 @@ module.exports = {
     const codigo_empresa = req.user[0]['codigo_empresa'];
     const usuarioActual = req.user[0]['codigo'];
     const [users] = await user.searchUser(conexion, req.body.search, codigo_empresa, usuarioActual);
-    res.render('users/index', { title: 'Usuarios', users: users[0] });
+    return res.render('users/index', { title: 'Usuarios', users: users[0] });
   },
 
   //Buscar usuarios por estados (activos, inactivos o todos menos el usuario actual que inicia sesión)
@@ -209,6 +209,6 @@ module.exports = {
     const codigo_empresa = req.user[0]['codigo_empresa'];
     const usuarioActual = req.user[0]['codigo'];
     const[users] = await user.searchUserFilter(conexion, req.body.filter, codigo_empresa, usuarioActual);
-    res.render('users/index', { title: 'Usuarios', users: users[0]});
+    return res.render('users/index', { title: 'Usuarios', users: users[0]});
   }
 }

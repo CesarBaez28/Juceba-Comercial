@@ -11,7 +11,7 @@
 
         <div class="page-content-container" id="page-content-container">
 
-          <a href="users/createUser" class="button-new">
+          <a href="/users/createUser" class="button-new">
             <span class="button-new-icon">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
                 <path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z" />
@@ -22,7 +22,7 @@
           <div class="input-area">
             <form method="post" action="/users/search" role="search">
               <div class="input-group  col-12  col-md-6">
-                <input type="search" name="search" placeholder="Nombre, código, usuario o el tipo" class="input-search col-12" required>
+                <input type="search" name="search" placeholder="Nombre, ID, usuario o el tipo" class="input-search col-12" required>
                 <button type="submit" class="button-search">
                   <span class="button-search-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
@@ -54,7 +54,6 @@
           <h1>Lista de usuarios</h1>
 
           <section class="result-area">
-
             <% if (users.length > 0) { %>
               <% for( let user = 0; user < users.length; user++ ) { %>
                 <article class="card-result col-12 col-md-6">

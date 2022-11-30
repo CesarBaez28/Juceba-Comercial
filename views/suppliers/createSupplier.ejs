@@ -13,30 +13,48 @@
     </header>
 
     <section class="col-md-6">
-      <form action="#" class="form">
-        <div class="field">
+      <form method="post" action="/suppliers/insertSupplier" class="form" id="formulario">
+        <div class="field" id="group-name">
           <label class="field-label" for="nombre">Nombre:</label>
-          <input class="field-input" type="text" name="nombre" required>
+          <input class="field-input" type="text" name="name" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre tiene que ser de 4 a 16 dígitos y no puede contener números.</p>
         </div>
-        <div class="field">
-          <label class="field-label" for="telefono">Teléfono:</label>
+        <div class="field" id="group-telefono">
+          <label class="field-label" for="telefono">Número de teléfono:</label>
           <input class="field-input" type="tel" name="telefono" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
         <div class="field">
           <label class="field-label" for="provincia">Provincia:</label>
-          <input class="field-input" type="text" name="provincia" required>
+          <select class="field-input" name="provincia" id="provincia" required>
+            <option value="">Seleccione una opcion</option>
+            <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
+              <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
+            <% } %>
+          </select>
         </div>
         <div class="field">
           <label class="field-label" for="municipio">Municipio:</label>
-          <input class="field-input" type="text" name="municipio" required>
+          <select class="field-input" name="municipio" id="municipio" required>
+          </select>
         </div>
-        <div class="field">
-          <label class="field-label" for="fecha">Fecha:</label>
-          <input class="field-input" type="datetime" name="fecha" required>
+        <div class="field" id="group-sector">
+          <label class="field-label" for="sector">Sector:</label>
+          <input class="field-input" type="text" name="sector" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre del sector tiene que ser mayor a 3 dígitos y no se permiten números</p>
         </div>
-        <div class="field">
-          <label class="field-label" for="status">Estado:</label>
-          <select class="field-input" name="status" id=""></select>
+        <div class="field" id="group-calleYNumero">
+          <label class="field-label" for="calle_y_numero">Calle y número:</label>
+          <input class="field-input" type="text" name="calle_y_numero" required>
+          <span class="icon" id="icon">
+          </span>
+          <p class="input-message">El nombre de la calle tiene que ser mayor a 4 dígitos</p>
         </div>
         <div class="buttons-container">
           <a href="/suppliers" class="button-form" type="button">Cancelar</a>
@@ -49,4 +67,6 @@
 
 </main>
 
+<script type="module" src="/javascripts/addresses.js"></script>
+<script src="/javascripts/suppliersValidation.js"></script>
 <%- include ../layouts/pie.ejs%> 

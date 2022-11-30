@@ -120,3 +120,19 @@ create table clientes (
   fecha_registro datetime default CURRENT_TIMESTAMP,
   estado bit default 1
 );
+
+/*Suplidores*/
+create table suplidores (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_suplidores primary key(codigo),
+  codigo_telefono int not null, /*fk*/
+  constraint fk_codigo_telefono_suplidores foreign key(codigo_telefono) references telefonos(codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_suplidores foreign key(codigo_empresa) references empresas(codigo),
+  codigo_direccion int not null,
+  constraint fk_codigo_direccion_suplidores foreign key(codigo_direccion) references direcciones (codigo),
+  nombre varchar(100),
+  descripcion varchar(250) default '',
+  fecha_registro datetime default CURRENT_TIMESTAMP,
+  estado bit default 1
+);

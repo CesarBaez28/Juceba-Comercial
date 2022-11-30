@@ -1,5 +1,3 @@
-const { query } = require("../Config/conectionMysql");
-
 module.exports = {
 
   //Obtener todos los clientes activos de una empresa

@@ -192,3 +192,24 @@ begin
   end if;
 end
 //
+
+/*---------Procedimientos almacenados relacionados con los suplidores del sistema--------*/
+
+/*Obtener todos los suplodores activos del sistema de una empresa*/
+delimiter //
+create procedure p_getActiveSuppliers (in codigo_empresa int)
+begin
+  select suplidores.codigo, suplidores.nombre, telefonos.telefono, provincias.codigo as 'codigo_provincia', 
+  provincias.provincia, municipios.codigo as 'codigo_municipio', municipios.municipio, sectores.sector, 
+  callesYnumero.calle_y_numero, suplidores.fecha_registro,
+  CASE WHEN suplidores.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado 
+  FROM suplidores join telefonos on telefonos.codigo = suplidores.codigo_telefono
+  join empresas on empresas.codigo = suplidores.codigo_empresa
+  join direcciones on direcciones.codigo = suplidores.codigo_direccion
+  join provincias on provincias.codigo = direcciones.codigo_provincia 
+  join municipios on municipios.codigo = direcciones.codigo_municipio
+  join sectores on sectores.codigo = direcciones.codigo_sector
+  join callesYnumero on callesYnumero.codigo = direcciones.codigo_calle_y_numero
+  where suplidores.codigo_direccion = direcciones.codigo and suplidores.estado = 1 and suplidores.codigo_empresa = codigo_empresa;
+end
+//

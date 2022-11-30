@@ -2,10 +2,10 @@ const nombre = document.getElementById('name');
 const telefono = document.getElementById('telefono');
 const sector = document.getElementById('sector');
 const calleYNumero = document.getElementById('calleYNumero');
-const clientStatus = document.getElementById('ClientStatus');
+const supplierStatus = document.getElementById('SupplierStatus');
 const buttonsEdit = document.querySelectorAll('.button-edit');
 const buttonNew = document.getElementById('button-new');
-let codigoCliente;
+let codigoSuplidor;
 
 buttonsEdit.forEach((buttonEdit) => {
   buttonEdit.addEventListener('click', editSupplier);
@@ -23,26 +23,26 @@ function createSupplier() {
   resetValidations(); 
 }
 
-let clients;
+let suppliers;
 async function editSupplier(button) {
   try {
-    codigoCliente = button.currentTarget.value;
-    const respuesta = await fetch('/clients/getClients?client=' + codigoCliente + '');
-    clients = await respuesta.json();
+    codigoSuplidor = button.currentTarget.value;
+    const respuesta = await fetch('/suppliers/getSupplier?supplier=' + codigoSuplidor + '');
+    suppliers = await respuesta.json();
 
-    if (clients.length) {
-      nombre.value = clients[0][0].nombre;
-      telefono.value = clients[0][0].telefono;
-      sector.value = clients[0][0].sector;
-      calleYNumero.value = clients[0][0].calle_y_numero;
-      console.log(clients[0][0].estado )
-      if(clients[0][0].estado === 'Activo')
+    if (suppliers.length) {
+      nombre.value = suppliers[0][0].nombre;
+      telefono.value = suppliers[0][0].telefono;
+      sector.value = suppliers[0][0].sector;
+      calleYNumero.value = suppliers[0][0].calle_y_numero;
+      console.log(suppliers[0][0].estado )
+      if(suppliers[0][0].estado === 'Activo')
       {
-        clientStatus.value = 1;
+        supplierStatus.value = 1;
       } 
       else
       {
-        clientStatus.value = 0;
+        supplierStatus.value = 0;
       }
     }
     //Reseteo las validaciones del formulario

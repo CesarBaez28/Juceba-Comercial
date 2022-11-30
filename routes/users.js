@@ -8,12 +8,12 @@ let fecha = Date.now();
 //Guardar archivos(fotos...)
 const storeRute = multer.diskStorage({
   destination: function (request, file, callback) {
-    callback(null, './public/images/users/')
+    return callback(null, './public/images/users/')
   },
 
   filename:function(request, file, callback){
     console.log(file);
-    callback(null,fecha+"_"+file.originalname);
+    return callback(null,fecha+"_"+file.originalname);
   }
 });
 const upload = multer({storage:storeRute});

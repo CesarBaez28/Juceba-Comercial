@@ -23,7 +23,7 @@ function camposEstados() {
   else if (document.title === 'Suplidores')//Vista suplidores
   {
     let dialog_title = document.getElementById("ui-dialog-title");
-    if (dialog_title.textContent === 'Editar cliente') {
+    if (dialog_title.textContent === 'Editar suplidor') {
       campos = {
         name: true,
         telefono: true,

@@ -39,8 +39,26 @@ for (const button of button_open_dialog) {
         camposEstados();
       }
       else if (document.title === 'Suplidores') {
-        (button.classList.item(0) === 'button-edit') ? dialog_title.textContent = "Editar suplidor" :
+        if (button.classList.item(0) === 'button-edit') {
+          dialog_title.textContent = "Editar suplidor"
+          fiel_status.style.display = 'block';
+
+          //Obtengo la provincia y municipio al que pertenece el cliente.
+          //Lo hago a través de la función fetch_data del archivo selectedAddress.js
+          fetch_data(provincia, municipio);
+
+          //Obtengo el código cliente del archivo createEditClient.js
+          //de la función editUser.
+          formulario.action = '/suppliers/updateSupplier?codigo='+codigoSuplidor+'';
+        }
+        else {
+          provincia.value = '';
+          municipio.value = '';
           dialog_title.textContent = "Crear suplidor";
+          fiel_status.style.display = 'none';
+          formulario.action = '/suppliers/insertSupplier';
+        }
+        camposEstados();
       }
       button.type = 'button'
       ui_dialog.setAttribute('style', 'position: absolute;' + 'top:' + '10' + '%;' + 'left:' + left + 'px;');

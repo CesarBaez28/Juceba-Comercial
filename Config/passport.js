@@ -128,10 +128,10 @@ passport.use('local.signup', new LocalStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-  done(null, user.codigo);
+  return done(null, user.codigo);
 });
 
 passport.deserializeUser(async (id, done) => {
   const rows = await conexion.query('select * from usuarios where codigo = ?', [id]);
-  done(null, rows[0]);
+  return done(null, rows[0]);
 }); 

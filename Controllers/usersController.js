@@ -12,7 +12,7 @@ module.exports = {
     let codigoEmpresa = req.user[0]['codigo_empresa'];
     let usuarioActual = req.user[0]['codigo'];
     const [users] = await user.getUsers(conexion, codigoEmpresa, usuarioActual);
-    res.render('users/index', { title: 'Usuarios', users: users[0] });
+    return res.render('users/index', { title: 'Usuarios', users: users[0] });
   },
 
   //Renderizar vista myProfile
@@ -22,9 +22,9 @@ module.exports = {
     let [tiposUsuarios] = await users.getTypeOfUser(conexion);
     let codigoUser = req.query.codigo;
     const [user] = await users.getUserByID(conexion, codigoUser);
-    res.render('users/myPerfil', {
+    return res.render('users/myPerfil', {
       title: 'Mi perfil de usuario',
-      user: user[0],
+      users: user[0],
       tiposUsuarios
     });
   },
@@ -39,7 +39,7 @@ module.exports = {
     //Obtengo los tipos de usuario (administrador, empleado, contador...)
     let [tiposUsuarios] = await users.getTypeOfUser(conexion);
 
-    res.render('users/editProfile', {
+    return res.render('users/editProfile', {
       title: 'Editar perfil de usuario',
       user: user[0],
       tiposUsuarios
@@ -52,7 +52,7 @@ module.exports = {
     //Obtengo los tipos de usuario (administrador, empleado, contador...)
     let [tiposUsuarios] = await user.getTypeOfUser(conexion);
 
-    res.render('users/createUser', {
+    return res.render('users/createUser', {
       title: 'Crear nuevo usuario',
       tiposUsuarios
     });
@@ -72,7 +72,7 @@ module.exports = {
       status: req.body.status
     }
 
-    await conexion.query('START TRANSACTION');
+    //await conexion.query('START TRANSACTION');
 
     let telefono;
 
@@ -93,7 +93,7 @@ module.exports = {
     newUser.password = await helpers.encryptPassword(newUser.password); //Encripto la contraseña
     await users.insertUser(conexion, newUser.typeOfUser, telefono, empresa,
       newUser.userName, newUser.name, newUser.password, newUser.email);
-    await conexion.query('COMMIT');
+    //await conexion.query('COMMIT');
     req.flash('success', 'Usuario registrado correctamente');
     return res.redirect('/users');
   },
@@ -110,7 +110,7 @@ module.exports = {
       status: req.body.status
     }
 
-    await conexion.query('START TRANSACTION');
+    //await conexion.query('START TRANSACTION');
 
     let telefono;
 
@@ -129,8 +129,8 @@ module.exports = {
     (user.status === 'true') ? user.status = true : user.status = false; 
     console.log(user)
     await users.editUser(conexion, user.typeOfUser, telefono,
-      user.userName, user.name, user.email, user.status, user.userName);
-    await conexion.query('COMMIT');
+      user.userName, user.name, user.email, user.status, user.codigo);
+    //await conexion.query('COMMIT');
 
     req.flash('success', 'Usuario actualizado correctamente')
     return res.redirect('/users/myUserProfile?codigo=' + user.codigo + '');
@@ -154,7 +154,7 @@ module.exports = {
   changePasswordView: async function (req, res) {
     let codigoUser = req.query.codigo;
     const [user] = await users.getUserByID(conexion, codigoUser);
-    res.render('users/changePassword', {
+    return res.render('users/changePassword', {
       title: 'Cambiar contraseña',
       user: user[0]
     });

@@ -25,8 +25,8 @@ module.exports = {
   },
 
   //Editar un usuario
-  editUser:function(conexion, tipoUsuario, telefono, username, name, email, estado){
-    return conexion.query('update usuarios SET  codigo_tipo_usuario = ?, codigo_telefono = ?, nombre_usuario = ?, nombre = ?, email = ?, estado = ? Where nombre_usuario = ?', [tipoUsuario, telefono, username, name, email, estado, username]);
+  editUser:function(conexion, tipoUsuario, telefono, username, name, email, estado, codigo){
+    return conexion.query('update usuarios SET  codigo_tipo_usuario = ?, codigo_telefono = ?, nombre_usuario = ?, nombre = ?, email = ?, estado = ? Where codigo = ?', [tipoUsuario, telefono, username, name, email, estado, codigo]);
   },
 
   //Obtener un usuario por su código

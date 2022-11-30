@@ -95,7 +95,7 @@ h1 {
   padding: 0.3rem 0.5rem
 }
 
-.button, .button-edit, .button-delete, .button-icon{
+.button, .button-edit-container, .button-delete, .button-icon{
   display: flex;
 }
 

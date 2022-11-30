@@ -8,12 +8,12 @@ module.exports={
 
   //Obtener vista para el inicio de sesión
   login:function(req, res){
-    res.render('Authentication/login');
+    return res.render('Authentication/login');
   },
 
   //Autenticar proceso de inicio de sesión
   authenticate:function(req, res, next){
-    passport.authenticate('local.signin', {
+    return passport.authenticate('local.signin', {
       successRedirect: '/menuPrincipal',
       failureRedirect: '/authentication/login',
       failureFlash: true
@@ -24,7 +24,7 @@ module.exports={
   logout:function(req, res, next){
     req.logOut(req.user, err =>{
       if(err) return next(err);
-      res.redirect('/authentication/login');
+      return res.redirect('/authentication/login');
     });
   },
 
@@ -33,12 +33,12 @@ module.exports={
     
     //Obtengo las provincias de país para registrar la dirección
     const [provincias] = await addresses.getProvincias(conexion);
-    res.render('Authentication/createAccount', {provincias});
+    return res.render('Authentication/createAccount', {provincias});
   },
 
   //Proceso de autenticación de registro de nueva cuenta de usuario
   signup:function(req, res, next){
-    passport.authenticate('local.signup',{
+    return passport.authenticate('local.signup',{
       successRedirect: '/menuPrincipal',
       failureRedirect: '/authentication/createAccount',
       failureFlash: true

@@ -17,13 +17,13 @@
     <section class="card-my-perfil  col-md-10">
       <article class="card-my-perfil-container">
         <div class="card-items-container">
-          <form method="post" action="/users/uploadPhoto?codigo=<%= user[0].codigo%>" enctype="multipart/form-data" class="perfil-photo-container" id="formPhoto">
+          <form method="post" action="/users/uploadPhoto?codigo=<%= users[0].codigo%>" enctype="multipart/form-data" class="perfil-photo-container" id="formPhoto">
             <span class="icon-perfil-photo">
               <input name="file" type="file" id="file">
               <button id="buttonFile" type="button" class="perfil-photo">
-                <% if (user[0].foto != '') { %>
+                <% if (users[0].foto != '') { %>
                   <div class="image-container">
-                    <img src="/images/users/<%=user[0].foto%>" alt="Foto de perfil">
+                    <img src="/images/users/<%=users[0].foto%>" alt="Foto de perfil">
                   </div>
                 <% } else { %>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 60 60" height="108" width="108">
@@ -41,15 +41,15 @@
            <div class="header-section card-item">
              <div class="header-container">
                <header class="card-header">
-                 <h2 class="card-header-text"><%= user[0].nombre%></h2>
+                 <h2 class="card-header-text"><%= users[0].nombre%></h2>
                </header>
              </div>
            </div>
            <div class="badge-text-container card-item">
-            <span class="badge-text"><%= user[0].tipo_usuario%></span>
+            <span class="badge-text"><%= users[0].tipo_usuario%></span>
            </div>
            <div>
-            <span class="text-user-id card-item">ID:<%= user[0].codigo%></span>
+            <span class="text-user-id card-item">ID:<%= users[0].codigo%></span>
            </div>
           </div>
         </div>
@@ -64,32 +64,32 @@
         <div class="card-data-user-container">
           <div class="card-item-content">
             <div class="card-item-title"> <span>Tipo de usuario</span> </div>
-            <div class="card-item-text"> <span><%=user[0].tipo_usuario%></span></div>
+            <div class="card-item-text"> <span><%=users[0].tipo_usuario%></span></div>
           </div>
           <div class="card-item-content">
             <div class="card-item-title"> <span>Nombre</span> </div>
-            <div class="card-item-text"> <span><%=user[0].nombre%></span></div>
+            <div class="card-item-text"> <span><%=users[0].nombre%></span></div>
           </div>
           <div class="card-item-content">
             <div class="card-item-title"> <span>Nombre de usuario</span> </div>
-            <div class="card-item-text"> <span id="usernameText"><%=user[0].nombre_usuario%></span></div>
+            <div class="card-item-text"> <span id="usernameText"><%=users[0].nombre_usuario%></span></div>
           </div>
           <div class="card-item-content">
             <div class="card-item-title"> <span>Teléfono</span> </div>
-            <div class="card-item-text"> <span><%= user[0].telefono%></span></div>
+            <div class="card-item-text"> <span><%= users[0].telefono%></span></div>
           </div>
           <div class="card-item-content">
             <div class="card-item-title"> <span>Correo electrónico</span> </div>
-            <div class="card-item-text"> <span><%=user[0].email%></span> </div>
+            <div class="card-item-text"> <span><%=users[0].email%></span> </div>
           </div>
           <div class="card-item-content">
             <div class="card-item-title"> <span>Estado</span> </div>
-            <div class="card-item-text"> <span><%=user[0].estado%></span> </div>
+            <div class="card-item-text"> <span><%=users[0].estado%></span> </div>
           </div>
         </div>
         <div class="button-edit-profile">
           <form method="get" action="/users/editProfile">
-            <button type="submit" name="codigo" value="<%=user[0].codigo%>" class="button button-open-dialog">
+            <button type="submit" name="codigo" value="<%=users[0].codigo%>" class="button button-open-dialog">
               <span class="button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
               </span>
@@ -107,7 +107,7 @@
         </header>
         <div class="button-edit-profile">
           <form method="get" action="/users/changePassword">
-            <button type="submit" name="codigo" value="<%=user[0].codigo%>" class="button">
+            <button type="submit" name="codigo" value="<%=users[0].codigo%>" class="button">
               <span class="button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
               </span>
@@ -133,7 +133,7 @@
     </header>
 
     <div class="ui-dialog-content">
-      <form method="post" action="/users/editUser?codigo=<%=user[0].codigo%>" class="form" id="formulario">
+      <form method="post" action="/users/editUser?codigo=<%=users[0].codigo%>" class="form" id="formulario">
         <div class="field">
           <label class="field-label" for="typeOfUser">Tipo de usuario:</label>
           <select class="field-input" name="typeOfUser" id="">
@@ -144,28 +144,28 @@
         </div>
         <div class="field" id="group-name">
           <label class="field-label" for="name">Nombre:</label>
-          <input class="field-input" value="<%=user[0].nombre%>" type="text" name="name" required>
+          <input class="field-input" value="<%=users[0].nombre%>" type="text" name="name" required>
           <span class="icon" id="icon">
           </span>
           <p class="input-message">El nombre tiene que ser de 4 a 16 dígitos y no puede contener números.</p>
         </div>
         <div class="field" id="group-username">
           <label class="field-label" for="username">Nombre de usuario:</label>
-          <input class="field-input" id="userName" value="<%=user[0].nombre_usuario%>" type="text" name="userName" required>
+          <input class="field-input" id="userName" value="<%=users[0].nombre_usuario%>" type="text" name="userName" required>
           <span class="icon" id="icon">
           </span>
           <p class="input-message">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener números, letras y guion bajo.</p>
         </div>
         <div class="field" id="group-telefono">
           <label class="field-label" for="phone">Teléfono:</label>
-          <input class="field-input" value="<%=user[0].telefono%>" type="text" name="telefono" required>
+          <input class="field-input" value="<%=users[0].telefono%>" type="text" name="telefono" required>
           <span class="icon" id="icon">
           </span>
           <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
         <div class="field" id="group-email">
           <label class="field-label" for="email">Correo electrónico:</label>
-          <input class="field-input" value="<%=user[0].email%>" type="email" name="email" required>
+          <input class="field-input" value="<%=users[0].email%>" type="email" name="email" required>
           <span class="icon" id="icon">
           </span>
           <p class="input-message">El correo solo puede contener letras, números, puntos, guiones y guion bajo.</p>
@@ -173,7 +173,7 @@
         <div class="field">
           <label class="field-label" for="status">Estado:</label>
           <select class="field-input" name="status" id="">
-            <% if (user[0].estado === 'Activo') { %>
+            <% if (users[0].estado === 'Activo') { %>
               <option value="true" selected>Activo</option>
               <option value="false">Inactivo</option>
             <% } else { %>

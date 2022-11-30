@@ -47,7 +47,7 @@ module.exports = {
     //------ Validar datos del cliente-----------//
     let telefono, sector, calleYNumero, direccion
 
-    await conexion.query('START TRANSACTION');
+    //await conexion.query('START TRANSACTION');
 
     //Valido si el número suministrado ya existe, si es así obtengo el código(pk) del registro para registrar el cliente con ese número
     try {
@@ -88,7 +88,7 @@ module.exports = {
     //Registro el nuevo cliente
     let empresa = req.user[0]['codigo_empresa'];
     await clients.insertClient(conexion, telefono, empresa, direccion, client.name);
-    await conexion.query('COMMIT');
+    //await conexion.query('COMMIT');
     req.flash('success', 'Cliente registrado correctamente');
     return res.redirect('/clients');
   },
@@ -108,7 +108,7 @@ module.exports = {
     //------ Validar datos del cliente-----------//
     let telefono, sector, calleYNumero, direccion
 
-    await conexion.query('START TRANSACTION');
+    //await conexion.query('START TRANSACTION');
 
     //Valido si el número suministrado ya existe, si es así obtengo el código(pk) del registro para registrar el cliente con ese número
     try {
@@ -146,9 +146,9 @@ module.exports = {
       direccion = direccion[0]['codigo'];
     }
 
-    (client.estado === '1') ? client.estado = true : client.estado = false; 
+    (client.estado === '1' || client.estado === 'true') ? client.estado = true : client.estado = false; 
     await clients.updateClient(conexion, client.name, telefono,direccion, client.estado, req.query.codigo);
-    await conexion.query('COMMIT');
+    //await conexion.query('COMMIT');
     req.flash('success', 'Cliente Actualizado correctamente');
     return res.redirect('/clients');
   },

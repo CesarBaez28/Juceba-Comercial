@@ -1,6 +1,6 @@
 module.exports = {
   showMainMenu:function(req, res){
-    res.render('index', {title:'Menú principal'});
+    return res.render('index', {title:'Menú principal'});
   }
 }
 

@@ -7,7 +7,7 @@ module.exports=
   {
     libro.obtener(conection, function(err, data){
       console.log(data);
-      res.render('index', { title: 'Genial' });
+      return res.render('index', { title: 'Genial' });
     }) 
   }
 }

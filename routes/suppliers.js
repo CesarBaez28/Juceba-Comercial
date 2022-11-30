@@ -13,5 +13,7 @@ router.get('/getSupplier', suppliersController.getSupplier);
 router.post('/insertSupplier', suppliersController.insertSupplier);
 router.post('/updateSupplier', suppliersController.updateSupplier);
 router.post('/deleteSupplier', suppliersController.deleteSupplier)
+router.post('/search', suppliersController.searchSuppliers);
+router.post('/searchFilter', suppliersController.searchSuppliersFilter)
 
 module.exports = router;

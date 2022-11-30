@@ -120,7 +120,7 @@ begin
 end
 //
 
-/*Obtener todos los clientes activos del sistema de una empresa*/
+/*Buscar clientes por su nombre, código o dirección*/
 delimiter //
 create procedure p_searchClients (in codigo_empresa int, in search varchar(255))
 begin
@@ -233,5 +233,75 @@ begin
 end
 //
 
-call p_getSupplierById(1);
-call p_getSupplierById(2);
+/*Buscar suplidores por su nombre, código o dirección*/
+delimiter //
+create procedure p_searchSuppliers (in codigo_empresa int, in search varchar(255))
+begin
+  select suplidores.codigo, suplidores.nombre, telefonos.telefono, provincias.codigo as 'codigo_provincia', 
+  provincias.provincia, municipios.codigo as 'codigo_municipio', municipios.municipio, sectores.sector, 
+  callesYnumero.calle_y_numero, suplidores.fecha_registro,  
+  CASE WHEN suplidores.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado 
+  FROM suplidores join telefonos on telefonos.codigo = suplidores.codigo_telefono
+  join empresas on empresas.codigo = suplidores.codigo_empresa
+  join direcciones on direcciones.codigo = suplidores.codigo_direccion
+  join provincias on provincias.codigo = direcciones.codigo_provincia 
+  join municipios on municipios.codigo = direcciones.codigo_municipio
+  join sectores on sectores.codigo = direcciones.codigo_sector
+  join callesYnumero on callesYnumero.codigo = direcciones.codigo_calle_y_numero
+  where suplidores.codigo_direccion = direcciones.codigo and suplidores.estado = 1 and suplidores.codigo_empresa = codigo_empresa
+  and (suplidores.codigo like CONCAT('%', search, '%') or suplidores.nombre like CONCAT('%', search, '%') 
+  or provincias.provincia like CONCAT('%', search, '%') or municipios.municipio like CONCAT('%', search, '%')
+  or sectores.sector like CONCAT('%', search, '%') or callesYnumero.calle_y_numero like CONCAT('%', search, '%'));
+end
+//
+
+/*Obtener todos los suplidores del sistema de una empresa*/
+delimiter //
+create procedure p_getSuppliers (in codigo_empresa int)
+begin
+  select suplidores.codigo, suplidores.nombre, telefonos.telefono, provincias.codigo as 'codigo_provincia', 
+  provincias.provincia, municipios.codigo as 'codigo_municipio', municipios.municipio, sectores.sector, 
+  callesYnumero.calle_y_numero, suplidores.fecha_registro,
+  CASE WHEN suplidores.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado 
+  FROM suplidores join telefonos on telefonos.codigo = suplidores.codigo_telefono
+  join empresas on empresas.codigo = suplidores.codigo_empresa
+  join direcciones on direcciones.codigo = suplidores.codigo_direccion
+  join provincias on provincias.codigo = direcciones.codigo_provincia 
+  join municipios on municipios.codigo = direcciones.codigo_municipio
+  join sectores on sectores.codigo = direcciones.codigo_sector
+  join callesYnumero on callesYnumero.codigo = direcciones.codigo_calle_y_numero
+  where suplidores.codigo_direccion = direcciones.codigo and suplidores.codigo_empresa = codigo_empresa;
+end
+//
+
+/*Obtener todos los suplidores del sistema según una empresa y estado (Activo, inactivo o todos)*/
+delimiter //
+create procedure p_getSuppliersByStatus (in codigo_empresa int, in search varchar(25))
+begin
+  /*Busca usuarios por el estado especificado*/
+  if search = 'Activos' or search = 'Inactivos' then 
+      
+      if search = 'Activos' then
+        set @estado = 1;
+	  else 
+        set @estado = 0;
+	  end if;
+      
+    select suplidores.codigo, suplidores.nombre, telefonos.telefono, provincias.codigo as 'codigo_provincia', 
+    provincias.provincia, municipios.codigo as 'codigo_municipio', municipios.municipio, sectores.sector, 
+    callesYnumero.calle_y_numero, suplidores.fecha_registro,
+    CASE WHEN suplidores.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado 
+    FROM suplidores join telefonos on telefonos.codigo = suplidores.codigo_telefono
+    join empresas on empresas.codigo = suplidores.codigo_empresa
+    join direcciones on direcciones.codigo = suplidores.codigo_direccion
+    join provincias on provincias.codigo = direcciones.codigo_provincia 
+    join municipios on municipios.codigo = direcciones.codigo_municipio
+    join sectores on sectores.codigo = direcciones.codigo_sector
+    join callesYnumero on callesYnumero.codigo = direcciones.codigo_calle_y_numero
+    where suplidores.codigo_direccion = direcciones.codigo and suplidores.estado = (select @estado) and suplidores.codigo_empresa = codigo_empresa;
+  /*Buscar todos los clientes (Activos e inactivos)*/
+  else 
+    call p_getSuppliers(codigo_empresa);
+  end if;
+end
+//

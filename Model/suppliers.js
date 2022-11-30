@@ -24,9 +24,19 @@ module.exports = {
       [nombre, telefono, direccion, estado, codigo]);
   },
 
-  //Eliminar cliente (Cambiarle estado a inactivo)
+  //Eliminar suplidor (Cambiarle estado a inactivo)
   deteSupplier: function (conexion, codigo) {
     const estado = false;
     return conexion.query("Update suplidores set estado = ? where codigo = ?", [estado, codigo]);
   },
+
+  //Buscar suplidores por nombre, código o dirección
+  searchSuppliers:function(conexion, codigoEmpresa, search){
+    return conexion.query("call p_searchSuppliers(?,?)", [codigoEmpresa, search]);
+  },
+
+  //Buscar suplidores por estados (activos, inactivos o todos)
+  searchSuppliersFilter:function(conexion, codigoEmpresa, search){
+    return conexion.query("call p_getSuppliersByStatus(?,?)", [codigoEmpresa, search]);
+  }
 }

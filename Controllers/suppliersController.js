@@ -168,4 +168,37 @@ module.exports = {
     const [datos] = await suppliers.getSupplierById(conexion, req.query.supplier);
     return res.json(datos);
   },
+
+  searchSuppliers: async function (req, res){
+    //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenecen los clientes
+    //Lo obtengo de la sesión del usuario
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+
+    //Obtengo las provincias de país para registrar la dirección
+    const [provincias] = await addresses.getProvincias(conexion);
+
+    const [suplidores] = await suppliers.searchSuppliers(conexion, codigo_empresa, req.body.search);
+    return res.render('suppliers/index', {
+      title: 'Suplidores',
+      suppliers: suplidores[0],
+      provincias
+    });
+  },
+
+  //Buscar suplidores por estado (activos, inactivos o todos);
+  searchSuppliersFilter: async function (req, res){
+    //Obtengo el código de la empresa para realizar la búsqueda en la empresa que pertenecen los clientes
+    //Lo obtengo de la sesión del usuario
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+
+    //Obtengo las provincias de país para registrar la dirección
+    const [provincias] = await addresses.getProvincias(conexion);
+    
+    const [suplidores] = await suppliers.searchSuppliersFilter(conexion, codigo_empresa, req.body.filter);
+    return res.render('suppliers/index', {
+      title: 'Suplidores',
+      suppliers: suplidores[0],
+      provincias
+    });
+  }
 }

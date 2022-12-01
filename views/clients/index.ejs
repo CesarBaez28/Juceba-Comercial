@@ -184,11 +184,7 @@
           </span>
           <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
-        <div <% if (clients.length > 0) { %>  
-          value="<%=clients[0].codigo_provincia%>"
-          <% } else { %>
-            value=""
-          <% } %> class="field" id="field-provincias">
+        <div class="field" id="field-provincias">
           <label class="field-label" for="provincia">Provincia:</label>
           <select class="field-input" name="provincia" id="provincia" required>
             <option value="">Seleccione una opcion</option>
@@ -197,11 +193,7 @@
             <% } %>
           </select>
         </div>
-        <div <% if (clients.length > 0) { %>  
-          value="<%=clients[0].codigo_municipio%>"
-          <% } else { %>
-            value=""
-          <% } %> id="field-municipio" class="field">
+        <div id="field-municipio" class="field">
           <label class="field-label" for="municipio">Municipio:</label>
           <select class="field-input" name="municipio" id="municipio" required>
           </select>
@@ -239,7 +231,6 @@
 <script src="/javascripts/button-selected.js"></script>
 <script src="/javascripts/message.js"></script>
 <script type="module" src="/javascripts/addresses.js"></script>
-<script src="/javascripts/selectedAddress.js"></script>
 <script src="/javascripts/createEditClient.js"></script>
 <script src="/javascripts/clientValidation.js"></script>
 <script src="/javascripts/ui-dialog.js"></script>

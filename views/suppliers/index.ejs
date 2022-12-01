@@ -183,26 +183,18 @@
           </span>
           <p class="input-message">El teléfono solo puede contener números y con un mínimo de 10 dígitos y un máximo de 14 dígitos.</p>
         </div>
-        <div <% if (suppliers.length > 0) { %>  
-          value="<%=suppliers[0].codigo_provincia%>"
-          <% } else { %>
-            value=""
-          <% } %> class="field" id="field-provincias">
+        <div value="" class="field" id="field-provincias">
           <label class="field-label" for="provincia">Provincia:</label>
-          <select class="field-input" name="provincia" id="provincia" required>
+          <select value="" class="field-input" name="provincia" id="provincia" required>
             <option value="">Seleccione una opcion</option>
             <% for( let provincia = 0; provincia < provincias.length; provincia++ ) { %>
               <option value="<%=provincias[provincia].codigo%>"><%=provincias[provincia].provincia%></option>
             <% } %>
           </select>
         </div>
-        <div <% if (suppliers.length > 0) { %>  
-          value="<%=suppliers[0].codigo_municipio%>"
-          <% } else { %>
-            value=""
-          <% } %> id="field-municipio" class="field">
+        <div value="" id="field-municipio" class="field">
           <label class="field-label" for="municipio">Municipio:</label>
-          <select class="field-input" name="municipio" id="municipio" required>
+          <select value="" class="field-input" name="municipio" id="municipio" required>
           </select>
         </div>
         <div class="field" id="group-sector">
@@ -238,7 +230,6 @@
 <script src="/javascripts/button-selected.js"></script>
 <script src="/javascripts/message.js"></script>
 <script type="module" src="/javascripts/addresses.js"></script>
-<script src="/javascripts/selectedAddress.js"></script>
 <script src="/javascripts/createEditSupplier.js"></script>
 <script src="/javascripts/suppliersValidation.js"></script>
 <script src="/javascripts/ui-dialog.js"></script>

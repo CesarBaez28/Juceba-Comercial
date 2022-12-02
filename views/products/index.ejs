@@ -5,6 +5,8 @@
 
     <%- include ../layouts/menu-lateral.ejs%>
 
+    <%- include ../layouts/messages.ejs%>
+
       <main class="page-content" id="page-content">
 
         <div class="page-content-container">
@@ -18,39 +20,38 @@
             <span class="button-new-text">Crear nuevo producto</span>
           </a>
 
-          <form action="#" role="search" class="input-area">
-            <div class="input-group  col-12  col-md-6">
-              <input type="search" placeholder="Buscar" class="input-search col-12">
-              <button type="button" class="button-search">
-                <span class="button-search-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
-                    <path fill="currentColor"
-                      d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z">
-                    </path>
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <div class="search-filter">
-              <div class="search-filter-container">
-                <button class="button-filter  button-selected" type="button" id="btn-todos">
-                  <span class="button-text">Todos</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-codigo">
-                  <span class="button-text">Código</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-nombre">
-                  <span class="button-text">Nombre</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-activos">
-                  <span class="button-text">Activos</span>
-                </button>
-                <button class="button-filter" type="button" id="btn-inactivos">
-                  <span class="button-text">Inactivos</span>
+          <div class="input-area">
+            <form method="post" action="/products/search" role="search">
+              <div class="input-group  col-12  col-md-6">
+                <input type="search" name="search" placeholder="Nombre del material..." class="input-search col-12" required>
+                <button type="submit" class="button-search">
+                  <span class="button-search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
+                      <path fill="currentColor"
+                        d="M23.354 22.646l-5-5-.012-.007a8.532 8.532 0 10-.703.703l.007.012 5 5a.5.5 0 00.707-.707zM12 19.5a7.5 7.5 0 117.5-7.5 7.508 7.508 0 01-7.5 7.5z">
+                      </path>
+                    </svg>
+                  </span>
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+            <form method="post" action="/products/searchFilter">
+              <div class="search-filter">
+                <div class="search-filter-container">
+                  <button class="button-filter" name="filter" value="Todos" type="submit" id="btn-todos">
+                    <span class="button-text">Todos</span>
+                  </button>
+                  <button class="button-filter" name="filter" value="Activos" type="submit" id="btn-activos">
+                    <span class="button-text">Activos</span>
+                  </button>
+                  <button class="button-filter" name="filter" value="Inactivos" type="submit" id="btn-inactivos">
+                    <span class="button-text">Inactivos</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
 
           <h1>Lista de productos</h1>
 

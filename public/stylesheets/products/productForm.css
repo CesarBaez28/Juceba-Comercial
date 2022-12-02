@@ -138,3 +138,8 @@
 .margin-botton {
   margin-bottom: 1.5rem;
 }
+
+.image-container{
+  width: 100%;
+  display: block;
+}

@@ -5,6 +5,8 @@ const user = require("../Model/users");
 const phones = require("../Model/phones");
 const helpers = require('../Config/helpers');
 const { use } = require('passport');
+const fs = require('fs');
+
 
 module.exports = {
   //Renderizar vista usuarios
@@ -187,6 +189,17 @@ module.exports = {
 
   //Subir foto de perfil
   uploadPhoto: async function(req, res){
+
+    //Verifico si ya el usuario ha registrado una foto para eliminarla(si son diferentes) y cambiarla
+    const [user] = await users.getUserByID(conexion, req.query.codigo);
+    if(req.file.filename != user[0][0].foto)
+    {
+      let nombreImagen = 'public/images/users/'+user[0][0].foto;
+      if(fs.existsSync(nombreImagen)){
+        fs.unlinkSync(nombreImagen);
+      }
+    }
+
     await users.uploadPhoto(conexion,req.query.codigo,req.file.filename);
     req.flash('success', 'Ha cambiado su foto de perfil correctamente')
     return res.redirect('/users/myUserProfile?codigo=' + req.query.codigo + '');

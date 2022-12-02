@@ -1,5 +1,6 @@
 const materials = require("../Model/materials");
 const conexion = require("../Config/conectionMysql");
+const fs = require('fs');
 
 module.exports = {
   //Renderizar vista materials
@@ -67,6 +68,16 @@ module.exports = {
 
     //Hago una consulta al material actual para obtener el valor de la foto si no se ha cambiado
     const [materiales] = await materials.getMaterialById(conexion, req.query.codigo);
+
+    //Si se agrega una imagen nueva, borro la anterior
+    if(req.file)
+    {
+      let nombreImagen = 'public/images/materials/'+materiales[0][0].foto;
+      if(fs.existsSync(nombreImagen)){
+        fs.unlinkSync(nombreImagen);
+      }
+    }
+
     const material = {
       codigo: req.query.codigo,
       material: req.body.material,

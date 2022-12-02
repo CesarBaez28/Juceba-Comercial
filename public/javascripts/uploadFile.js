@@ -23,7 +23,7 @@ function visualizePhoto (){
 
   //Verifico si ya existe un elemento img
   if(imgs.length === 0 ){
-    img  = document.createElement('img');
+    img = document.createElement('img');
     img.src = objectURL;
     img.classList.add('image-container');
     img.id = 'image';

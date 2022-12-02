@@ -19,7 +19,7 @@
         <div class="card-items-container">
           <form method="post" action="/users/uploadPhoto?codigo=<%= users[0].codigo%>" enctype="multipart/form-data" class="perfil-photo-container" id="formPhoto">
             <span class="icon-perfil-photo">
-              <input name="file" type="file" id="file">
+              <input name="file" type="file" id="file" accept="image/jpeg,image/png">
               <button id="buttonFile" type="button" class="perfil-photo">
                 <% if (users[0].foto != '') { %>
                   <div class="image-container">

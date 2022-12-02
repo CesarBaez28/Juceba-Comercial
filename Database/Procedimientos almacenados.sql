@@ -305,3 +305,84 @@ begin
   end if;
 end
 //
+
+/*---------Procedimientos almacenados relacionados con los materiales del sistema------------*/
+
+/*Obtener todos los materiales activos del sistema de una empresa*/
+delimiter //
+create procedure p_getActiveMaterials (in codigo_empresa int)
+begin
+  select materiales.codigo, materiales.nombre, materiales.codigo_tipo_material, tipos_materiales.nombre as 'tipo_material', 
+  materiales.costo, materiales.punto_reorden, materiales.existencia, materiales.foto, materiales.descripcion,
+  CASE when materiales.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from materiales join empresas on materiales.codigo_empresa = empresas.codigo
+  join tipos_materiales on tipos_materiales.codigo = materiales.codigo_tipo_material
+  where materiales.codigo_tipo_material = tipos_materiales.codigo and materiales.estado = 1 and materiales.codigo_empresa = codigo_empresa;
+end
+//
+
+/*Obtener un material según su código*/
+delimiter //
+create procedure p_getMaterialByID (in codigo int)
+begin
+  select materiales.codigo, materiales.nombre, materiales.codigo_tipo_material, tipos_materiales.nombre as 'tipo_material', 
+  materiales.costo, materiales.punto_reorden, materiales.existencia, materiales.foto, materiales.descripcion,
+  CASE when materiales.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from materiales join empresas on materiales.codigo_empresa = empresas.codigo
+  join tipos_materiales on tipos_materiales.codigo = materiales.codigo_tipo_material
+  where materiales.codigo_tipo_material = tipos_materiales.codigo and materiales.codigo = codigo;
+end
+//
+
+/*Buscar materiales por su nombre*/
+delimiter //
+create procedure p_searchMaterials (in codigo_empresa int, in search varchar(255))
+begin
+  select materiales.codigo, materiales.nombre, materiales.codigo_tipo_material, tipos_materiales.nombre as 'tipo_material', 
+  materiales.costo, materiales.punto_reorden, materiales.existencia, materiales.foto, materiales.descripcion,
+  CASE when materiales.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from materiales join empresas on materiales.codigo_empresa = empresas.codigo
+  join tipos_materiales on tipos_materiales.codigo = materiales.codigo_tipo_material
+  where materiales.codigo_tipo_material = tipos_materiales.codigo and materiales.estado = 1 and 
+  materiales.codigo_empresa = codigo_empresa and materiales.nombre like CONCAT('%', search, '%');
+end
+//
+
+/*Obtener todos los materiales  del sistema de una empresa*/
+delimiter //
+create procedure p_getMaterials (in codigo_empresa int)
+begin
+  select materiales.codigo, materiales.nombre, materiales.codigo_tipo_material, tipos_materiales.nombre as 'tipo_material', 
+  materiales.costo, materiales.punto_reorden, materiales.existencia, materiales.foto, materiales.descripcion,
+  CASE when materiales.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from materiales join empresas on materiales.codigo_empresa = empresas.codigo
+  join tipos_materiales on tipos_materiales.codigo = materiales.codigo_tipo_material
+  where materiales.codigo_tipo_material = tipos_materiales.codigo and materiales.codigo_empresa = codigo_empresa;
+end
+//
+
+/*Obtener todos los materiales del sistema según una empresa y estado (Activo, inactivo o todos)*/
+delimiter //
+create procedure p_getMaterialsByStatus (in codigo_empresa int, in search varchar(25))
+begin
+  /*Busca usuarios por el estado especificado*/
+  if search = 'Activos' or search = 'Inactivos' then 
+      
+      if search = 'Activos' then
+        set @estado = 1;
+	  else 
+        set @estado = 0;
+	  end if;
+      
+  select materiales.codigo, materiales.nombre, materiales.codigo_tipo_material, tipos_materiales.nombre as 'tipo_material', 
+  materiales.costo, materiales.punto_reorden, materiales.existencia, materiales.foto, materiales.descripcion,
+  CASE when materiales.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from materiales join empresas on materiales.codigo_empresa = empresas.codigo
+  join tipos_materiales on tipos_materiales.codigo = materiales.codigo_tipo_material
+  where materiales.codigo_tipo_material = tipos_materiales.codigo and materiales.estado = (select @estado) and materiales.codigo_empresa = codigo_empresa;
+  /*Buscar todos los clientes (Activos e inactivos)*/
+  else 
+    call p_getMaterials(codigo_empresa);
+  end if;
+end
+//

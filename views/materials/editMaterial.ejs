@@ -14,76 +14,102 @@
       <h1>Editar material</h1> 
     </header>
 
-    <section class="card col-md-8 col-lg-6">
-      <article class="card-container">
-        <header class="card-header">
-          <h2 class="card-header-text">Datos del material</h2>
-        </header>
-        <div class="form-container">
-          <form action="#" class="form">
-            <div class="field">
-              <label class="field-label" for="nombre">Nombre del material:</label>
-              <input class="field-input" type="text" name="nombre" required>
+    <form method="post" action="/materials/updateMaterial?codigo=<%=materials[0].codigo%>" id="formulario" enctype="multipart/form-data">
+      <section class="card col-md-8 col-lg-6">
+        <article class="card-container">
+          <header class="card-header">
+            <h2 class="card-header-text">Datos del material</h2>
+          </header>
+          <div class="form-container">
+            <div class="field" id="group-material">
+              <label class="field-label" for="material">Nombre del material:</label>
+              <input class="field-input" value="<%=materials[0].nombre%>" type="text" name="material" required>
+              <span class="icon" id="icon">
+              </span>
+              <p class="input-message">El nombre tiene que ser de 4 a 40 dígitos</p>
             </div>
-            <div class="field">
+            <div class="field" id="group-tipoMaterial">
               <label class="field-label" for="tipo-material">Tipo de material:</label>
-              <select class="field-input" name="tipo-material" id=""></select>
+              <input class="field-input" value="<%=materials[0].tipo_material%>" type="text" name="tipo_material" required>
+              <span class="icon" id="icon">
+              </span>
+              <p class="input-message">El nombre tiene que ser de 4 a 40 dígitos</p>
             </div>
             <div class="field">
               <label class="field-label" for="costo">Costo:</label>
-              <input class="field-input" type="number" name="costo" required>
+              <input class="field-input" value="<%=materials[0].costo%>" type="number" name="costo" step="0.01" min="0" pattern="^[0-9]+" required>
             </div>
             <div class="field">
               <label class="field-label" for="existencia">Existencia:</label>
-              <input class="field-input" type="number" name="existencia" required>
+              <input class="field-input" value="<%=materials[0].existencia%>" type="number" name="existencia" min="0" pattern="^[0-9]+" required>
+            </div>
+            <div class="field">
+              <label class="field-label" for="punto_reorden">Punto de reorden:</label>
+              <input class="field-input" value="<%=materials[0].punto_reorden%>" type="number" name="punto_reorden" min="0" pattern="^[0-9]+" required>
             </div>
             <div class="field">
               <label class="field-label" for="status">Estado:</label>
-              <select class="field-input" name="status" id=""></select>
+              <select class="field-input" name="status" id="">
+                <% if (materials[0].estado === 'Activo') { %>
+                  <option value="true" selected>Activo</option>
+                  <option value="false">Inactivo</option>
+                <% } else { %>
+                  <option value="true">Activo</option>
+                  <option value="false " selected>Inactivo</option>  
+                <%}%>
+              </select>
+              </select>
             </div>
             <div class="field">
               <label class="field-label" for="descripcion">Descripción:</label>
-              <textarea class="field-input" name="descripcion" id="" rows="5"></textarea>
+              <textarea class="field-input" name="descripcion" id="" rows="5"><%=materials[0].descripcion%></textarea>
             </div>
-          </form>
-        </div>
-      </article>
-    </section>
-
-    <section class="card col-md-8 col-lg-6">
-      <article class="card-container">
-        <header class="card-header">
-          <h2 class="card-header-text">Fotografía del material</h2>
-        </header>
-        <div class="card-photo-container">
-          <span class="card-icon-container">
-            <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M4.7 44q-1.2 0-2.1-.9-.9-.9-.9-2.1V15.35q0-1.15.9-2.075.9-.925 2.1-.925h7.35L15.7 8h14v6h5.95v6h6.05v21q0 1.2-.925 2.1-.925.9-2.075.9Zm17-7.3q3.6 0 6.05-2.45 2.45-2.45 2.45-6.05 0-3.65-2.45-6.075Q25.3 19.7 21.7 19.7q-3.65 0-6.075 2.425Q13.2 24.55 13.2 28.2q0 3.6 2.425 6.05Q18.05 36.7 21.7 36.7Zm0-3q-2.4 0-3.95-1.575Q16.2 30.55 16.2 28.2q0-2.4 1.55-3.95 1.55-1.55 3.95-1.55 2.35 0 3.925 1.55Q27.2 25.8 27.2 28.2q0 2.35-1.575 3.925Q24.05 33.7 21.7 33.7Zm16.95-18.4V11h-4.3V8h4.3V3.65h3V8H46v3h-4.35v4.3Z"/></svg>
-          </span>
-        </div>
-        <div class="buttons-container">
-          <a href="#" class="button">
-            <span class="button-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
+          </div>
+        </article>
+      </section>
+  
+      <section class="card col-md-8 col-lg-6">
+        <article class="card-container">
+          <header class="card-header">
+            <h2 class="card-header-text">Fotografía del material</h2>
+          </header>
+          <div class="card-photo-container">
+            <span id="photo-container" class="card-icon-container">
+              <input name="file" type="file" id="file">
+              <% if (materials[0].foto != '') { %>
+                <img class="image-container" id="image" src="/images/materials/<%=materials[0].foto%>" alt="Foto del material.<%=materials[0].nombre%>">
+                <svg style="display: none;" id="svgCamera" xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M4.7 44q-1.2 0-2.1-.9-.9-.9-.9-2.1V15.35q0-1.15.9-2.075.9-.925 2.1-.925h7.35L15.7 8h14v6h5.95v6h6.05v21q0 1.2-.925 2.1-.925.9-2.075.9Zm17-7.3q3.6 0 6.05-2.45 2.45-2.45 2.45-6.05 0-3.65-2.45-6.075Q25.3 19.7 21.7 19.7q-3.65 0-6.075 2.425Q13.2 24.55 13.2 28.2q0 3.6 2.425 6.05Q18.05 36.7 21.7 36.7Zm0-3q-2.4 0-3.95-1.575Q16.2 30.55 16.2 28.2q0-2.4 1.55-3.95 1.55-1.55 3.95-1.55 2.35 0 3.925 1.55Q27.2 25.8 27.2 28.2q0 2.35-1.575 3.925Q24.05 33.7 21.7 33.7Zm16.95-18.4V11h-4.3V8h4.3V3.65h3V8H46v3h-4.35v4.3Z"/></svg>
+              <% } else { %>
+                <svg id="svgCamera" xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="currentColor"><path d="M4.7 44q-1.2 0-2.1-.9-.9-.9-.9-2.1V15.35q0-1.15.9-2.075.9-.925 2.1-.925h7.35L15.7 8h14v6h5.95v6h6.05v21q0 1.2-.925 2.1-.925.9-2.075.9Zm17-7.3q3.6 0 6.05-2.45 2.45-2.45 2.45-6.05 0-3.65-2.45-6.075Q25.3 19.7 21.7 19.7q-3.65 0-6.075 2.425Q13.2 24.55 13.2 28.2q0 3.6 2.425 6.05Q18.05 36.7 21.7 36.7Zm0-3q-2.4 0-3.95-1.575Q16.2 30.55 16.2 28.2q0-2.4 1.55-3.95 1.55-1.55 3.95-1.55 2.35 0 3.925 1.55Q27.2 25.8 27.2 28.2q0 2.35-1.575 3.925Q24.05 33.7 21.7 33.7Zm16.95-18.4V11h-4.3V8h4.3V3.65h3V8H46v3h-4.35v4.3Z"/></svg>
+              <% } %>
             </span>
-            <span class="button-text">Cambiar</span>
-          </a>
-          <button class="button">
-            <span class="button-delete-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
-            </span>
-            <span class="button-delete-icon button-text">Borrar</span>
-          </button>
-        </div>
-      </article>
-    </section>
+          </div>
+          <div class="buttons-container">
+            <button type="button" id="buttonFile" class="button">
+              <span class="button-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/></svg>
+              </span>
+              <span class="button-text">Cambiar</span>
+            </button>
+            <button type="button" id="buttonDeleteFile" class="button">
+              <span class="button-delete-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
+              </span>
+              <span class="button-delete-icon button-text">Borrar</span>
+            </button>
+          </div>
+        </article>
+      </section>
 
-    <div class="buttons-container margin-botton">
-      <a href="/materials" class="button-form" type="button">Cancelar</a>
-      <button class="button-form button-primary" type="submit">Guardar</button>
-    </div>
+      <div class="buttons-container margin-botton">
+        <a href="/materials" class="button-form" type="button">Cancelar</a>
+        <button class="button-form button-primary" type="submit">Guardar</button>
+      </div>
 
+    </form>
   </div>
-
 </main>
 
+<script src="/javascripts/materialsValidation.js"></script>
+<script src="/javascripts/uploadFile.js"></script>
 <%- include ../layouts/pie.ejs%> 

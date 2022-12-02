@@ -136,3 +136,30 @@ create table suplidores (
   fecha_registro datetime default CURRENT_TIMESTAMP,
   estado bit default 1
 );
+
+/*Tipos de materiales (perfiles, barras...)*/
+create table tipos_materiales(
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_tipos_materiales primary key(codigo),
+  nombre varchar(100) unique,
+  descripcion varchar(800) default '',
+  estado bit default 1
+);
+
+/*Materiales*/
+create table materiales (
+  codigo int auto_increment, /**/
+  constraint pk_codigo_materiales primary key(codigo),
+  codigo_tipo_material int not null,
+  constraint fk_codigo_tipo_material_materiales foreign key(codigo_tipo_material) references tipos_materiales(codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_materiales foreign key(codigo_empresa) references empresas(codigo),
+  nombre varchar (100) unique,
+  costo decimal (20,2),
+  punto_reorden int default 5,
+  existencia int default 0,
+  foto varchar(800) default '',
+  descripcion varchar(800) default '',
+  fecha_registro datetime default CURRENT_TIMESTAMP,
+  estado bit default 1
+);

@@ -1,5 +1,10 @@
 module.exports = {
 
+  //Obtener todos los productos activos de una empresa
+  getActiveProducts: function(conexion, codigoEmpresa){
+    return conexion.query('call p_getActiveproducts(?)', [codigoEmpresa]);
+  },
+
   //Registrar producto
   insertProduct: function (conexion, codigoEmpresa, product) {
     return conexion.query('insert into productos(codigo_empresa, nombre,' +

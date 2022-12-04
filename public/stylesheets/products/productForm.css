@@ -30,8 +30,14 @@
   align-items: center;
   justify-content: center;
   background-color: #e7e6e4;
+  overflow: hidden;
   width: 128px;
   height: 128px;
+}
+
+.image-container {
+  width: 100%;
+  display: block;
 }
 
 .card-icon-container{

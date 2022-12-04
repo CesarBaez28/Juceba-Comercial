@@ -3,10 +3,18 @@ const conexion = require('../Config/conectionMysql');
 const products = require('../Model/products')
 
 module.exports = {
-  index: function (req, res) {
-    return res.render('products/index', { title: 'Productos' });
+
+  //Renderizar vista productos
+  index: async function (req, res) {
+    const codigoEmpresa = req.user[0]['codigo_empresa'];
+    const [productos] = await products.getActiveProducts(conexion, codigoEmpresa);
+    return res.render('products/index', { 
+      title: 'Productos',
+      products: productos[0]
+    });
   },
 
+  //Renderizar vista crear productos
   createProduct: async function (req, res) {
     const codigoEmpresa = req.user[0]['codigo_empresa'];
     const [materiales] = await materials.getActiveMaterials(conexion, codigoEmpresa);
@@ -16,12 +24,14 @@ module.exports = {
     });
   },
 
+  //Renderizar vista editar productos
   editProduct: function (req, res) {
     return res.render('products/editProduct', {
       title: 'Editar producto'
     });
   },
 
+  //Insertar productos
   insertProduct: async function (req, res) {
 
     const product = {

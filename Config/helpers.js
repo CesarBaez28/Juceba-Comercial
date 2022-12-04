@@ -46,4 +46,16 @@ helpers.storeRuteMaterials = multer.diskStorage({
   }
 });
 
+//Guardar foto de los productos
+helpers.storeRuteProducts = multer.diskStorage({
+  destination: function (request, file, callback) {
+    return callback(null, './public/images/products/')
+  },
+
+  filename: function (request, file, callback) {
+    console.log(file);
+    return callback(null, fecha + "_" + file.originalname);
+  }
+});
+
 module.exports = helpers;

@@ -386,3 +386,16 @@ begin
   end if;
 end
 //
+
+/*---------Procedimientos almacenados relacionados con los productos del sistema------------*/
+
+/*Obtener todos los productos activos del sistema de una empresa*/
+delimiter //
+create procedure p_getActiveproducts (in codigo_empresa int)
+begin
+  select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
+  CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from productos join empresas on productos.codigo_empresa = empresas.codigo
+  where productos.estado = 1 and productos.codigo_empresa = codigo_empresa;
+end
+//

@@ -23,9 +23,9 @@ module.exports = {
   updateMaterial: function (conexion, material) {
     return conexion.query('update materiales set nombre = ?, codigo_tipo_material = ?,' +
       'costo = ?, existencia = ?, punto_reorden =?, descripcion = ?,' +
-      'foto = ? where codigo = ?', [material.material, material.tipo_material,
+      'foto = ?, estado = ? where codigo = ?', [material.material, material.tipo_material,
       material.costo, material.existencia, material.punto_reorden,
-      material.descripcion, material.foto, material.codigo]);
+      material.descripcion, material.foto, material.estado, material.codigo]);
   },
 
   //Eliminar material (Cambiar estado a inactivo)

@@ -141,7 +141,7 @@ create table suplidores (
 create table tipos_materiales(
   codigo int auto_increment, /*pk*/
   constraint pk_codigo_tipos_materiales primary key(codigo),
-  nombre varchar(100) unique,
+  nombre varchar(100),
   descripcion varchar(800) default '',
   estado bit default 1
 );
@@ -154,7 +154,7 @@ create table materiales (
   constraint fk_codigo_tipo_material_materiales foreign key(codigo_tipo_material) references tipos_materiales(codigo),
   codigo_empresa int not null,
   constraint fk_codigo_empresa_materiales foreign key(codigo_empresa) references empresas(codigo),
-  nombre varchar (100) unique,
+  nombre varchar (100),
   costo decimal (20,2),
   punto_reorden int default 5,
   existencia int default 0,
@@ -162,4 +162,27 @@ create table materiales (
   descripcion varchar(800) default '',
   fecha_registro datetime default CURRENT_TIMESTAMP,
   estado bit default 1
+);
+
+/*Productos*/
+create table productos (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_producto primary key(codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_producto foreign key (codigo_empresa) references empresas(codigo),
+  nombre VARCHAR(100), 
+  descripcion varchar(800) DEFAULT '',
+  precio NUMERIC(20,2),
+  foto varchar(800) default '',
+  estado BIT DEFAULT 1
+);
+
+/*Materiales que necesita cada producto para elaborarse*/
+create table productos_materiales (
+  codigo_material int not null,
+  constraint fk_codigo_material_productos_materiales foreign key (codigo_material) references materiales(codigo),
+  codigo_producto int not null,
+  constraint fk_codigo_producto_productos_materiales foreign key (codigo_producto) references productos(codigo),
+  CONSTRAINT pk_servicios_materiales PRIMARY KEY(codigo_material, codigo_producto) /*pk*/,
+  cantidad int 
 );

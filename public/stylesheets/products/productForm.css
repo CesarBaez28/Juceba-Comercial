@@ -43,7 +43,6 @@
   display: flex;
   border: 1px solid var(--borderGray200);
   padding: 0.5rem 0.5rem;
-  margin-right: .5rem;
 }
 
 .button:hover{
@@ -53,6 +52,7 @@
 .buttons-container{
   display: flex;
 }
+
 
 .button-icon {
   display: flex;
@@ -77,9 +77,8 @@
 }
 
 .result-area {
-  display: flex;
-  flex-wrap: wrap;
-  max-height: 128px;
+  margin-top: 1rem;
+  max-height: 200px;
   overflow-y: scroll;
 }
 
@@ -135,11 +134,36 @@
   margin-bottom: 0;
 }
 
+.buttons-table{
+  justify-content: center;
+  margin: 0;
+}
+
 .margin-botton {
   margin-bottom: 1.5rem;
 }
 
-.image-container{
-  width: 100%;
-  display: block;
+.table{
+  display: none;
 }
+
+.thead {
+  background-color: var(--background-white);
+  color: var(--textGray);
+}
+
+.tbody td{
+  padding: 0.3rem 0.75rem;
+}
+
+.container-input {
+  display: inline-block;
+}
+
+.input-table{
+  width: 100%;
+  text-align: center;
+  border: 0;
+  padding: 0;
+}
+

@@ -86,6 +86,7 @@ module.exports = {
       existencia: req.body.existencia,
       punto_reorden: req.body.punto_reorden,
       descripcion: req.body.descripcion,
+      estado: req.body.status,
       //Verifico si se agregó una imagen 
       foto: (req.file) ? req.file.filename : materiales[0][0].foto
     }
@@ -102,6 +103,7 @@ module.exports = {
     }
 
     const codigo_empresa = req.user[0]['codigo_empresa'];
+    (material.estado === 'true') ? material.estado = true : material.estado = false;
     await materials.updateMaterial(conexion, material);
     req.flash('success', 'Material actualizado correctamente');
     return res.redirect('/materials');

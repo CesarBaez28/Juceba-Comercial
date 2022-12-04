@@ -20,13 +20,6 @@ const templateElement = (material, cantidad) => {
       </td>
       <td>
         <div class="buttons-container buttons-table">
-          <button type="button" class="button">
-            <span class="button-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
-                <path d="m19.3 8.925-4.25-4.2 1.4-1.4q.575-.575 1.413-.575.837 0 1.412.575l1.4 1.4q.575.575.6 1.388.025.812-.55 1.387ZM17.85 10.4 7.25 21H3v-4.25l10.6-10.6Z"/>
-              </svg>
-            </span>
-          </button>
           <button type="button" class="button" onclick="removeElement(event)">
             <span class="button-delete-icon">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
@@ -37,6 +30,21 @@ const templateElement = (material, cantidad) => {
         </div>
       </td>
   `);
+}
+
+//Verifico si estoy en la la vista Editar producto 
+if(document.title === 'Editar producto')
+{
+  //Obtengo la lista de materiales (si hay) y la almaceno en el obejeto materiales
+  //para evitar que ingresen esos materiales repetidos
+  let m = document.querySelectorAll('tbody input[type='+'text'+']');
+  if(m.length > 0 )
+  {
+    table.classList.remove('table');
+    for (const material of m) {
+      materiales[material.value] = material.value  
+    }
+  }
 }
 
 function addElement (){
@@ -74,4 +82,3 @@ function removeElement (event) {
     table.classList.add('table'); 
   }
 }
-

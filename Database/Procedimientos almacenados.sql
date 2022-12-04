@@ -399,3 +399,25 @@ begin
   where productos.estado = 1 and productos.codigo_empresa = codigo_empresa;
 end
 //
+
+/*Obtener  los materiales de un producto*/
+delimiter //
+create procedure p_getmaterialsProduct (in codigo_producto int)
+begin
+  select productos_materiales.codigo_producto, productos_materiales.codigo_material, materiales.nombre, productos_materiales.cantidad
+  from productos_materiales join materiales on productos_materiales.codigo_material = materiales.codigo
+  where productos_materiales.codigo_producto = codigo_producto;
+end
+//
+
+call p_getmaterialsProduct (27)
+
+/*Obtener un producto por su código*/
+delimiter //
+create procedure p_getProductById (in codigo_producto int)
+begin
+  select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
+  CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from productos where productos.codigo = codigo_producto;
+end
+//

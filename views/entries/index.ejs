@@ -14,32 +14,39 @@
       <h1>Registrar entrada</h1> 
     </header>
 
-    <section class="col-md-6">
-      <form action="#" class="form">
+    <form method="post" action="/entries/registerEntrie" id="formulario">
+
+      <section class="col-md-6">
         <div class="form-container-flex">
           <div class="field col-6">
             <label class="field-label" for="suplidor">Suplidor:</label>
-            <select class="field-input" name="suplidor" id=""></select>
+            <select class="field-input" name="suplidor" id="suplidores" required>
+              <option value="">Seleccione una opción</option>
+              <% for( let suplidor = 0; suplidor < suppliers.length; suplidor++ ) { %>
+                <option value="<%=suppliers[suplidor].codigo%>"><%=suppliers[suplidor].nombre%></option>
+              <% } %>
+            </select>
           </div>
           <div class="field col-6">
             <label class="field-label" for="material">Material:</label>
-            <select class="field-input" name="material" id=""></select>
-          </div>
-          <div class="field col-6">
-            <label class="field-label" for="fecha">Fecha:</label>
-            <input class="field-input" type="datetime" name="fecha" required>
+            <select class="field-input" name="material" id="materiales" required>
+              <option value="">Seleccione una opción</option>
+              <% for( let material = 0; material < materials.length; material++ ) { %>
+                <option value="<%=materials[material].codigo%>"><%=materials[material].nombre%></option>
+              <% } %>
+            </select>
           </div>
           <div class="field col-6">
             <label class="field-label" for="cantidad">Cantidad:</label>
-            <input class="field-input" type="number" name="cantidad" required>
+            <input class="field-input" id="cantidad" type="number" min="1" pattern="^[0-9]+" name="cantidad">
           </div>
           <div class="field col-6">
             <label class="field-label" for="monto">Monto:</label>
-            <input class="field-input" type="number" name="monto" required>
+            <input class="field-input" id="monto" type="number" name="monto" step="0.01" min="0" pattern="^[0-9]+">
           </div>
         </div>
         <div class="item-flex">
-          <button class="button-new" type="submit">
+          <button class="button-new" type="button" id="button">
             <span class="button-new-icon">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
                 <path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z"></path>
@@ -48,45 +55,22 @@
            </span>
           </button>
           <div class="total-amount">
-            <h4>Total: 8000.00$</h4>
+            <p>Total: $<input name="totalAmount" id="totalAmount" value="" type="text" class="input-total-amount" readonly></p>
           </div>
         </div>
-      </form>
-    </section>
+      </section>
+  
+      <section class="result-area" id="resultArea">
+  
+      </section>
+  
+      <div id="button-register" class="buttons-container">
+        <button class="button-form button-primary" type="submit">Registrar entrada</button>
+      </div>
 
-    <section class="result-area">
-      <% for( let index = 0; index < 4; index++ ) { %>
-        <article class="card-result  col-12  col-md-6  col-lg-4">
-          <div class="card-result-container">
-            <div class="card-area-photo">
-              <img src="images/add-image.png" alt="">
-            </div>
-            <header class="card-result-header">
-              <h2>Nombre del material</h2>
-              <p class="card-amount">Cantidad: 4</p>
-              <div class="card-item">
-                <p class="card-price-text">$2500</p>
-                <div class="card-result-option-container">
-                  <div class="card-result-options">
-                    <button class="button button-delete">
-                      <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"></path></svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </header>
-          </div>
-        </article>
-      <% } %>
-    </section>
-
-    <div class="buttons-container">
-      <button class="button-form button-primary" type="submit">Registrar entrada</button>
-    </div>
+    </form>
   </div>
-
 </main>
 
+<script src="/javascripts/entriesValidation.js"></script>
 <%- include ../layouts/pie.ejs%> 

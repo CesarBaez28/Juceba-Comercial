@@ -17,6 +17,7 @@
   justify-content: flex-end;
   font-weight: bold;
   padding-right: 0.5rem;
+  margin-left: 25%;
 }
 
 .card-amount{
@@ -44,10 +45,43 @@
 }
 
 .buttons-container{
+  display: none;
+}
+
+.show-button {
   display: flex;
-  justify-content: flex-end;
+}
+
+.buttons-container button {
+  border-radius: 4px;
 }
 
 .card-result-options button:first-child {
   margin-right: 0;
+}
+
+.input-result-area {
+  width: 61%;
+  border: 0;
+  padding: 0;
+}
+
+.input-total-amount {
+  border: 0;
+  padding: 0;
+  background-color: var(--backgroundPage);
+  width: 60%;
+  font-weight: bold;
+}
+
+.name-material {
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.entrie-price{
+  width: 90%;
+  color: var(--backgroundBlue);
 }

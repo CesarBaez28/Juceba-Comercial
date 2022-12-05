@@ -1,7 +1,7 @@
 const cantidad = document.getElementById('cantidad');
 const monto = document.getElementById('monto');
 const suplidores = document.getElementById('suplidores');
-const materiales = document.getElementById('materiales');
+const productos = document.getElementById('materiales');
 const button = document.getElementById('button');
 const resultArea = document.getElementById('resultArea');
 let buttonRegister = document.getElementById('button-register');
@@ -10,7 +10,7 @@ let totalAmout = 0;
 let materials = {};
 
 button.addEventListener('click', addEntrie);
-materiales.addEventListener('change', getPrice);
+productos.addEventListener('change', getPrice);
 
 const templateElement = (material, cantidad, photo) => {
   return (
@@ -52,7 +52,7 @@ async function addEntrie() {
   let c = parseFloat(cantidad.value);
   //Verifico los campos entén llenos, tengan un valor selecionado
   //, el campo cantidad sea entero y no se ingrese un material repetido
-  if (suplidores.value && materiales.value && monto.value && cantidad.value && Number.isInteger(c) && c > 0 && (!materials[materiales.options[materiales.selectedIndex].text])) 
+  if (suplidores.value && productos.value && monto.value && cantidad.value && Number.isInteger(c) && c > 0 && (!materials[productos.options[productos.selectedIndex].text])) 
   {
     let entrie = document.createElement('article');
     entrie.classList.add('card-result');
@@ -61,7 +61,7 @@ async function addEntrie() {
     entrie.classList.add('col-lg-4');
 
     //Añado el nombre de material a un objeto para evitar ingrese materiales repetidos
-    materials[materiales.options[materiales.selectedIndex].text] = materiales.options[materiales.selectedIndex].text;
+    materials[productos.options[productos.selectedIndex].text] = productos.options[productos.selectedIndex].text;
     
     //Obtengos los datos del material
     let m = await material();
@@ -115,16 +115,16 @@ function removeElement (event)
 //Obtener precio del material
 async function getPrice (){
   let m = await material();
-  (materiales.value != '') ? monto.value = m[0][0].costo : monto.value = ''
+  (productos.value != '') ? monto.value = m[0][0].costo : monto.value = ''
 }
 
 //Obtener datos del material
 const material = async () => {
   try 
   {
-    if(materiales.value != '') 
+    if(productos.value != '') 
     {
-      const respuesta = await fetch('/entries/getMaterial?material='+materiales.value+'');
+      const respuesta = await fetch('/entries/getMaterial?material='+productos.value+'');
 
       const data = await respuesta.json();
 

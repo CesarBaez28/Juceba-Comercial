@@ -3,6 +3,8 @@ const products = require('../Model/products');
 const clients = require('../Model/clients');
 
 module.exports = {
+
+  //Renderizar vista registrar salida
   index: async function(req, res){
 
     //Obtengos los clientes y productos de una empresa para mostrarlos en los selects
@@ -15,5 +17,11 @@ module.exports = {
       products: productos[0],
       clients: clientes[0]
     });
+  },
+
+  //Obtener producto
+  getProduct: async function (req, res){
+    const [product] = await products.getProductById(conexion, req.query.product);
+    return  res.json(product);
   }
 }

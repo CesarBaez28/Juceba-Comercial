@@ -119,5 +119,24 @@ module.exports = {
 
     req.flash('success', 'Producto actualizado correctamente');
     return res.redirect('/products');
+  },
+
+  //Buscar productos
+  searchProducts: async function (req, res){
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+    const [productos] = await products.searchProduct(conexion, codigo_empresa, req.body.search);
+    return res.render('products/index', {
+      title: 'Productos',
+      products: productos[0]
+    });
+  },
+
+  searchProductFilter: async function (req, res){
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+    const [productos] = await products.searchProductsByStatus(conexion, codigo_empresa, req.body.filter);
+    return res.render('products/index', {
+      title: 'Productos',
+      products: productos[0]
+    });
   }
 }

@@ -15,5 +15,7 @@ router.get('/editProduct', isLoggedIn, productsController.editProduct);
 //post
 router.post('/insertProduct', upload.single('file'), productsController.insertProduct)
 router.post('/updateProduct', upload.single('file'), productsController.updateProduct);
+router.post('/search', productsController.searchProducts);
+router.post('/searchFilter', productsController.searchProductFilter);
 
 module.exports = router;

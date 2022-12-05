@@ -66,5 +66,15 @@ module.exports = {
     for (const element of materialsProduct) {
       await conexion.query('delete from productos_materiales where codigo_material = ? and codigo_producto = ?', [element.codigo_material, codigoProducto]);
     }
+  },
+
+  //Realizar búsquedas de un material según su nombre
+  searchProduct: function(conexion, codigoEmpresa, search){
+    return conexion.query('call p_seachProducts(?,?)', [codigoEmpresa, search]);
+  },
+
+  //Realizar búsquedas por estado (activos, inactivos o todos)
+  searchProductsByStatus: function(conexion, codigoEmpresa, search){
+    return conexion.query('call p_getProductsByStatus(?,?)', [codigoEmpresa, search]);
   }
 }

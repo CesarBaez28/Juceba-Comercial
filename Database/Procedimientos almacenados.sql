@@ -400,7 +400,7 @@ begin
 end
 //
 
-/*Obtener  los materiales de un producto*/
+/*Obtener los materiales de un producto*/
 delimiter //
 create procedure p_getmaterialsProduct (in codigo_producto int)
 begin
@@ -419,5 +419,51 @@ begin
   select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
   CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
   from productos where productos.codigo = codigo_producto;
+end
+//
+
+/*Rearlizar búsquedad de un material por su nombre*/
+delimiter //
+create procedure p_seachProducts (in codigo_empresa int, in search varchar(255))
+begin
+  select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
+  CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from productos join empresas on productos.codigo_empresa = empresas.codigo
+  where productos.estado = 1 and productos.codigo_empresa = codigo_empresa and productos.nombre like CONCAT('%', search, '%');
+end
+//
+
+/*Obtener todos los productos del sistema de una empresa*/
+delimiter //
+create procedure p_getProducts (in codigo_empresa int)
+begin
+  select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
+  CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+  from productos join empresas on productos.codigo_empresa = empresas.codigo
+  where productos.codigo_empresa = codigo_empresa;
+end
+//
+
+/*Obtener todos los productos del sistema según una empresa y estado (Activo, inactivo o todos)*/
+delimiter //
+create procedure p_getProductsByStatus (in codigo_empresa int, in search varchar(25))
+begin
+  /*Busca usuarios por el estado especificado*/
+  if search = 'Activos' or search = 'Inactivos' then 
+      
+      if search = 'Activos' then
+        set @estado = 1;
+	  else 
+        set @estado = 0;
+	  end if;
+      
+   select productos.codigo, productos.codigo_empresa, productos.nombre, productos.precio, productos.foto, productos.descripcion,
+   CASE when productos.estado = 1 then 'Activo' ELSE 'Inactivo' END AS estado 
+   from productos join empresas on productos.codigo_empresa = empresas.codigo
+   where productos.estado = (select @estado) and productos.codigo_empresa = codigo_empresa;
+  /*Buscar todos los clientes (Activos e inactivos)*/
+  else 
+    call p_getProducts(codigo_empresa);
+  end if;
 end
 //

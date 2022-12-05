@@ -186,3 +186,31 @@ create table productos_materiales (
   CONSTRAINT pk_servicios_materiales PRIMARY KEY(codigo_material, codigo_producto) /*pk*/,
   cantidad int 
 );
+
+/*Entradas*/
+create table entradas (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_entradas primary key (codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_entradas foreign key (codigo_empresa) references empresas(codigo),
+  fecha datetime default CURRENT_TIMESTAMP,
+  total decimal (20,2) default 0,
+  estado bit default 1
+);
+
+/*Detalles de la entrada*/
+create table detalles_entrada (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_detalles_entrada primary key (codigo),
+  codigo_entrada int not null,
+  constraint fk_codigo_detalles_entrada_entradas foreign key (codigo_entrada) references entradas(codigo),
+  codigo_material int not null, 
+  constraint fk_codigo_materiales_detalles_entrada foreign key (codigo_material) references materiales(codigo),
+  codigo_suplidor int not null,
+  constraint fk_codigo_suplidor_detalles_entrada foreign key (codigo_suplidor) references suplidores(codigo),
+  codigo_usuario int not null,
+  constraint fk_codigo_usuario_detalles_entrada foreign key (codigo_usuario) references usuarios(codigo),
+  costo decimal (20,2) default 0,
+  cantidad int, 
+  estado bit default 1
+);

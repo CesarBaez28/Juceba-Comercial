@@ -61,7 +61,7 @@
 }
 
 .input-result-area {
-  width: 61%;
+  width: 58%;
   border: 0;
   padding: 0;
 }
@@ -70,7 +70,7 @@
   border: 0;
   padding: 0;
   background-color: var(--backgroundPage);
-  width: 60%;
+  width: 57%;
   font-weight: bold;
 }
 

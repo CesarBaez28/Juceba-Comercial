@@ -19,27 +19,33 @@
         <div class="form-container-flex">
           <div class="field col-6">
             <label class="field-label" for="cliente">Cliente:</label>
-            <select class="field-input" name="cliente" id=""></select>
+            <select class="field-input" name="cliente" id="clientes" required>
+              <option value="">Seleccione un cliente</option>
+              <% for( let client = 0; client < clients.length; client++ ) { %>
+                <option value="<%=clients[client].codigo%>"><%=clients[client].nombre%></option>
+              <% } %>
+            </select>
           </div>
           <div class="field col-6">
             <label class="field-label" for="producto">Producto:</label>
-            <select class="field-input" name="producto" id=""></select>
-          </div>
-          <div class="field col-6">
-            <label class="field-label" for="fecha">Fecha:</label>
-            <input class="field-input" type="datetime" name="fecha" required>
+            <select class="field-input" name="producto" id="productos" required>
+              <option value="">Seleccione un producto</option>
+              <% for( let product = 0; product < products.length; product++ ) { %>
+                <option value="<%=products[product].codigo%>"><%=products[product].nombre%></option>
+              <% } %> 
+            </select>
           </div>
           <div class="field col-6">
             <label class="field-label" for="cantidad">Cantidad:</label>
-            <input class="field-input" type="number" name="cantidad" required>
+            <input class="field-input" id="cantidad" type="number" min="1" pattern="^[0-9]+" name="cantidad">
           </div>
           <div class="field col-6">
             <label class="field-label" for="monto">Monto:</label>
-            <input class="field-input" type="number" name="monto" required>
+            <input class="field-input" id="monto" type="number" name="monto" step="0.01" min="0" pattern="^[0-9]+">
           </div>
         </div>
         <div class="item-flex">
-          <button class="button-new" type="submit">
+          <button class="button-new" type="button" id="button">
             <span class="button-new-icon">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor">
                 <path d="M11.075 18.8v-5.875H5.2V11.05h5.875V5.175h1.875v5.875h5.875v1.875H12.95V18.8Z"></path>
@@ -48,13 +54,13 @@
            </span>
           </button>
           <div class="total-amount">
-            <h4>Total: 8000.00$</h4>
+            <p>Total: $<input name="totalAmount" id="totalAmount" value="" type="text" class="input-total-amount" readonly></p>
           </div>
         </div>
       </form>
     </section>
 
-    <section class="result-area">
+    <section class="result-area" id="resultArea">
       <% for( let index = 0; index < 4; index++ ) { %>
         <article class="card-result  col-12  col-md-6  col-lg-4">
           <div class="card-result-container">
@@ -86,7 +92,7 @@
       <% } %>
     </section>
 
-    <div class="buttons-container">
+    <div id="button-register" class="buttons-container">
       <button class="button-form button-primary" type="submit">Registrar salida</button>
     </div>
   </div>

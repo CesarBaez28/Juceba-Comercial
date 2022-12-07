@@ -242,3 +242,31 @@ create table detalles_salida (
   cantidad int, 
   estado bit default 1
 );
+
+/*Cotizaciones*/
+create table cotizaciones (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_cotizaciones primary key (codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_cotizaciones foreign key(codigo_empresa) references empresas(codigo),
+  fecha datetime default CURRENT_TIMESTAMP,
+  total decimal (20,2) default 0,
+  estado bit default 1
+);
+
+/*Detalles de la cotización*/
+create table detalles_cotizacion (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_detalles_cotizacion primary key (codigo),
+  codigo_cotizacion int not null,
+  constraint fk_codigo_cotizaciones_detalles_cotizacion foreign key (codigo_cotizacion) references cotizaciones (codigo),
+  codigo_producto int not null,
+  constraint fk_codigo_producto_detalles_cotizacion foreign key (codigo_producto) references productos(codigo),
+  codigo_cliente int not null,
+  constraint fk_codigo_cliente_detalles_cotizacion foreign key(codigo_cliente) references clientes(codigo),
+  codigo_usuario int not null,
+  constraint fk_codigo_usuario_detalles_cotizacion foreign key (codigo_usuario) references usuarios(codigo),
+  precio decimal (20,2) default 0,
+  cantidad int, 
+  estado bit default 1
+);s

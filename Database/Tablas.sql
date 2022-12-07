@@ -214,3 +214,31 @@ create table detalles_entrada (
   cantidad int, 
   estado bit default 1
 );
+
+/*Salidas*/
+create table salidas (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_salidas primary key (codigo),
+  codigo_empresa int not null,
+  constraint fk_codigo_empresa_salidas foreign key (codigo_empresa) references empresas(codigo),
+  fecha datetime default CURRENT_TIMESTAMP,
+  total decimal (20,2) default 0,
+  estado bit default 1
+);
+
+/*Detalles de la salida*/
+create table detalles_salida (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_detalles_salida primary key (codigo),
+  codigo_salida int not null,
+  constraint fk_codigo_detalles_salida_salida foreign key (codigo_salida) references salidas(codigo),
+  codigo_producto int not null, 
+  constraint fk_codigo_codigo_productos_detalles_salida foreign key (codigo_producto) references productos(codigo),
+  codigo_cliente int not null,
+  constraint fk_codigo_cliente_detalles_salida foreign key (codigo_cliente) references clientes(codigo),
+  codigo_usuario int not null,
+  constraint fk_codigo_usuario_detalles_salia foreign key (codigo_usuario) references usuarios(codigo),
+  precio decimal (20,2) default 0,
+  cantidad int, 
+  estado bit default 1
+);

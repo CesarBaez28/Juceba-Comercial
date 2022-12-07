@@ -15,7 +15,6 @@ module.exports = {
     //Comprueba si los datos vienen en un array
     if(Array.isArray(detailsEntrie.nameMaterial))
     {
-      console.log('entré');
       for (let i = 0; i < detailsEntrie.nameMaterial.length; i++) {
         //Obtengo el codigo del material
         let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ?', [detailsEntrie.nameMaterial[i]]);
@@ -33,5 +32,4 @@ module.exports = {
     query += `(${detailsEntrie.codigo_entrada},${codigo_material[0]['codigo']},${detailsEntrie.suplidor},${detailsEntrie.usuario},${detailsEntrie.entrieCost},${detailsEntrie.entrieAmount})`;
     return conexion.query(query);
   }
-
 }

@@ -58,4 +58,11 @@ helpers.storeRuteProducts = multer.diskStorage({
   }
 });
 
+/*Creación de facturas y pdfs*/
+helpers.createInvoice = async () => {
+
+  
+
+}
+
 module.exports = helpers;

@@ -1,10 +1,14 @@
 const bcrypt = require('bcrypt');
 const multer = require('multer');
+const PDF = require('pdfkit');
+const fs = require('fs');
 let fecha = Date.now();
 
 const helpers = {
 
 };
+
+/*-----------Encriptación y verifiación de contraseñas-------------*/
 
 //Encriptar contraseñas
 helpers.encryptPassword = async (password) => {
@@ -21,6 +25,8 @@ helpers.matchPassword = async (password, savedPassword) => {
     console.log(error);
   }
 };
+
+/*-----------Guardar archivos----------------*/
 
 //Guardar fotos de usuarios
 helpers.storeRuteUsers = multer.diskStorage({
@@ -58,11 +64,17 @@ helpers.storeRuteProducts = multer.diskStorage({
   }
 });
 
-/*Creación de facturas y pdfs*/
-helpers.createInvoice = async () => {
+helpers.createInvoice = async (invoiceData) => {
 
-  
+  console.log(invoiceData);
 
+  const doc = new PDF();
+
+  const filename = `Factura${Date.now()}.pdf`;
+
+  doc.pipe(fs.createWriteStream(`./public/facturas/${filename}`));
+  doc.text('Hola, mundo desde PDFKIT', 30, 30);
+  doc.end();
 }
 
 module.exports = helpers;

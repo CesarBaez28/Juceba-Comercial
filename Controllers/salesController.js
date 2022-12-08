@@ -2,6 +2,10 @@ const conexion = require('../Config/conectionMysql');
 const products = require('../Model/products');
 const clients = require('../Model/clients');
 const sales = require('../Model/sales');
+const helpers = require('../Config/helpers');
+const createInvoice = require('../Config/createInvoice');
+const company = require('../Model/company');
+const fs = require('fs');
 
 module.exports = {
 
@@ -28,6 +32,8 @@ module.exports = {
 
   //Registrar salida
   registerSale: async function (req, res) {
+
+    /*-----------Registrar la salida------------*/
 
     //Obtengo el codigo de la empresa para registrar las salida de la misma    
     const codigo_empresa = req.user[0]['codigo_empresa'];
@@ -62,8 +68,34 @@ module.exports = {
       //Registro los detalles de la salida
       await sales.registerDetailsSale(conexion, detailsSales);
 
-      req.flash('success', 'Salida registrada correctamente');
-      await conexion.query('COMMIT'); //Si todo va bien, hago el commit 
+      //Si todo va bien, hago el commit 
+      await conexion.query('COMMIT'); 
+
+      /*---------Genero la factura------------*/
+
+      //Obtengo todos los datos del cliente
+      const [cliente] = await clients.getClientById(conexion,detailsSales.cliente);
+
+      //Obtengo los datos de la empresa
+      const [empresa] = await company.getCompany(conexion, sale.codigoEmpresa);
+
+      //Creo objeto con todos los datos de la factura
+      const invoiceData = {
+        client: cliente[0],
+        company: empresa[0],
+        user: req.user[0]['nombre'],
+        nameProduct: req.body.nameProduct,
+        salesAmount: req.body.salesAmount,
+        salesPrice: req.body.salesPrice,
+        total: req.body.totalAmount,
+        invoiceNumber: newSale.insertId
+      }
+
+      //Genero la factura
+      const invoice = new createInvoice(invoiceData);
+      invoice.generate();
+      
+      req.flash('generateInvoice', 'Salida registrada correctamente');
       return res.redirect('/sales');
     } catch (error) {
       console.log(error);
@@ -71,5 +103,19 @@ module.exports = {
       req.flash('msg', 'No dispones de suficiente material para registrar la salida')
       return res.redirect('/sales');
     }
+  },
+
+  //Descargar factura
+  downloadInvoice: async function (req,res){
+
+    let file = await fs.promises.readdir('./public/facturas');
+    console.log(file);
+
+    //Elimino todas las facturas anteriores
+    for (let i = 0; i < file.length - 1; i++) {
+      if(file[i] === '.DS_Store'){ continue; } //Me aseguro de no borrar el archivo .DS_Store
+      fs.unlinkSync(`./public/facturas/${file[i]}`);
+    }
+    return res.download('./public/facturas/'+file[file.length-1]);
   }
 }

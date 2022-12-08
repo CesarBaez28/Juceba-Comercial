@@ -1,5 +1,7 @@
 module.exports = {
+
+  //Obtener los datos de una empresa
   getCompany:function(conexion, company){
-    return conexion.query('select nombre from empresas where nombre = ?', company);
+    return conexion.query('call p_geCompany(?)', company);
   }
 }

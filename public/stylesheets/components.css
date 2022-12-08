@@ -333,6 +333,18 @@
   color: red;
 }
 
+.message-buttons-container {
+  display: flex;
+}
+
+.message-buttons-container button {
+  padding: 0.5rem 0.4rem 0.5rem 0.4rem;
+}
+
+.message-buttons-container button:first-child {
+  margin-right: 0.2rem;
+}
+
 .close-message {
   display: none;
 }

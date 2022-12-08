@@ -467,3 +467,21 @@ begin
   end if;
 end
 //
+
+/*---------Procedimientos almacenados relacionados con las empresas------------------*/
+
+/*Obtener los datos de una empresa*/
+delimiter //
+create procedure p_geCompany (in codigo_empresa int)
+begin
+  select empresas.nombre, empresas.email, telefonos.telefono, provincias.provincia, 
+  municipios.municipio, sectores.sector, callesYnumero.calle_y_numero 
+  from empresas join telefonos on telefonos.codigo = empresas.codigo_telefono
+  join direcciones on direcciones.codigo = empresas.codigo_direccion 
+  join provincias on provincias.codigo = direcciones.codigo_provincia 
+  join municipios on municipios.codigo = direcciones.codigo_municipio
+  join sectores on sectores.codigo = direcciones.codigo_sector
+  join callesYnumero on callesYnumero.codigo = direcciones.codigo_calle_y_numero
+  where empresas.codigo_direccion = direcciones.codigo and empresas.codigo = codigo_empresa;
+end
+//

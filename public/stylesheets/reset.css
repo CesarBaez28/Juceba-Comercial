@@ -13,7 +13,7 @@ html {
 }
 
 :root{
-	--mainColor: rgb(202, 41, 33);
+	--mainColor: #ca2921;
 	--backgroundRed: rgb(181, 24, 24);
 	--backgroundRedDark: rgb(162, 24, 24);
 	--backgroundPage: rgb(248, 248, 247);

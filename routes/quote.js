@@ -5,6 +5,7 @@ const quoteController = require('../Controllers/quoteController');
 
 //Get
 router.get('/', isLoggedIn, quoteController.index);
+router.get('/downloadQuote', quoteController.downloadQuote);
 
 //Post
 router.post('/registerQuote', quoteController.registerQuote);

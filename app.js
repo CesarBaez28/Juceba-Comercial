@@ -52,7 +52,8 @@ app.use(passport.session());
 //Global variables
 app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //Mensaje de éxito
-  app.locals.generatePDF = req.flash('generateInvoice'); //Mensaje para generar factura
+  app.locals.generateInvoice = req.flash('generateInvoice'); //Mensaje para generar factura
+  app.locals.generateQuote = req.flash('generateQuote'); //Mensaje para generar cotización
   app.locals.msg = req.flash('msg'); //msg = message de error o cualquier otro tipo.
   app.locals.noFound = req.flash('noFound'); // Mensaje de búsqueda no encontrada.
   app.locals.incorrectPassword = req.flash('incorrectPassword');

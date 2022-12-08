@@ -23,7 +23,6 @@ module.exports = {
 
   //Renderizar vista editMaterial
   editMaterial: async function (req, res) {
-    const codigo_empresa = req.user[0]['codigo_empresa'];
     const [materiales] = await materials.getMaterialById(conexion, req.query.codigo);
 
     return res.render('materials/editMaterial', {
@@ -102,7 +101,6 @@ module.exports = {
       material.tipo_material = material.tipo_material[0]['codigo']
     }
 
-    const codigo_empresa = req.user[0]['codigo_empresa'];
     (material.estado === 'true') ? material.estado = true : material.estado = false;
     await materials.updateMaterial(conexion, material);
     req.flash('success', 'Material actualizado correctamente');

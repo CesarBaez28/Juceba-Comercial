@@ -1,12 +1,12 @@
 const PDFGenerator = require('pdfkit-construct')
 const fs = require('fs')
 
-/*--------Creación de factura-------------*/
-class InvoiceGenerator {
+/*--------Creación de la cotización-------------*/
+class QuoteGenerator {
   constructor(invoice) {
     this.invoice = invoice
   }
-  // Crear cabeza de la factura...
+  // Crear cabeza de la cotización...
   generateHeaders(doc) {
 
     doc.setDocumentHeader({height: '25%'}, () => {
@@ -19,12 +19,12 @@ class InvoiceGenerator {
         .image('./public/images/Logo.png', 46, 70, { width: 100, height: 100})
         .fillColor('#000')
         .text(`${company}`,50, 50, {align: 'left'})
-        .text('FACTURA',275, 50, {align: 'right'})
+        .text('COTIZACIÓN',275, 50, {align: 'right'})
         .fontSize(10)
-        .text(`Número de factura: ${this.invoice.invoiceNumber}`, {align: 'right'})
+        .text(`Número de cotización: ${this.invoice.invoiceNumber}`, {align: 'right'})
         .text(`Le atendió: ${this.invoice.user}`, {align: 'right'})
         .text(`Fecha: ${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}. Hora:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`, {align: 'right'})
-        .text(`Saldo total: $${this.invoice.total}.00`, {align: 'right'})
+        .text(`Saldo a pagar: $${this.invoice.total}.00`, {align: 'right'})
         .text(`Cliente: ${this.invoice.client[0].nombre}`, {align: 'right'})
         .moveDown()
         .text(`Dirreción de envío:
@@ -92,8 +92,6 @@ class InvoiceGenerator {
       }]
     }
 
-    console.log(products);
-
     doc.addTable(
       [
         {key: 'salesAmount', label: 'Cantidad', align: 'left'},
@@ -113,12 +111,12 @@ class InvoiceGenerator {
     doc.render();
   }
 
-  //Generar la factura
+  //Generar la cotización
   generate() {
     let theOutput = new PDFGenerator
-    const fileName = `Factura ${this.invoice.invoiceNumber}.pdf`
+    const fileName = `Cotización ${this.invoice.invoiceNumber}.pdf`
 
-    theOutput.pipe(fs.createWriteStream(`./public/facturas/${fileName}`))
+    theOutput.pipe(fs.createWriteStream(`./public/cotizaciones/${fileName}`))
 
     this.generateHeaders(theOutput);
     theOutput.moveDown();
@@ -128,4 +126,4 @@ class InvoiceGenerator {
   }
 }
 
-module.exports = InvoiceGenerator;
+module.exports = QuoteGenerator;

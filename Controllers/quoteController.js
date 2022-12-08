@@ -2,6 +2,9 @@ const conexion = require('../Config/conectionMysql');
 const products = require('../Model/products');
 const clients = require('../Model/clients');
 const quotes = require('../Model/quote');
+const company = require('../Model/company');
+const fs = require('fs');
+const createQuote = require('../Config/createQuote');
 
 module.exports = {
 
@@ -55,8 +58,33 @@ module.exports = {
       //Registro los detalles de la cotización
       await quotes.registerdetailsQuote(conexion, detailsquote);
 
-      req.flash('success', 'Cotización registrada correctamente');
       await conexion.query('COMMIT'); //Si todo va bien, hago el commit 
+
+      /*---------Genero la factura------------*/
+
+      //Obtengo todos los datos del cliente
+      const [cliente] = await clients.getClientById(conexion, detailsquote.cliente);
+
+      //Obtengo los datos de la empresa
+      const [empresa] = await company.getCompany(conexion, quote.codigoEmpresa);
+
+      //Creo objeto con todos los datos de la cotización
+      const quoteData = {
+        client: cliente[0],
+        company: empresa[0],
+        user: req.user[0]['nombre'],
+        nameProduct: req.body.nameProduct,
+        salesAmount: req.body.salesAmount,
+        salesPrice: req.body.salesPrice,
+        total: req.body.totalAmount,
+        invoiceNumber: newQuote.insertId
+      }
+
+      //Genero la cotización
+      const cotizacion = new createQuote(quoteData);
+      cotizacion.generate();
+
+      req.flash('generateQuote', 'Cotización registrada correctamente');
       return res.redirect('/quote');
     } catch (error) {
       console.log(error);
@@ -64,5 +92,18 @@ module.exports = {
       req.flash('msg', 'No dispones de suficiente material para registrar la salida')
       return res.redirect('/quote');
     }
-  }
+  },
+    //Descargar cotización
+    downloadQuote: async function (req,res){
+
+      let file = await fs.promises.readdir('./public/cotizaciones');
+      console.log(file);
+  
+      //Elimino todas las cotizaciones anteriores
+      for (let i = 0; i < file.length - 1; i++) {
+        if(file[i] === '.DS_Store'){ continue; } //Me aseguro de no borrar el archivo .DS_Store
+        fs.unlinkSync(`./public/cotizaciones/${file[i]}`);
+      }
+      return res.download('./public/cotizaciones/'+file[file.length-1]);
+    }
 }

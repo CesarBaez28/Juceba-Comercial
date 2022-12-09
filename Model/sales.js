@@ -17,7 +17,8 @@ module.exports = {
     {
       for (let i = 0; i < detailsSales.nameProduct.length; i++) {
         //Obtengo el código del producto
-        let [codigo_producto] = await conexion.query('select codigo from productos where nombre = ?', [detailsSales.nameProduct[i]]);
+        let [codigo_producto] = await conexion.query('select codigo from productos where nombre = ? and codigo_empresa = ?', [detailsSales.nameProduct[i], detailsSales.codigoEmpresa]);
+        console.log(codigo_producto);
 
         if(i < detailsSales.nameProduct.length - 1){
           query += `(${detailsSales.codigo_salida},${codigo_producto[0]['codigo']},${detailsSales.cliente},${detailsSales.usuario},${detailsSales.salesPrice[i]},${detailsSales.salesAmount[i]}), `;
@@ -27,7 +28,8 @@ module.exports = {
       }
       return conexion.query(query);
     }
-    let [codigo_producto] = await conexion.query('select codigo from productos where nombre = ?', [detailsSales.nameProduct]);
+    let [codigo_producto] = await conexion.query('select codigo from productos where nombre = ? and codigo_empresa = ?', [detailsSales.nameProduct, detailsSales.codigoEmpresa]);
+    console.log(codigo_producto);
     query += `(${detailsSales.codigo_salida},${codigo_producto[0]['codigo']},${detailsSales.cliente},${detailsSales.usuario},${detailsSales.salesPrice},${detailsSales.salesAmount})`;
     return conexion.query(query);
   }

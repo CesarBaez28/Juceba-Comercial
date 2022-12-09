@@ -31,7 +31,7 @@ module.exports = {
     if(Array.isArray(materiales.materiales))
     {
       for (let i = 0; i < materiales.materiales.length; i++) {
-        let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ?', [materiales.materiales[i]]);
+        let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ? and codigo_empresa = ?', [materiales.materiales[i], materiales.codigoEmpresa]);
   
         if (i < materiales.materiales.length - 1) {
           query += `(${codigo_material[0]['codigo']},${producto},${materiales.cantidadMaterial[i]}), `;
@@ -43,7 +43,8 @@ module.exports = {
       return conexion.query(query);
     }
     
-    let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ?', [materiales.materiales]);
+    let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ? and codigo_empresa = ?', [materiales.materiales, materiales.codigoEmpresa]);
+
     query += `(${codigo_material[0]['codigo']}, ${producto}, ${materiales.cantidadMaterial})`
     return conexion.query(query);
   },

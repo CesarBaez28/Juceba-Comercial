@@ -44,6 +44,7 @@ module.exports = {
     }
 
     const detailsSales = {
+      codigoEmpresa: codigo_empresa,
       cliente: req.body.cliente,
       usuario: req.user[0]['codigo'],
       nameProduct: req.body.nameProduct,
@@ -63,7 +64,6 @@ module.exports = {
 
       //Agrego el id de la salida al objeto detailsSales
       detailsSales['codigo_salida'] = newSale.insertId;
-      console.log(detailsSales);
 
       //Registro los detalles de la salida
       await sales.registerDetailsSale(conexion, detailsSales);

@@ -47,6 +47,8 @@ module.exports = {
   //Insertar productos
   insertProduct: async function (req, res) {
 
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+
     const product = {
       producto: req.body.producto,
       precio: req.body.precio,
@@ -56,12 +58,12 @@ module.exports = {
     }
 
     const materialsProduct = {
+      codigoEmpresa: codigo_empresa,
       materiales: req.body.materiales,
       cantidadMaterial: req.body.cantidadMaterial
     }
 
     //Registro el nuevo producto
-    const codigo_empresa = req.user[0]['codigo_empresa'];
     const [newProduct] = await products.insertProduct(conexion, codigo_empresa, product);
 
     //Registro los materiales del producto si hay
@@ -86,6 +88,8 @@ module.exports = {
       }
     }
 
+    const codigo_empresa = req.user[0]['codigo_empresa'];
+
     const product = {
       codigo: req.query.codigo,
       producto: req.body.producto,
@@ -97,12 +101,12 @@ module.exports = {
     };
 
     const materialsProduct = {
+      codigoEmpresa: codigo_empresa,
       materiales: req.body.materiales,
       cantidadMaterial: req.body.cantidadMaterial
     };
 
     //Actualizo los datos del producto
-    const codigo_empresa = req.user[0]['codigo_empresa'];
     (product.estado === 'true') ? product.estado = true : product.estado = false;
     await products.updateProduct(conexion, product);
 

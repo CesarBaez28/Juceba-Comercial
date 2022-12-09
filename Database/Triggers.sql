@@ -45,23 +45,3 @@ begin
   end while; 
 end;
 //
-
-
-
-select * from materiales;
-select * from salidas;
-select * from detalles_salida;
-
-drop trigger registrar_salida;
-
-  create temporary table t_productos_materiales(
-   codigo_material int, 
-   codigo_producto int,
-   cantidad int 
-  );
-
-  /*  Inserto en la tabla temporal los detalles del producto que se registró*/
-  insert into t_productos_materiales (codigo_material, codigo_producto, cantidad)
-  select codigo_material, codigo_producto, cantidad from productos_materiales where codigo_producto = 26;
-  
-

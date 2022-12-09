@@ -507,7 +507,3 @@ end
 
 drop procedure p_generalEntrieReport;
 call p_generalEntrieReport ('2022-12-5 00:00:00','2022-12-8 23:59:59',29);
-select * from entradas;
-
-select * from materiales
-select codigo from materiales where nombre  = 'Perfil 2 x 2' and codigo_empresa = 28;

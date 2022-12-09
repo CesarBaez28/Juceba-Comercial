@@ -13,8 +13,7 @@ class InvoiceGenerator {
       const date = new Date();
       let company = this.invoice.company[0].nombre;
       company = company.toUpperCase();
-      console.log(this.invoice);
-  
+        
       doc
         .image('./public/images/Logo.png', 46, 70, { width: 100, height: 100})
         .fillColor('#000')
@@ -91,8 +90,6 @@ class InvoiceGenerator {
         amount: `$${Number(this.invoice.salesAmount) * Number(this.invoice.salesPrice)}.00`
       }]
     }
-
-    console.log(products);
 
     doc.addTable(
       [

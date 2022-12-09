@@ -17,7 +17,7 @@ module.exports = {
     {
       for (let i = 0; i < detailsEntrie.nameMaterial.length; i++) {
         //Obtengo el codigo del material
-        let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ?', [detailsEntrie.nameMaterial[i]]);
+        let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ? and codigo_empresa = ?', [detailsEntrie.nameMaterial[i], detailsEntrie.codigoEmpresa]);
 
         if(i < detailsEntrie.nameMaterial.length - 1){
           query += `(${detailsEntrie.codigo_entrada},${codigo_material[0]['codigo']},${detailsEntrie.suplidor},${detailsEntrie.usuario},${detailsEntrie.entrieCost[i]},${detailsEntrie.entrieAmount[i]}), `;
@@ -28,7 +28,7 @@ module.exports = {
       return conexion.query(query);
     }
 
-    let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ?', [detailsEntrie.nameMaterial]);
+    let [codigo_material] = await conexion.query('select codigo from materiales where nombre = ? and codigo_empresa = ?', [detailsEntrie.nameMaterial, detailsEntrie.codigoEmpresa]);
     query += `(${detailsEntrie.codigo_entrada},${codigo_material[0]['codigo']},${detailsEntrie.suplidor},${detailsEntrie.usuario},${detailsEntrie.entrieCost},${detailsEntrie.entrieAmount})`;
     return conexion.query(query);
   }

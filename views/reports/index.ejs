@@ -17,19 +17,27 @@
       <form action="#" class="form">
         <div class="field">
           <label class="field-label" for="reporte-de">Reporte de:</label>
-          <select class="field-input" name="reporte-de" id=""></select>
+          <select class="field-input" name="reporte_de" id="report" required>
+            <option value="">Seleccione una opción</option>
+            <option value="1">Entradas</option>
+            <option value="2">Salidas</option>
+          </select>
         </div>
         <div class="field">
           <label class="field-label" for="tipo-reporte">Tipo de reporte:</label>
-          <select class="field-input" name="tipo-reporte" id=""></select>
+          <select class="field-input" name="tipo_reporte" id="typeOfReport" required>
+            <option value="">Seleccione una opción</option>
+            <option value="1">General</option>
+            <option value="2">Detallado</option>
+          </select>
         </div>
         <div class="field">
           <label class="field-label" for="fecha-inicio">Fecha inicial:</label>
-          <input class="field-input" type="date" name="fecha-inicio" required>
+          <input class="field-input" value="" id="fecha-inicio" type="date" name="fecha_inicio" required>
         </div>
         <div class="field">
           <label class="field-label" for="fecha-final">Fecha final:</label>
-          <input class="field-input" type="date" name="fecha-final" required>
+          <input class="field-input" value="" id="fecha-final" type="date" name="fecha_final" required>
         </div>
         <div class="buttons-container">
           <button class="button-form" type="button">
@@ -52,4 +60,5 @@
 
 </main>
 
+<script src="/javascripts/setDate.js"></script>
 <%- include ../layouts/pie.ejs%> 

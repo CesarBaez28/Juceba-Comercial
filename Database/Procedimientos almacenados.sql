@@ -485,3 +485,29 @@ begin
   where empresas.codigo_direccion = direcciones.codigo and empresas.codigo = codigo_empresa;
 end
 //
+
+
+/*--------------Procedimientos almacenados relacionados con los reportes-----------------*/
+
+/*Reporte de entradas general*/
+delimiter //
+create procedure p_generalEntrieReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
+begin
+  SELECT entradas.codigo, 
+  entradas.fecha, 
+  suplidores.nombre,
+  entradas.total
+  FROM entradas JOIN detalles_entrada ON entradas.codigo = detalles_entrada.codigo_entrada
+  JOIN suplidores ON detalles_entrada.codigo_suplidor = suplidores.codigo
+  WHERE entradas.fecha BETWEEN fechainicial AND fechaFinal AND entradas.codigo_empresa = codigo_empresa
+  GROUP BY entradas.codigo, entradas.fecha, suplidores.nombre, entradas.total
+  ORDER BY entradas.codigo;
+end
+//
+
+drop procedure p_generalEntrieReport;
+call p_generalEntrieReport ('2022-12-5 00:00:00','2022-12-8 23:59:59',29);
+select * from entradas;
+
+select * from materiales
+select codigo from materiales where nombre  = 'Perfil 2 x 2' and codigo_empresa = 28;

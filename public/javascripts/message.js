@@ -3,7 +3,11 @@ const buttonClose = document.getElementById('close-message');
 const buttonGeneratePDF = document.getElementById('generatePDF');
 
 buttonClose.addEventListener('click', closeMessage);
-buttonGeneratePDF.addEventListener('click', closeMessage);
+
+if(!!document.getElementById('generatePDF')) 
+{
+  buttonGeneratePDF.addEventListener('click', closeMessage);
+}
 
 function closeMessage(){
   message.classList.add('close-message');

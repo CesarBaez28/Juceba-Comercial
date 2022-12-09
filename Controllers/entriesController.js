@@ -37,6 +37,7 @@ module.exports = {
     }
 
     const detailsEntrie = {
+      codigoEmpresa: codigo_empresa,
       suplidor: req.body.suplidor,
       usuario: req.user[0]['codigo'],
       nameMaterial: req.body.nameMaterial,

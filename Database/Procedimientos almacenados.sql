@@ -495,7 +495,7 @@ create procedure p_generalEntrieReport (in fechainicial datetime, in fechaFinal 
 begin
   SELECT entradas.codigo, 
   entradas.fecha, 
-  suplidores.nombre,
+  suplidores.nombre as 'suplidor',
   entradas.total
   FROM entradas JOIN detalles_entrada ON entradas.codigo = detalles_entrada.codigo_entrada
   JOIN suplidores ON detalles_entrada.codigo_suplidor = suplidores.codigo
@@ -505,5 +505,60 @@ begin
 end
 //
 
-drop procedure p_generalEntrieReport;
-call p_generalEntrieReport ('2022-12-5 00:00:00','2022-12-8 23:59:59',29);
+/*Reporte de entradas detalladas*/
+delimiter //
+create procedure p_detailEntrieReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
+begin
+  SELECT entradas.codigo,
+  entradas.fecha as 'codigo_entrada',
+  suplidores.nombre as 'suplidor',
+  usuarios.nombre as 'usuario',
+  materiales.nombre as 'material',
+  detalles_entrada.cantidad,
+  detalles_entrada.costo,
+  detalles_entrada.costo * detalles_entrada.cantidad as 'total'
+  FROM entradas JOIN detalles_entrada ON entradas.codigo = detalles_entrada.codigo_entrada
+  JOIN materiales ON detalles_entrada.codigo_material = materiales.codigo
+  JOIN suplidores ON detalles_entrada.codigo_suplidor = suplidores.codigo
+  JOIN usuarios ON detalles_entrada.codigo_usuario = usuarios.codigo
+  WHERE entradas.fecha BETWEEN fechainicial AND fechaFinal and entradas.codigo_empresa = codigo_empresa;
+end
+//
+
+/*Reporte de salidas general*/
+delimiter //
+create procedure p_generalSalesReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
+begin
+  SELECT salidas.codigo,
+  salidas.fecha,
+  clientes.nombre as 'cliente',
+  salidas.total
+  FROM salidas JOIN detalles_salida ON salidas.codigo = detalles_salida.codigo_salida
+  JOIN clientes ON detalles_salida.codigo_cliente = clientes.codigo
+  WHERE salidas.fecha BETWEEN fechainicial AND fechaFinal AND salidas.codigo_empresa = codigo_empresa
+  GROUP BY salidas.codigo, salidas.fecha, clientes.nombre, salidas.total;
+end
+//
+
+/*Reporte de salidas general*/
+delimiter //
+create procedure p_detailSalesReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
+begin
+  SELECT  salidas.codigo, 
+  salidas.fecha, 
+  clientes.nombre as 'cliente', 
+  usuarios.nombre as 'usuario', 
+  productos.nombre as 'producto',
+  detalles_salida.cantidad,
+  detalles_salida.precio,
+  detalles_salida.cantidad * detalles_salida.precio as 'total'
+  FROM salidas JOIN detalles_salida ON salidas.codigo = detalles_salida.codigo_salida
+  JOIN clientes ON clientes.codigo = detalles_salida.codigo_cliente
+  JOIN usuarios ON usuarios.codigo = detalles_salida.codigo_usuario
+  JOIN productos ON productos.codigo = detalles_salida.codigo_producto
+  WHERE salidas.fecha BETWEEN fechainicial AND fechaFinal AND salidas.codigo_empresa = codigo_empresa;
+end
+//
+
+drop procedure p_generalSalesReport;
+call p_generalSalesReport('2022-12-08 00:00:00', '2022-12-08 23:59:59', 28);

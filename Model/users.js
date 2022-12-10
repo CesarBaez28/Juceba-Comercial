@@ -15,7 +15,7 @@ module.exports = {
   },
 
   //Obtener el rol de un usuario (administrador, empleado, contador...)
-  getTypesOfUser: function (conexion, tipoDeUsuario) {
+  getTypeOfUser: function (conexion, tipoDeUsuario) {
     return conexion.query('select codigo, tipo_usuario from tipo_usuarios where codigo = ?', [tipoDeUsuario]);
   },
 

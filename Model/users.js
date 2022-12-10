@@ -6,7 +6,7 @@ module.exports = {
 
   //Verificar usuario para proceso de inicio de sesión
   login:function(conexion, username){
-    conexion.query('select * from usuarios where nombre_usuario = ?', [username]);
+    return conexion.query('call p_login(?)', [username]);
   },
 
   //Verificar si un nombre de usuario existe
@@ -15,8 +15,8 @@ module.exports = {
   },
 
   //Obtener los tipos de usuarios (administrador, empleado, contador...)
-  getTypeOfUser:function(conexion){
-    return conexion.query('select codigo, tipo_usuario from tipo_usuarios');
+  getTypeOfUser:function(conexion, tipoDeUsuario){
+    return conexion.query('select codigo, tipo_usuario from tipo_usuarios where codigo = ?', [tipoDeUsuario]);
   },
 
   //Insertar un nuevo usuario

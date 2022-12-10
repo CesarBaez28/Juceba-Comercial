@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {isLoggedIn} = require('../Config/auth');
+const { checkRole } = require('../Config/roleAuth');
 const productsController = require('../Controllers/productsController');
 const helpers = require('../Config/helpers');
 const multer = require('multer');
@@ -8,9 +9,9 @@ const upload = multer({storage:helpers.storeRuteProducts});//Upload product phot
 
 
 //Get
-router.get('/', isLoggedIn, productsController.index);
-router.get('/createProduct', isLoggedIn, productsController.createProduct);
-router.get('/editProduct', isLoggedIn, productsController.editProduct);
+router.get('/', isLoggedIn, checkRole, productsController.index);
+router.get('/createProduct', isLoggedIn, checkRole, productsController.createProduct);
+router.get('/editProduct', isLoggedIn, checkRole, productsController.editProduct);
 
 //post
 router.post('/insertProduct', upload.single('file'), productsController.insertProduct)

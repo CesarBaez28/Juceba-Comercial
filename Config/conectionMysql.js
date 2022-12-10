@@ -1,13 +1,20 @@
 const mysql = require("mysql2/promise");
 const { Console } = require("console");
 const { promisify } = require("util");
+const {
+  DB_HOST,
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
+  DB_PORT 
+} = require('../Config/config')
 
 var conection = mysql.createPool({
-  host:'localhost',
-  user: 'root',
-  password:'las70semanas',
-  port: 3306,
-  database:'JucebaComercial'
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  port: DB_PORT,
+  database:DB_NAME
 });
 
 conection.getConnection((err, connection) => {

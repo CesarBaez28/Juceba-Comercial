@@ -12,8 +12,8 @@ const formatear = f =>{
 }
 
 beginDate.value = formatear(date);
-beginDate.min = formatear(date);
+beginDate.max = formatear(date);
 lastDate.value = formatear(date);
-lastDate.min = formatear(date);
+lastDate.max = formatear(date);
 
 

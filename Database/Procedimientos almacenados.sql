@@ -509,8 +509,8 @@ end
 delimiter //
 create procedure p_detailEntrieReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
 begin
-  SELECT entradas.codigo,
-  entradas.fecha as 'codigo_entrada',
+  SELECT entradas.codigo as 'codigo_entrada',
+  entradas.fecha,
   suplidores.nombre as 'suplidor',
   usuarios.nombre as 'usuario',
   materiales.nombre as 'material',
@@ -540,7 +540,7 @@ begin
 end
 //
 
-/*Reporte de salidas general*/
+/*Reporte de salidas detallado*/
 delimiter //
 create procedure p_detailSalesReport (in fechainicial datetime, in fechaFinal datetime, in codigo_empresa int)
 begin
@@ -560,5 +560,7 @@ begin
 end
 //
 
-drop procedure p_generalSalesReport;
-call p_generalSalesReport('2022-12-08 00:00:00', '2022-12-08 23:59:59', 28);
+call p_generalSalesReport('2022-12-08 00:00:00', '2022-12-08 23:59:59', 29);
+call p_detailSalesReport('2022-12-08 00:00:00', '2022-12-08 23:59:59', 29);
+
+call p_detailEntrieReport ('2022-12-05 00:00:00', '2022-12-08 23:59:59', 28);

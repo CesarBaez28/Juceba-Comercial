@@ -21,9 +21,10 @@ module.exports = {
   myProfile: async function (req, res) {
 
     //Obtengo los tipos de usuario (administrador, empleado, contador...)
-    let [tiposUsuarios] = await users.getTypeOfUser(conexion);
+    let [tiposUsuarios] = await users.getTypesOfUser(conexion);
     let codigoUser = req.query.codigo;
     const [user] = await users.getUserByID(conexion, codigoUser);
+    console.log(user[0]);
     return res.render('users/myPerfil', {
       title: 'Mi perfil de usuario',
       users: user[0],
@@ -39,7 +40,7 @@ module.exports = {
     const [user] = await users.getUserByID(conexion, codigoUser);
 
     //Obtengo los tipos de usuario (administrador, empleado, contador...)
-    let [tiposUsuarios] = await users.getTypeOfUser(conexion);
+    let [tiposUsuarios] = await users.getTypesOfUser(conexion);
 
     return res.render('users/editProfile', {
       title: 'Editar perfil de usuario',
@@ -52,7 +53,7 @@ module.exports = {
   createUser: async function (req, res) {
 
     //Obtengo los tipos de usuario (administrador, empleado, contador...)
-    let [tiposUsuarios] = await user.getTypeOfUser(conexion);
+    let [tiposUsuarios] = await user.getTypesOfUser(conexion);
 
     return res.render('users/createUser', {
       title: 'Crear nuevo usuario',

@@ -69,7 +69,11 @@
                     </div>
                     <header class="card-result-header">
                       <h2><%=materials[material].nombre%> </h2>
-                      <p class="card-amount">Existencia: <%=materials[material].existencia%></p>
+                      <% if (materials[material].existencia <= materials[material].punto_reorden) { %>
+                        <p class="card-amount material-needed">Existencia: <%=materials[material].existencia%></p>
+                      <% } else { %>
+                        <p class="card-amount">Existencia: <%=materials[material].existencia%></p>
+                      <% } %>%>
                       <div class="card-item">
                         <p class="card-price-text">$<%=materials[material].costo%></p>
                         <div class="card-result-option-container">

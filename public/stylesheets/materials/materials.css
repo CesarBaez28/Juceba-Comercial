@@ -15,3 +15,7 @@ h1 {
   max-height: none;
   overflow-y:auto
 }
+
+.material-needed {
+  color: red;
+}

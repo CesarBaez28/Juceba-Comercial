@@ -138,7 +138,11 @@
           <label class="field-label" for="typeOfUser">Tipo de usuario:</label>
           <select class="field-input" name="typeOfUser" id="">
             <% for( let tipoUsuario = 0; tipoUsuario < tiposUsuarios.length; tipoUsuario++ ) { %>
-              <option value="<%=tiposUsuarios[tipoUsuario].codigo%>"><%=tiposUsuarios[tipoUsuario].tipo_usuario%></option>
+              <% if (users[0].tipo_usuario === tiposUsuarios[tipoUsuario].tipo_usuario) { %>
+                <option value="<%=tiposUsuarios[tipoUsuario].codigo%>" selected><%=tiposUsuarios[tipoUsuario].tipo_usuario%> </option>
+               <% } else { %>
+                <option value="<%=tiposUsuarios[tipoUsuario].codigo%>"><%=tiposUsuarios[tipoUsuario].tipo_usuario%> </option>
+              <%}%>
             <% } %>
           </select>
         </div>

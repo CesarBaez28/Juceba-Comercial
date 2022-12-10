@@ -1,5 +1,20 @@
 /*-----Procedimientos almacenados relacionados con los usuarios del sistema-----------/*
 
+
+/*Procedimiento almacenado para el proceso de Login*/
+delimiter //
+create procedure p_login (in nombre_usuario varchar(100))
+begin
+  Select usuarios.codigo, usuarios.passwd, tipo_usuarios.tipo_usuario, usuarios.codigo_empresa, usuarios.nombre_usuario, 
+  usuarios.nombre, usuarios.codigo_telefono, telefonos.telefono, usuarios.email, usuarios.foto, 
+  CASE WHEN usuarios.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado
+  FROM usuarios join tipo_usuarios on usuarios.codigo_tipo_usuario = tipo_usuarios.codigo
+  join telefonos on usuarios.codigo_telefono = telefonos.codigo
+  join  empresas on usuarios.codigo_empresa = empresas.codigo 
+  where usuarios.estado = 1 and usuarios.nombre_usuario = nombre_usuario;
+end
+//
+
 /*Obtener todos los usuarios del sistema según una empresa (menos el usuario actual que inicia sesión)*/
 delimiter //
 create procedure p_getUsers (in codigo_empresa int, in currentUser int)
@@ -30,8 +45,8 @@ end
 delimiter //
 create procedure p_getUserById (in codigo int)
 begin
-  Select usuarios.codigo, tipo_usuarios.tipo_usuario, usuarios.nombre_usuario, 
-  usuarios.nombre, telefonos.telefono, usuarios.email, usuarios.foto,
+  Select usuarios.codigo, tipo_usuarios.tipo_usuario, usuarios.codigo_empresa, usuarios.nombre_usuario, 
+  usuarios.nombre, usuarios.codigo_telefono, telefonos.telefono, usuarios.email, usuarios.foto,
   CASE WHEN usuarios.estado = 1 Then 'Activo' ELSE 'Inactivo' END AS estado
   FROM usuarios join tipo_usuarios on usuarios.codigo_tipo_usuario = tipo_usuarios.codigo
   join telefonos on usuarios.codigo_telefono = telefonos.codigo WHERE usuarios.codigo = codigo;

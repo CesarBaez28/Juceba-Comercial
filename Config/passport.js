@@ -1,11 +1,10 @@
 const flash = require('express-flash');
 const { use } = require('passport');
 const passport = require('passport');
-const { beginTransaction } = require('./conectionMysql');
 const LocalStrategy = require('passport-local').Strategy;
 const conexion = require('./conectionMysql');
-const mysql = require("mysql2");
 const helpers = require('./helpers');
+const usersModel = require('../Model/users');
 
 //Inicio de sesión
 passport.use('local.signin', new LocalStrategy({
@@ -13,9 +12,9 @@ passport.use('local.signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, async (req, userName, password, done) => {
-  const [rows] = await conexion.query('select * from usuarios where nombre_usuario = ? and estado = 1', [userName]);
+  const [rows] = await usersModel.login(conexion, userName);
   if (rows.length > 0) {
-    const user = rows[0]
+    const user = rows[0][0];
     const validPassword = await helpers.matchPassword(password, user.passwd);
     if (validPassword) {
       return done(null, user);
@@ -132,6 +131,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const rows = await conexion.query('select * from usuarios where codigo = ?', [id]);
-  return done(null, rows[0]);
+  const rows = await usersModel.getUserByID(conexion,id);
+  return done(null, rows[0][0]);
 }); 

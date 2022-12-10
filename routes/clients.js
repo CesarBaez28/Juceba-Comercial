@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {isLoggedIn} = require('../Config/auth');
+const { checkRole } = require('../Config/roleAuth');
 const clientsController = require('../Controllers/clientsController');
 
 //Get
-router.get('/', isLoggedIn, clientsController.index);
-router.get('/createClient', isLoggedIn, clientsController.createClient);
-router.get('/editClient', isLoggedIn, clientsController.editClient);
+router.get('/', isLoggedIn, checkRole, clientsController.index);
+router.get('/createClient', checkRole, isLoggedIn, clientsController.createClient);
+router.get('/editClient', checkRole, isLoggedIn, clientsController.editClient);
 router.get('/getClients', clientsController.getClients);
 
 //Post

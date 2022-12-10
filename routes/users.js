@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { isLoggedIn } = require('../Config/auth');
+const { checkRole } = require('../Config/roleAuth');
 const usersController = require('../Controllers/usersController');
 const helpers = require('../Config/helpers');
 const multer = require('multer');
 const upload = multer({storage:helpers.storeRuteUsers});//Upload profile photo
 
 //get
-router.get('/', isLoggedIn, usersController.index);
+router.get('/', isLoggedIn, checkRole, usersController.index);
 router.get('/myUserProfile', isLoggedIn, usersController.myProfile);
 router.get('/editProfile', isLoggedIn, usersController.editProfile);
-router.get('/createUser', isLoggedIn, usersController.createUser);
+router.get('/createUser', isLoggedIn, checkRole, usersController.createUser);
 router.get('/changePassword', isLoggedIn, usersController.changePasswordView);
 router.get('/getUser', usersController.getUser);
 

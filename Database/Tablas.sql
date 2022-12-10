@@ -18,22 +18,22 @@ CREATE TABLE sectores (
   estado bit default 1
 );
 
-/*Municipios*/
-CREATE TABLE municipios (
-  codigo int auto_increment /*pk*/,
-  constraint pk_codigo_municipio primary key (codigo),
-  codigo_provincia int not null,
-  constraint fk_codigo_provincia_municipio foreign key (codigo_provincia) references provincias(codigo),
-  municipio varchar (50) not null unique,
-  descripcion varchar (250),
-  estado bit default 1
-);
-
 /*Provincias*/
 CREATE TABLE provincias (
   codigo int auto_increment /*pk*/,
   constraint pk_codigo_provincia primary key (codigo),
   provincia varchar (50) not null unique,
+  descripcion varchar (250),
+  estado bit default 1
+);
+
+/*Municipios*/
+CREATE TABLE municipios (
+  codigo int auto_increment, /*pk*/
+  constraint pk_codigo_municipio primary key (codigo),
+  codigo_provincia int not null,
+  constraint fk_codigo_provincia_municipio foreign key (codigo_provincia) references provincias(codigo),
+  municipio varchar (50) not null unique,
   descripcion varchar (250),
   estado bit default 1
 );
@@ -269,4 +269,4 @@ create table detalles_cotizacion (
   precio decimal (20,2) default 0,
   cantidad int, 
   estado bit default 1
-);s
+);

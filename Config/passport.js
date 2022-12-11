@@ -13,7 +13,7 @@ passport.use('local.signin', new LocalStrategy({
   passReqToCallback: true
 }, async (req, userName, password, done) => {
   const [rows] = await usersModel.login(conexion, userName);
-  if (rows.length > 0) {
+  if (rows[0].length > 0) {
     const user = rows[0][0];
     const validPassword = await helpers.matchPassword(password, user.passwd);
     if (validPassword) {

@@ -83,7 +83,7 @@ module.exports = {
     //Si se agrega una imagen nueva, borro la anterior
     if (req.file) {
       let nombreImagen = 'public/images/products/' + producto[0][0].foto;
-      if (fs.existsSync(nombreImagen)) {
+      if (fs.existsSync(nombreImagen) && producto[0][0].foto != '') {
         fs.unlinkSync(nombreImagen);
       }
     }

@@ -196,7 +196,7 @@ module.exports = {
     if(req.file.filename != user[0][0].foto)
     {
       let nombreImagen = 'public/images/users/'+user[0][0].foto;
-      if(fs.existsSync(nombreImagen)){
+      if(fs.existsSync(nombreImagen) && user[0][0].foto != ''){
         fs.unlinkSync(nombreImagen);
       }
     }
